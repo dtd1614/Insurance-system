@@ -20,4 +20,4 @@
   * AuthorizeServiceIF & AuthorizeService (인수심사를 하다)
 * 최성훈
   * ConcludeServiceIF & ConcludeService (계약을 체결하다)
-  * OfferServiceIF & OfferService (보험을 제안하)
+  * OfferServiceIF & OfferService (보험을 제안하다)
