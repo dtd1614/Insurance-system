@@ -1,9 +1,9 @@
 # Insurance
 ## Service 구현
 ### 구현 방법
-* ServiceIF에 먼저 함수를 정의하고 Service에 Override한 후 구현 (ServiceIF에 함수 구현할 때 throws RemoteException 해줄 것)
+* ServiceIF에 먼저 함수를 정의하고 Service에 Override한 후 구현 (ServiceIF에 함수 정의할 때 throws RemoteException 해줄 것)
 * Service에 필요한 ListImpl은 필드에 private final로 선언하고 생성자 파라미터로 받아서 주입
-* ListImpl로부터 가져온 데이터가 null일때 NoDataException, 가져온 리스트가 비어있을때 EmptyListException 던질 것 (TimeDelayException은 나중에)
+* 함수 구현할 때 ListImpl로부터 가져온 데이터가 null인 경우 NoDataException, 가져온 리스트가 비어있는 경우 EmptyListException 던질 것 (TimeDelayException은 나중에)
 ### 파트
 * 김남훈
   * PayServiceIF & PaySerivce (요금을 납부하다)
