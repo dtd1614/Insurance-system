@@ -9,7 +9,6 @@ public class Main {
 		try {
 			LoginUi loginUI = new LoginUi(new ServiceContainer(), new BufferedReader(new InputStreamReader(System.in)));
 			loginUI.printMenu();
-			//git test
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
