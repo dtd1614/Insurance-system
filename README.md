@@ -1,6 +1,6 @@
 # Insurance
 ## 작업
-* 꼭 본인의 이름 브랜치로 작업(add -> commit -> push)할 것
+* 꼭 본인의 이름 브랜치로 작업(pull, add, commit, push)할 것
 * 작업이 모두 끝나면 pull request할 것
 ## Service 구현
 ### 구현 방법
