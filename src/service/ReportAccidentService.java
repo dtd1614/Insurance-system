@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import domain.Accident;
 import domain.Contract;
+import exception.EmptyListException;
 import repository.accident.AccidentListImpl;
 import repository.contract.ContractListImpl;
 import repository.customer.CustomerListImpl;
@@ -23,11 +24,11 @@ public class ReportAccidentService extends UnicastRemoteObject implements Report
     	this.accidentList = accidentList;
     }
 	@Override
-	public ArrayList<Contract> findByCustomerId(int customerId) throws RemoteException {
+	public ArrayList<Contract> findByCustomerId(int customerId) throws RemoteException,EmptyListException {
 		return this.contractList.findByCustomerId(customerId);
 	}
 	@Override
-	public Contract findById(int contractId) throws RemoteException {
+	public Contract findById(int contractId) throws RemoteException,EmptyListException {
 		return this.contractList.finByContractId(contractId);
 	}
 	@Override
@@ -35,5 +36,5 @@ public class ReportAccidentService extends UnicastRemoteObject implements Report
 		this.accidentList.add(accident);
 		return true;
 	}
-	
+
 }

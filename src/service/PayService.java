@@ -9,6 +9,7 @@ import domain.Contract;
 import domain.Pay;
 import enumeration.pay.PayStatus;
 import enumeration.pay.PaymentMethod;
+import exception.EmptyListException;
 import repository.contract.ContractListImpl;
 import repository.customer.CustomerListImpl;
 import repository.pay.PayListImpl;
@@ -38,7 +39,7 @@ public class PayService extends UnicastRemoteObject implements PayServiceIF {
 
 
 	@Override
-	public ArrayList<Contract> findByCustomerId(int customerId) throws RemoteException {
+	public ArrayList<Contract> findByCustomerId(int customerId) throws RemoteException,EmptyListException {
 		return this.contractList.findByCustomerId(customerId);
 	}
 
@@ -46,7 +47,7 @@ public class PayService extends UnicastRemoteObject implements PayServiceIF {
 
 
 	@Override
-	public Contract findById(int contractId) throws RemoteException {
+	public Contract findById(int contractId) throws RemoteException,EmptyListException {
 		return this.contractList.finByContractId(contractId);
 	}
 	@Override
