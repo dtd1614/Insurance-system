@@ -28,4 +28,21 @@ public class ContractListImpl implements ContractList{
     public boolean update() {
         return false;
     }
+
+	public ArrayList<Contract> findByCustomerId(int customerId) {
+		ArrayList<Contract> findedContractList = new ArrayList<Contract>();
+		for(Contract contract:this.contractList) {
+			if(contract.getCustomerId()==customerId) 
+				findedContractList.add(contract);
+		}
+		return findedContractList;
+	}
+
+	public Contract finByContractId(int contractId) {
+		for(Contract contract:this.contractList) {
+			if(contract.getId()==contractId)
+				return contract;
+		}
+		return null;
+	}
 }
