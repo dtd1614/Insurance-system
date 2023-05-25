@@ -9,6 +9,7 @@ import service.ServiceContainer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public class LoginUi {
 
@@ -21,11 +22,24 @@ public class LoginUi {
 	}
 
 	public void printMenu() throws IOException {
+		//String id, String password, String name, String email, int phoneNumber, String address, boolean hasHome, boolean hasWorkplace
+		Customer cus1 = new Customer("a","a","a","a",5,"x",false,false);
+		Customer cus2 = new Customer("a","a","a","a",5,"x",false,false);
+		Customer cus3 = new Customer("a","a","a","a",5,"x",false,false);
+
 		while(true) {
+
 			System.out.println("******************** 로그인 창 *********************");
 			System.out.println("1. 로그인");
 			System.out.println("2. 회원가입");
 			System.out.println("x. 종료");
+			ArrayList<Customer> customerList = new ArrayList<>();
+			customerList.add(cus1);
+			customerList.add(cus2);
+			customerList.add(cus3);
+			for (Customer element: customerList) {
+				System.out.println(element.getId());
+			}
 			switch(userInput.readLine().trim()) {
 				case "1" : printLoginMenu(); break;
 				case "2" : printRegisterMenu(); break;
@@ -65,6 +79,7 @@ public class LoginUi {
 		switch(employee.getDepartment()) {
 			case InsuranceDeveloper : new InsuranceDeveloperUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
 			case InsuranceManager : new InsuranceManagerUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
+			case Salesperson : new SalespersonUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
 		}
 	}
 
@@ -147,6 +162,7 @@ public class LoginUi {
 		switch(userInput.readLine().trim()) {
 			case "1" :  department = Department.values()[0]; break;
 			case "2" :  department = Department.values()[1]; break;
+			case "3" :  department = Department.values()[2]; break;
 			default : System.err.println("잘못된 입력입니다."); return;
 		}
 		System.out.println("직급를 선택하세요.");

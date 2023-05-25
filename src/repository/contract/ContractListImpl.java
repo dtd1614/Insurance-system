@@ -1,6 +1,7 @@
 package repository.contract;
 
 import domain.Contract;
+import domain.customer.Customer;
 
 import java.util.ArrayList;
 
@@ -27,5 +28,12 @@ public class ContractListImpl implements ContractList{
     @Override
     public boolean update() {
         return false;
+    }
+
+    public Contract findById(int id) {
+        for(Contract contract : contractList) {
+            if(contract.getId() == id) return contract;
+        }
+        return null;
     }
 }
