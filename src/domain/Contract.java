@@ -6,6 +6,8 @@ import enumeration.contract.PaymentCycle;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class Contract implements Serializable {
     private int id;
@@ -136,5 +138,14 @@ public class Contract implements Serializable {
 
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
+	}
+
+	public boolean paied() {
+		int cycle=PaymentCycle.getCycle(this.getPayCycle());
+		Timestamp deadline= this.getPaymentDeadline();
+		LocalDateTime newDeadline = deadline.toLocalDateTime();
+		newDeadline=newDeadline.plus(cycle,ChronoUnit.MONTHS);
+		this.setPaymentDeadline(Timestamp.valueOf(newDeadline));
+		return true;
 	}
 }

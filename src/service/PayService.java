@@ -2,11 +2,13 @@ package service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Random;
 
 import domain.Contract;
 import domain.Pay;
+import enumeration.contract.PaymentCycle;
 import enumeration.pay.PayStatus;
 import enumeration.pay.PaymentMethod;
 import exception.EmptyListException;
@@ -39,33 +41,36 @@ public class PayService extends UnicastRemoteObject implements PayServiceIF {
 
 
 	@Override
-	public ArrayList<Contract> findByCustomerId(int customerId) throws RemoteException,EmptyListException {
-		return this.contractList.findByCustomerId(customerId);
+	public ArrayList<Contract> getUnpaidContractList(int customerId) throws RemoteException,EmptyListException {
+		if(this.contractList.getUnpaidContractList(customerId,new Timestamp(System.currentTimeMillis())).size()==0)
+			throw new EmptyListException("리스트가 비어있습니다.");
+		else
+		return this.contractList.getUnpaidContractList(customerId,new Timestamp(System.currentTimeMillis()));
 	}
-
-
-
-
+	
 	@Override
-	public Contract findById(int contractId) throws RemoteException,EmptyListException {
-		return this.contractList.finByContractId(contractId);
+	public Contract findById(int contractId) throws RemoteException {
+		return this.contractList.findByContractId(contractId);
 	}
+	
 	@Override
 	public boolean PayByCreditcard(int contractId,String creditCarditNumber, String expirationDate, String cvc) throws RemoteException {
 		Pay pay = new Pay(contractId, PaymentMethod.Card, -1,Integer.parseInt(creditCarditNumber), PayStatus.NonPayment);
 		this.payList.add(pay);
-		//결제 진행
-//		if(true)
-//			pay.payed();
-//		return true;
-//		else
-//		return false;
-		return true;
+		Contract paiedContract= findById(pay.getContractId());
+		if(paiedContract.paied())
+			return pay.paied();
+			else 
+			return false;
 	}
+	
 	@Override
-	public boolean checkPayed(int payId) {
+	public boolean checkPayed(int payId) throws RemoteException {
 		Pay pay=this.payList.findById(payId);
-		
-		return pay.payed();
+		Contract paiedContract= findById(pay.getContractId());
+		if(paiedContract.paied())
+		return pay.paied();
+		else 
+		return false;
 	}
 }

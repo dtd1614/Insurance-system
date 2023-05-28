@@ -2,6 +2,9 @@ package repository.contract;
 
 import domain.Contract;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class ContractListImpl implements ContractList{
@@ -29,20 +32,29 @@ public class ContractListImpl implements ContractList{
         return false;
     }
 
-	public ArrayList<Contract> findByCustomerId(int customerId) {
-		ArrayList<Contract> findedContractList = new ArrayList<Contract>();
-		for(Contract contract:this.contractList) {
-			if(contract.getCustomerId()==customerId) 
-				findedContractList.add(contract);
-		}
-		return findedContractList;
-	}
-
-	public Contract finByContractId(int contractId) {
+	public Contract findByContractId(int contractId) {
 		for(Contract contract:this.contractList) {
 			if(contract.getId()==contractId)
 				return contract;
 		}
 		return null;
+	}
+
+	public ArrayList<Contract> getUnpaidContractList(int customerId, Timestamp timestamp) {
+		ArrayList<Contract> findedContractList = new ArrayList<Contract>();
+		for(Contract contract:this.contractList) {
+			if(contract.getCustomerId()==customerId) 
+				findedContractList.add(contract);
+		}
+		for(Contract contract:findedContractList) {
+			Timestamp a=contract.getPaymentDeadline();
+			LocalDateTime deadline = a.toLocalDateTime();
+	        LocalDateTime now = timestamp.toLocalDateTime();
+			long daysDifference = ChronoUnit.DAYS.between(now,deadline);
+			if(daysDifference>=7) {
+				findedContractList.remove(contract);
+			}
+		}
+		return findedContractList;
 	}
 }
