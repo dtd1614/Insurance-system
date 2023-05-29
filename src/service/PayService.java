@@ -12,6 +12,7 @@ import enumeration.contract.PaymentCycle;
 import enumeration.pay.PayStatus;
 import enumeration.pay.PaymentMethod;
 import exception.EmptyListException;
+import exception.NoDataException;
 import repository.contract.ContractListImpl;
 import repository.customer.CustomerListImpl;
 import repository.pay.PayListImpl;
@@ -43,21 +44,28 @@ public class PayService extends UnicastRemoteObject implements PayServiceIF {
 	@Override
 	public ArrayList<Contract> getUnpaidContractList(int customerId) throws RemoteException,EmptyListException {
 		if(this.contractList.getUnpaidContractList(customerId,new Timestamp(System.currentTimeMillis())).size()==0)
-			throw new EmptyListException("리스트가 비어있습니다.");
+			throw new EmptyListException("돈을 지불해야 할 계약이 존재하지 않습니다.");
 		else
-		return this.contractList.getUnpaidContractList(customerId,new Timestamp(System.currentTimeMillis()));
+		return this.contractList.getUnpaidContractList(customerId, new Timestamp(System.currentTimeMillis()));
 	}
 	
 	@Override
-	public Contract findById(int contractId) throws RemoteException {
-		return this.contractList.findByContractId(contractId);
+	public Contract getContract(int contractId) throws RemoteException,NoDataException {
+		if(this.contractList.getContract(contractId)==null) {
+			new NoDataException("해당 계약이 없습니다.");
+		}
+			return this.contractList.getContract(contractId);
 	}
 	
 	@Override
-	public boolean PayByCreditcard(int contractId,String creditCarditNumber, String expirationDate, String cvc) throws RemoteException {
+	public boolean PayByCreditcard(int contractId,String creditCarditNumber, String expirationDate, String cvc) throws RemoteException, NoDataException {
 		Pay pay = new Pay(contractId, PaymentMethod.Card, -1,Integer.parseInt(creditCarditNumber), PayStatus.NonPayment);
 		this.payList.add(pay);
-		Contract paiedContract= findById(pay.getContractId());
+
+		Contract paiedContract= getContract(pay.getContractId());
+		if(paiedContract==null) {
+			new NoDataException("해당 계약이 없습니다.");
+		}
 		if(paiedContract.paied())
 			return pay.paied();
 			else 
@@ -65,12 +73,15 @@ public class PayService extends UnicastRemoteObject implements PayServiceIF {
 	}
 	
 	@Override
-	public boolean checkPayed(int payId) throws RemoteException {
+	public boolean checkPayed(int payId) throws RemoteException, NoDataException {
 		Pay pay=this.payList.findById(payId);
-		Contract paiedContract= findById(pay.getContractId());
+		Contract paiedContract= getContract(pay.getContractId());
+		if(paiedContract==null) {
+			new NoDataException("해당 계약이 없습니다.");
+		}
 		if(paiedContract.paied())
 		return pay.paied();
-		else 
+		else
 		return false;
 	}
 }
