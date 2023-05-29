@@ -1,10 +1,17 @@
 package service;
 
+import domain.Contract;
+import domain.Insurance;
+
 import java.rmi.Remote;
 
 public interface ConcludeServiceIF extends Remote {
+//
+//    int Searchapplicationlist();
+//
+    boolean conclude(int selectedId);
 
-    int Searchapplicationlist();
+    Contract findByContractId(int selectedContractId);
 
-    boolean conclude();
+    Insurance findByInsuranceId(int selectedInsuranceId);
 }
