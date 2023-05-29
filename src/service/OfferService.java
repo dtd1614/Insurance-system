@@ -3,6 +3,7 @@ package service;
 import domain.Employee;
 import domain.Sale;
 import domain.customer.Customer;
+import exception.NoDataException;
 import repository.customer.CustomerListImpl;
 import repository.employee.EmployeeListImpl;
 import repository.insurance.InsuranceListImpl;
@@ -31,17 +32,16 @@ public class OfferService extends UnicastRemoteObject implements OfferServiceIF 
     }
 
     @Override
-    public Customer findByCustomerId(String selectedCustomerId) {
+    public Customer getCustomer(String selectedCustomerId) throws RemoteException, NoDataException {
         Customer customer = customerList.findById(selectedCustomerId);
-        if(customer == null){
-            return null;
+        if(customer == null){ throw new NoDataException("존재하지 않는 고객 번호 입니다.");
         }else {
             return customer;
         }
     }
 
     @Override
-    public boolean Propose(String saleEmployeeId, String customerId, int insuranceId, String message) throws IOException {
+    public boolean Propose(String saleEmployeeId, String customerId, int insuranceId, String message) throws RemoteException {
         Sale sale = new Sale(saleEmployeeId, customerId, insuranceId, message);
         if(saleList.add(sale) == 0){
             return false;
@@ -50,27 +50,5 @@ public class OfferService extends UnicastRemoteObject implements OfferServiceIF 
         }
     }
 
-//    @Override
-//    public String Show_Customer_Information() {
-//        ArrayList<Customer> customerList = new ArrayList<>();
-//        String selectedCustomerId = "";
-//        int i = 1;
-//        for (Customer element: customerList) {
-//            System.out.print(i + " " + ":" + " ");
-//            System.out.print(element.getId() + " ");  System.out.print(element.getName() + " ");i++;
-//        }
-//        System.out.print("고객을 선택하세요 고객ID : ");
-//        try {
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-//            selectedCustomerId = reader.readLine();
-//            if(this.customerList.findById(selectedCustomerId)==null){
-//                System.out.print("잘못된 선택입니다.");
-//                Show_Customer_Information();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return selectedCustomerId;
-//    }
 
 }

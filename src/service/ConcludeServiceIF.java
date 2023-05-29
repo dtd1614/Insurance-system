@@ -2,8 +2,10 @@ package service;
 
 import domain.Contract;
 import domain.Insurance;
+import exception.NoDataException;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 public interface ConcludeServiceIF extends Remote {
 //
@@ -11,7 +13,7 @@ public interface ConcludeServiceIF extends Remote {
 //
     boolean conclude(int selectedId);
 
-    Contract findByContractId(int selectedContractId);
+    Contract getContract(int selectedContractId) throws RemoteException, NoDataException;
 
-    Insurance findByInsuranceId(int selectedInsuranceId);
+    Insurance getInsurance(int selectedInsuranceId) throws RemoteException, NoDataException;
 }
