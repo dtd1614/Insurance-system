@@ -4,6 +4,7 @@ import repository.calculation.CalculationFormulaListImpl;
 import repository.customer.CustomerListImpl;
 import repository.employee.EmployeeListImpl;
 import repository.insurance.InsuranceListImpl;
+import repository.policy.PolicyListImpl;
 
 import java.rmi.RemoteException;
 
@@ -19,11 +20,12 @@ public class ServiceContainer {
         InsuranceListImpl insuranceList = new InsuranceListImpl();
         EmployeeListImpl employeeList = new EmployeeListImpl();
         CustomerListImpl customerList = new CustomerListImpl();
+        PolicyListImpl policyList = new PolicyListImpl();
 
         loginService = new LoginService(customerList, employeeList);
         makeInsuranceService = new MakeInsuranceService(calculationFormulaList, insuranceList);
         makeFormulaService = new MakeFormulaService(calculationFormulaList);
-        makePolicyService = new MakePolicyService(insuranceList);
+        makePolicyService = new MakePolicyService(policyList);
         AuthorizeService = new AuthorizeService(insuranceList, calculationFormulaList);
 
 //        RMI로 분리할 때 위에거 지우고 아래거 쓸 것.

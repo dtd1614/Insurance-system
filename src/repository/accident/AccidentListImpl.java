@@ -33,7 +33,7 @@ public class AccidentListImpl implements AccidentList{
         return false;
     }
 
-    public ArrayList<Accident> findByAccident(AccidentStatus accidentStatus) {
+    public ArrayList<Accident> findByStatus(AccidentStatus accidentStatus) {
         ArrayList<Accident> accidentListByStatus = new ArrayList<>();
         for(Accident accident : accidentList) {
             if(accident.getStatus()== accidentStatus) accidentListByStatus.add(accident);
@@ -54,6 +54,4 @@ public class AccidentListImpl implements AccidentList{
         }
         return null;
     }
-
-
 }
