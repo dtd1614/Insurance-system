@@ -1,6 +1,7 @@
 package repository.insurance;
 import java.util.ArrayList;
 
+import domain.Contract;
 import domain.Insurance;
 import enumeration.insurance.InsuranceStatus;
 import enumeration.insurance.InsuranceType;
@@ -34,6 +35,13 @@ public class InsuranceListImpl implements InsuranceList {
 			if(insurance.getStatus()==insuranceStatus) insuranceListByStatus.add(insurance);
 		}
 		return insuranceListByStatus;
+	}
+
+	public Insurance findById(int id) {
+		for(Insurance insurance : insuranceList) {
+			if(insurance.getId() == id) return insurance;
+		}
+		return null;
 	}
 
 	public boolean update(int id, InsuranceStatus sale) {

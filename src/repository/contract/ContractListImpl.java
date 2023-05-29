@@ -1,6 +1,7 @@
 package repository.contract;
 
 import domain.Contract;
+import domain.customer.Customer;
 import enumeration.contract.ContractStatus;
 
 import domain.Insurance;
@@ -37,6 +38,12 @@ public class ContractListImpl implements ContractList{
     public boolean update() {
         return false;
     }
+
+    public Contract findById(int id) {
+        for(Contract contract : contractList) {
+            if(contract.getId() == id) return contract;
+        }
+        return null;
 
 	public Contract findByContractId(int contractId) {
 		for(Contract contract:this.contractList) {
