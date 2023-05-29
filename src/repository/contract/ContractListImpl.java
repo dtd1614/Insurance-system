@@ -1,6 +1,9 @@
 package repository.contract;
 
 import domain.Contract;
+import domain.Insurance;
+import enumeration.contract.ContractStatus;
+import enumeration.insurance.InsuranceStatus;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,21 @@ public class ContractListImpl implements ContractList{
 
     @Override
     public boolean update() {
+        return false;
+    }
+
+    public ArrayList<Contract> findByStatus(ContractStatus status) {
+        ArrayList<Contract> contractListByStatus = new ArrayList<>();
+        for(Contract contract : contractList) {
+            if(contract.getStatus()==status) contractListByStatus.add(contract);
+        }
+        return contractListByStatus;
+    }
+
+    public boolean update(int id, ContractStatus status) {
+        for(Contract contract : contractList) {
+            if(contract.getId()==id) {contract.setStatus(status); return true;}
+        }
         return false;
     }
 }

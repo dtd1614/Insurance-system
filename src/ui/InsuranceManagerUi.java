@@ -55,7 +55,7 @@ public class InsuranceManagerUi {
 
 	private void printExamineMenu() throws IOException{
 	    while(true) {
-			ArrayList<Insurance> insuranceList = serviceContainer.getAuthorizeService().getInsuranceList(InsuranceStatus.UnderExamine);
+			ArrayList<Insurance> insuranceList = serviceContainer.getAuthorizeService().getInsuranceList(InsuranceStatus.UnderAuthorize);
 			if(insuranceList.isEmpty()) {System.err.println("인가요청중인 상품이 없습니다."); return;}
 			System.out.println("******************** 상품 인가 메뉴 *********************");
 	        System.out.println("인가할 상품의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
@@ -102,12 +102,12 @@ public class InsuranceManagerUi {
             if (choice.equals("0")) {
             	return;
             } else if(choice.equals("1")){
-            	boolean isSuccess = serviceContainer.getAuthorizeService().examineAuthorization(selectedInsurance.getId(), InsuranceStatus.Confirm);
+            	boolean isSuccess = serviceContainer.getAuthorizeService().examineAuthorization(selectedInsurance.getId(), InsuranceStatus.Authorize);
             	if(isSuccess==true) System.out.println("상품이 인가되었습니다.");
             	else System.out.println("인가가 실패하었습니다.");
                 return;
             } else if (choice.equals("2")){
-            	boolean isSuccess =  serviceContainer.getAuthorizeService().examineAuthorization(selectedInsurance.getId(), InsuranceStatus.Refuse);
+            	boolean isSuccess =  serviceContainer.getAuthorizeService().examineAuthorization(selectedInsurance.getId(), InsuranceStatus.RefuseAuthorize);
 //                System.out.println("인가 거절 사유를 입력해주세요.");
 //                userInput.readLine().trim();
             	//거절 사유 어떻게 구현할지 넣을지 회의 필요
@@ -142,7 +142,7 @@ public class InsuranceManagerUi {
             System.out.println(entrySet.getKey().getName() + " : " + entrySet.getValue().getLevel());
         }
 		System.out.println("[거주 평수에 따른 위험도]");
-        for (Entry<HomeSquareMeter, RiskLevel> entrySet : formula.getRiskLevelAccordingToSquareFeet().entrySet()) {
+        for (Entry<HomeSquareMeter, RiskLevel> entrySet : formula.getRiskLevelAccordingToSquareMeter().entrySet()) {
             System.out.println(entrySet.getKey().getName() + " : " + entrySet.getValue().getLevel());
         }
 		System.out.println("[기둥 유형에 따른 위험도]");
@@ -178,7 +178,7 @@ public class InsuranceManagerUi {
 		System.out.println(entrySet.getKey().getName() + " : " + entrySet.getValue().getLevel());
 		}
 		System.out.println("[층수에 따른 위험도]");
-		for (Entry<Floor, RiskLevel> entrySet : formula.getRiskLevelAccordingToNumOfFloors().entrySet()) {
+		for (Entry<Floor, RiskLevel> entrySet : formula.getRiskLevelAccordingToFloor().entrySet()) {
 		System.out.println(entrySet.getKey().getName() + " : " + entrySet.getValue().getLevel());
 		}
 		System.out.println("[기둥 유형에 따른 위험도]");
