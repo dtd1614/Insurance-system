@@ -10,11 +10,9 @@ public enum PaymentCycle {
     }
 
     public static int getCycle(PaymentCycle cycleName) {
-    	return cycleName.month;
-
-
+        return cycleName.month;
+    }
     public int getMonth() {
         return month;
-
     }
 }
