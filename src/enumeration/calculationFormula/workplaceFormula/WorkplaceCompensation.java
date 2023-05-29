@@ -9,21 +9,21 @@ public enum WorkplaceCompensation {
 	MoreThan50M(50_000_000, MoreThan100M.getMinAmount()-1, "5천만원 이상"),
 	MoreThan10M(10_000_000, MoreThan50M.getMinAmount()-1, "천만원 이상");
 
-	private final long minAmount;
-	private final long maxAmount;
+	private final int minAmount;
+	private final int maxAmount;
 	private final String name;
-	
-	WorkplaceCompensation(long minAmount, long maxAmount, String name){
+
+	WorkplaceCompensation(int minAmount, int maxAmount, String name){
 		this.minAmount = minAmount;
 		this.maxAmount = maxAmount;
 		this.name = name;	
 	}
 
-	public long getMinAmount() {
+	public int getMinAmount() {
 		return minAmount;
 	}
 
-	public long getMaxAmount() {
+	public int getMaxAmount() {
 		return maxAmount;
 	}
 

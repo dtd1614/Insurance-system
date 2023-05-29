@@ -3,6 +3,11 @@ package repository.contract;
 import domain.Contract;
 import enumeration.contract.ContractStatus;
 
+import domain.Insurance;
+import enumeration.contract.ContractStatus;
+import enumeration.insurance.InsuranceStatus;
+
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -48,5 +53,18 @@ public class ContractListImpl implements ContractList{
 		}
 		return findedContractList;
 	}
+    public ArrayList<Contract> findByStatus(ContractStatus status) {
+        ArrayList<Contract> contractListByStatus = new ArrayList<>();
+        for(Contract contract : contractList) {
+            if(contract.getStatus()==status) contractListByStatus.add(contract);
+        }
+        return contractListByStatus;
+    }
 
+    public boolean update(int id, ContractStatus status) {
+        for(Contract contract : contractList) {
+            if(contract.getId()==id) {contract.setStatus(status); return true;}
+        }
+        return false;
+    }
 }

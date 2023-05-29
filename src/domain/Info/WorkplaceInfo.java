@@ -11,9 +11,9 @@ import enumeration.calculationFormula.workplaceFormula.WorkplaceUsage;
 
 public class WorkplaceInfo extends Info {
     private WorkplaceUsage usage;
-    private Floor floor;
+    private int floor;
 
-    public WorkplaceInfo(String customerId, int squareMeter, PillarType pillarType, RoofType roofType, OutwallType outwallType, WorkplaceUsage usage, Floor floor) {
+    public WorkplaceInfo(String customerId, int squareMeter, PillarType pillarType, RoofType roofType, OutwallType outwallType, WorkplaceUsage usage, int floor) {
         super(customerId, squareMeter, pillarType, roofType, outwallType);
         this.usage = usage;
         this.floor = floor;
@@ -27,11 +27,11 @@ public class WorkplaceInfo extends Info {
         this.usage = usage;
     }
 
-    public Floor getFloor() {
+    public int getFloor() {
         return floor;
     }
 
-    public void setFloor(Floor floor) {
+    public void setFloor(int floor) {
         this.floor = floor;
     }
 }
