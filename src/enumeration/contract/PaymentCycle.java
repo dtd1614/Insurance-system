@@ -8,4 +8,11 @@ public enum PaymentCycle {
     PaymentCycle(int month) {
         this.month = month;
     }
+
+    public static int getCycle(PaymentCycle cycleName) {
+        return cycleName.month;
+    }
+    public int getMonth() {
+        return month;
+    }
 }
