@@ -13,4 +13,6 @@ public interface OfferServiceIF extends Remote {
     boolean Propose(String saleEmployeeId, String customerId, int insuranceId, String message) throws IOException;
 //    String Show_Customer_Information();
     Customer getCustomer(String selectedCustomerId) throws RemoteException, NoDataException;
+
+    void ShowHomeInsurance();
 }

@@ -4,6 +4,7 @@ import domain.Contract;
 import domain.Insurance;
 import domain.Sale;
 import domain.customer.Customer;
+import enumeration.insurance.InsuranceType;
 import exception.NoDataException;
 import service.ServiceContainer;
 
@@ -46,7 +47,6 @@ public class SalespersonUi {
         String selectedCustomerId = "";
         int i = 1;
         for (Customer element: customerList) {
-
             System.out.print(i + " " + ":" + " ");
             System.out.print(element.getId() + " ");  System.out.print(element.getName() + " ");i++;
         }
@@ -65,6 +65,8 @@ public class SalespersonUi {
     }
 
     private void Propose(String selectedCustomerId) throws IOException {
+        InsuranceType insuranceType = null;
+        ArrayList<Insurance> insurancesList = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Customer customer = null;
         try {
@@ -75,12 +77,41 @@ public class SalespersonUi {
         System.out.print("고객 상세 정보");
         System.out.print(customer.getPhoneNumber() + " "); System.out.print(customer.getEmail() + " ");  System.out.print(customer.isHasHome() + " "); System.out.print(customer.isHasWorkplace() + " ");
         if (customer.isHasHome() == true) {//주택보험 보여주기
+            System.out.println("주택 보험 목록");
+            for (Insurance element : insurancesList) {
+                int i = 1;
+                if (element.getType() == insuranceType.values()[0]) {
+                    System.out.println(i + " " + "." + " ");
+                    System.out.println("보험 ID : " + element.getId());
+                    System.out.println("보험 이름 : " + element.getName());
+                    System.out.println("보험 유형 : " + element.getType());
+                    System.out.println("가입 대상 : " + element.getTarget());
+                    System.out.println("보상손해 : " + element.getCompensateCondition());
+                    System.out.println("비보상손해 : " + element.getNotCompensateCondition());
+                    i++;
+                }
+            }
+
         }
         if (customer.isHasWorkplace() == true) {//사업장 보험 보여주기
+            System.out.println("사업장 보험 목록");
+            for (Insurance element : insurancesList) {
+                int i = 1;
+                if (element.getType() == insuranceType.values()[1]) {
+                    System.out.println(i + " " + "." + " ");
+                    System.out.println("보험 ID : " + element.getId());
+                    System.out.println("보험 이름 : " + element.getName());
+                    System.out.println("보험 유형 : " + element.getType());
+                    System.out.println("가입 대상 : " + element.getTarget());
+                    System.out.println("보상손해 : " + element.getCompensateCondition());
+                    System.out.println("비보상손해 : " + element.getNotCompensateCondition());
+                    i++;
+                }
+            }
         }
-        if(customer.isHasWorkplace() == false && customer.isHasHome() == true){
+        if(customer.isHasWorkplace() == false && customer.isHasHome() == false){
             System.out.println("고객의 조건에 맞는 보험이 존재하지 않습니다.");
-            ShowCustomerInformation();
+            return;
         }
         System.out.println("사원 번호를 입력하세요");
         String saleEmployeeId = reader.readLine();
