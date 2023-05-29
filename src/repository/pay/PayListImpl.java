@@ -30,7 +30,7 @@ public class PayListImpl implements PayList{
         return false;
     }
 
-	public Pay findById(int payId) {
+	public Pay findByPayId(int payId) {
 		for(Pay pay:this.payList) {
 			if(pay.getId()==payId)
 				return pay;
