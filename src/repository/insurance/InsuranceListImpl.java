@@ -3,8 +3,10 @@ import java.util.ArrayList;
 
 import domain.Insurance;
 import enumeration.insurance.InsuranceStatus;
+import enumeration.insurance.InsuranceType;
+
 public class InsuranceListImpl implements InsuranceList {
-	private final ArrayList<Insurance> insuranceList = new ArrayList<>();	
+	private final ArrayList<Insurance> insuranceList = new ArrayList<>();
 
 
 	public int add(Insurance insurance){
@@ -41,4 +43,11 @@ public class InsuranceListImpl implements InsuranceList {
 		return false;
 	}
 
+	public ArrayList<Insurance> findByType(InsuranceType insuranceType) {
+		ArrayList<Insurance> insuranceListByType = new ArrayList<>();
+		for(Insurance insurance : insuranceList) {
+			if(insurance.getType()==insuranceType) insuranceListByType.add(insurance);
+		}
+		return insuranceListByType;
+	}
 }

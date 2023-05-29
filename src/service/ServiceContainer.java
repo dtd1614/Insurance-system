@@ -12,6 +12,7 @@ public class ServiceContainer {
     private final MakeInsuranceServiceIF makeInsuranceService;
     private final MakeFormulaServiceIF makeFormulaService;
     private final AuthorizeServiceIF AuthorizeService;
+    private final MakePolicyService makePolicyService;
 
     public ServiceContainer() throws RemoteException {
         CalculationFormulaListImpl calculationFormulaList = new CalculationFormulaListImpl();
@@ -22,6 +23,7 @@ public class ServiceContainer {
         loginService = new LoginService(customerList, employeeList);
         makeInsuranceService = new MakeInsuranceService(calculationFormulaList, insuranceList);
         makeFormulaService = new MakeFormulaService(calculationFormulaList);
+        makePolicyService = new MakePolicyService(insuranceList);
         AuthorizeService = new AuthorizeService(insuranceList, calculationFormulaList);
 
 //        RMI로 분리할 때 위에거 지우고 아래거 쓸 것.
@@ -41,6 +43,9 @@ public class ServiceContainer {
 
     public MakeFormulaServiceIF getMakeFormulaService() {
         return makeFormulaService;
+    }
+
+    public MakePolicyServiceIF getMakePolicyService() { return makePolicyService;
     }
 
     public AuthorizeServiceIF getAuthorizeService() {
