@@ -15,7 +15,7 @@ public class HomeFormula extends CalculationFormula {
 
 	private HashMap<ResidenceType, RiskLevel> riskLevelAccordingToResidenceType;
 	private HashMap<HouseType, RiskLevel> riskLevelAccordingToHouseType;
-	private HashMap<HomeSquareMeter, RiskLevel> riskLevelAccordingToSquareFeet;
+	private HashMap<HomeSquareMeter, RiskLevel> riskLevelAccordingToSquareMeter;
 	private HashMap<HomeCompensation, RiskLevel> riskLevelAccordingToCompensation;
 	
 	public HomeFormula(String calculationFormulaName, HashMap<PillarType, RiskLevel> riskLevelAccordingToPillarType,
@@ -24,14 +24,14 @@ public class HomeFormula extends CalculationFormula {
 			int numToMultiplyForMaxCompensation, int numToMultiplyForPayment,
 			HashMap<ResidenceType, RiskLevel> riskLevelAccordingToResidenceType,
 			HashMap<HouseType, RiskLevel> riskLevelAccordingToHouseType,
-			HashMap<HomeSquareMeter, RiskLevel> riskLevelAccordingToSquareFeet,
+			HashMap<HomeSquareMeter, RiskLevel> riskLevelAccordingToSquareMeter,
 			HashMap<HomeCompensation, RiskLevel> riskLevelAccordingToCompensation) {
 		super(calculationFormulaName, riskLevelAccordingToPillarType, riskLevelAccordingToRoofType,
 				riskLevelAccordingToOutwallType, numToMultiplyForMinCompensation, numToMultiplyForMaxCompensation,
 				numToMultiplyForPayment);
 		this.riskLevelAccordingToResidenceType = riskLevelAccordingToResidenceType;
 		this.riskLevelAccordingToHouseType = riskLevelAccordingToHouseType;
-		this.riskLevelAccordingToSquareFeet = riskLevelAccordingToSquareFeet;
+		this.riskLevelAccordingToSquareMeter = riskLevelAccordingToSquareMeter;
 		this.riskLevelAccordingToCompensation = riskLevelAccordingToCompensation;
 	}
 
@@ -51,12 +51,12 @@ public class HomeFormula extends CalculationFormula {
 		this.riskLevelAccordingToHouseType = riskLevelAccordingToHouseType;
 	}
 
-	public HashMap<HomeSquareMeter, RiskLevel> getRiskLevelAccordingToSquareFeet() {
-		return riskLevelAccordingToSquareFeet;
+	public HashMap<HomeSquareMeter, RiskLevel> getRiskLevelAccordingToSquareMeter() {
+		return riskLevelAccordingToSquareMeter;
 	}
 
-	public void setRiskLevelAccordingToSquareFeet(HashMap<HomeSquareMeter, RiskLevel> riskLevelAccordingToSquareFeet) {
-		this.riskLevelAccordingToSquareFeet = riskLevelAccordingToSquareFeet;
+	public void setRiskLevelAccordingToSquareMeter(HashMap<HomeSquareMeter, RiskLevel> riskLevelAccordingToSquareMeter) {
+		this.riskLevelAccordingToSquareMeter = riskLevelAccordingToSquareMeter;
 	}
 
 	public HashMap<HomeCompensation, RiskLevel> getRiskLevelAccordingToCompensation() {

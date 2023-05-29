@@ -26,7 +26,7 @@ public class Contract implements Serializable {
         this.insuranceId = insuranceId;
         this.saleEmployeeId = saleEmployeeId;
         this.term = term;
-        this.paymentFee = paymentFee;
+        this.paymentFee = paymentFee * paymentCycle.getMonth();
         this.paymentCycle = paymentCycle;
         this.compensation = compensation;
         this.status = status;
