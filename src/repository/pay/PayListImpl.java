@@ -1,5 +1,6 @@
 package repository.pay;
 
+import domain.Contract;
 import domain.Pay;
 
 import java.util.ArrayList;
@@ -28,4 +29,13 @@ public class PayListImpl implements PayList{
     public boolean update() {
         return false;
     }
+
+	public Pay findByPayId(int payId) {
+		for(Pay pay:this.payList) {
+			if(pay.getId()==payId)
+				return pay;
+		}
+		return null;
+		
+	}
 }

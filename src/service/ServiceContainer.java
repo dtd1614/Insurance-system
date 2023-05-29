@@ -6,7 +6,7 @@ import repository.customer.CustomerListImpl;
 import repository.employee.EmployeeListImpl;
 import repository.insurance.InsuranceListImpl;
 import repository.sale.SaleListImpl;
-
+import repository.policy.PolicyListImpl;
 import java.rmi.RemoteException;
 
 public class ServiceContainer {
@@ -16,6 +16,7 @@ public class ServiceContainer {
     private final AuthorizeServiceIF AuthorizeService;
     private final OfferServiceIF offerService;
     private final ConcludeServiceIF concludeService;
+    private final MakePolicyService makePolicyService;
 
     public ServiceContainer() throws RemoteException {
         CalculationFormulaListImpl calculationFormulaList = new CalculationFormulaListImpl();
@@ -24,10 +25,13 @@ public class ServiceContainer {
         CustomerListImpl customerList = new CustomerListImpl();
         SaleListImpl saleList = new SaleListImpl();
         ContractListImpl contractList = new ContractListImpl();
+        PolicyListImpl policyList = new PolicyListImpl();
+
 
         loginService = new LoginService(customerList, employeeList);
         makeInsuranceService = new MakeInsuranceService(calculationFormulaList, insuranceList);
         makeFormulaService = new MakeFormulaService(calculationFormulaList);
+        makePolicyService = new MakePolicyService(policyList);
         AuthorizeService = new AuthorizeService(insuranceList, calculationFormulaList);
         offerService = new OfferService(customerList, insuranceList, saleList, employeeList);
         concludeService = new ConcludeService(customerList, insuranceList, contractList);
@@ -49,6 +53,9 @@ public class ServiceContainer {
 
     public MakeFormulaServiceIF getMakeFormulaService() {
         return makeFormulaService;
+    }
+
+    public MakePolicyServiceIF getMakePolicyService() { return makePolicyService;
     }
 
     public AuthorizeServiceIF getAuthorizeService() {

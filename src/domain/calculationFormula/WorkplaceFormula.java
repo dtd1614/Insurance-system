@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class WorkplaceFormula extends CalculationFormula {
 
 	private HashMap<WorkplaceUsage, RiskLevel> riskLevelAccordingToUsage;
-	private HashMap<Floor, RiskLevel> riskLevelAccordingToNumOfFloors;
+	private HashMap<Floor, RiskLevel> riskLevelAccordingToFloor;
 	private HashMap<WorkplaceSquareMeter, RiskLevel> riskLevelAccordingToSquareFeet;
 	private HashMap<WorkplaceCompensation, RiskLevel> riskLevelAccordingToCompensation;
 	
@@ -25,14 +25,14 @@ public class WorkplaceFormula extends CalculationFormula {
 			HashMap<OutwallType, RiskLevel> riskLevelAccordingToOutwallType, int numToMultiplyForMinCompensation,
 			int numToMultiplyForMaxCompensation, int numToMultiplyForPayment,
 			HashMap<WorkplaceUsage, RiskLevel> riskLevelAccordingToUsage,
-			HashMap<Floor, RiskLevel> riskLevelAccordingToNumOfFloors,
+			HashMap<Floor, RiskLevel> riskLevelAccordingToFloor,
 			HashMap<WorkplaceSquareMeter, RiskLevel> riskLevelAccordingToSquareFeet,
 			HashMap<WorkplaceCompensation, RiskLevel> riskLevelAccordingToCompensation) {
 		super(calculationFormulaName, riskLevelAccordingToPillarType, riskLevelAccordingToRoofType,
 				riskLevelAccordingToOutwallType, numToMultiplyForMinCompensation, numToMultiplyForMaxCompensation,
 				numToMultiplyForPayment);
 		this.riskLevelAccordingToUsage = riskLevelAccordingToUsage;
-		this.riskLevelAccordingToNumOfFloors = riskLevelAccordingToNumOfFloors;
+		this.riskLevelAccordingToFloor = riskLevelAccordingToFloor;
 		this.riskLevelAccordingToSquareFeet = riskLevelAccordingToSquareFeet;
 		this.riskLevelAccordingToCompensation = riskLevelAccordingToCompensation;
 	}
@@ -45,12 +45,12 @@ public class WorkplaceFormula extends CalculationFormula {
 		this.riskLevelAccordingToUsage = riskLevelAccordingToUsage;
 	}
 
-	public HashMap<Floor, RiskLevel> getRiskLevelAccordingToNumOfFloors() {
-		return riskLevelAccordingToNumOfFloors;
+	public HashMap<Floor, RiskLevel> getRiskLevelAccordingToFloor() {
+		return riskLevelAccordingToFloor;
 	}
 
-	public void setRiskLevelAccordingToNumOfFloors(HashMap<Floor, RiskLevel> riskLevelAccordingToNumOfFloors) {
-		this.riskLevelAccordingToNumOfFloors = riskLevelAccordingToNumOfFloors;
+	public void setRiskLevelAccordingToFloor(HashMap<Floor, RiskLevel> riskLevelAccordingToFloor) {
+		this.riskLevelAccordingToFloor = riskLevelAccordingToFloor;
 	}
 
 	public HashMap<WorkplaceSquareMeter, RiskLevel> getRiskLevelAccordingToSquareFeet() {

@@ -91,6 +91,7 @@ public class Accident implements Serializable {
         this.accountNumber = accountNumber;
     }
 
+
     public AccidentStatus getStatus() {
         return status;
     }

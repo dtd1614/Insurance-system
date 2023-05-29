@@ -68,4 +68,10 @@ public class Pay implements Serializable {
     public void setStatus(PayStatus status) {
         this.status = status;
     }
+
+	public boolean paied() {
+		this.setStatus(PayStatus.FullPayment);
+		return true;
+		
+	}
 }
