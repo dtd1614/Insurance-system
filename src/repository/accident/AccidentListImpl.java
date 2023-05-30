@@ -54,6 +54,4 @@ public class AccidentListImpl implements AccidentList{
         }
         return null;
     }
-
-
 }

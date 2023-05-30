@@ -41,7 +41,7 @@
 //
 //    private void printInsuranceTypeMenu() throws IOException { // 보험 유형 목록 가져오기
 //        while(true) {
-//            ArrayList<Policy> insuranceTypeList = serviceContainer.getMakePolicyService().getInsuranceList(InsuranceType.WorkplaceFire);
+//            ArrayList<Insurance> insuranceTypeList = serviceContainer.getMakePolicyService().getInsuranceList(InsuranceType.WorkplaceFire);
 //            if(insuranceTypeList.isEmpty()) {System.err.println("보상 지침을 수립할 보험이 없습니다."); return;}
 //            System.out.println("******************** 보험 유형 목록 *********************");
 //            System.out.println("보험유형의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");

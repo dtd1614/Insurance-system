@@ -23,10 +23,10 @@ public class ServiceContainer {
         InsuranceListImpl insuranceList = new InsuranceListImpl();
         EmployeeListImpl employeeList = new EmployeeListImpl();
         CustomerListImpl customerList = new CustomerListImpl();
+
         SaleListImpl saleList = new SaleListImpl();
         ContractListImpl contractList = new ContractListImpl();
         PolicyListImpl policyList = new PolicyListImpl();
-
 
         loginService = new LoginService(customerList, employeeList);
         makeInsuranceService = new MakeInsuranceService(calculationFormulaList, insuranceList);

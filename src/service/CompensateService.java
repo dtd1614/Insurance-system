@@ -26,18 +26,10 @@ public class CompensateService extends UnicastRemoteObject implements Compensate
         this.accidentList = accidentList;
     }
     @Override
-    public ArrayList<Accident> getAccidentList(AccidentStatus accidentStatus) throws RemoteException {
+    public ArrayList<Accident> getAccidentList(AccidentStatus accidentStatus) throws RemoteException, EmptyListException {
         ArrayList<Accident> accidentList = this.accidentList.findByStatus(accidentStatus); // 상태 가져와야
         if(accidentList.isEmpty()){
-            new EmptyListException("보험유형이 없습니다.");
-        }
-        return accidentList.accidentStatus(accidentStatus);
-    }
-    @Override
-    public ArrayList<Accident> getAccidentList(AccidentStatus accidentStatus) throws RemoteException {
-        ArrayList<Accident> accidentList = this.accidentList.findByStatus(accidentStatus); // 상태 가져와야
-        if(accidentList.isEmpty()){
-            new EmptyListException("사고접수내역이 없습니다.");
+            throw new EmptyListException("보험유형이 없습니다.");
         }
         return accidentList;
     }
@@ -45,10 +37,11 @@ public class CompensateService extends UnicastRemoteObject implements Compensate
     public boolean examineAccident(int id, AccidentStatus status) throws RemoteException{
         return accidentList.update(id, status);
     }
+  
     @Override
-    public Accident getContractId(int id) throws RemoteException {
+    public Accident getContractId(int id) throws RemoteException, NoDataException {
         if(accidentList == null){
-            new NoDataException("가져올 계약이 없습니다.");
+            throw new NoDataException("가져올 계약이 없습니다.");
         }
         return accidentList.findByContractId(id); // null 인지 아닌지 검사 null- >nodataException
     }
