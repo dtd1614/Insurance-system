@@ -1,11 +1,12 @@
 package service;
 
 import repository.calculation.CalculationFormulaListImpl;
+import repository.contract.ContractListImpl;
 import repository.customer.CustomerListImpl;
 import repository.employee.EmployeeListImpl;
 import repository.insurance.InsuranceListImpl;
+import repository.sale.SaleListImpl;
 import repository.policy.PolicyListImpl;
-
 import java.rmi.RemoteException;
 
 public class ServiceContainer {
@@ -13,6 +14,8 @@ public class ServiceContainer {
     private final MakeInsuranceServiceIF makeInsuranceService;
     private final MakeFormulaServiceIF makeFormulaService;
     private final AuthorizeServiceIF AuthorizeService;
+    private final OfferServiceIF offerService;
+    private final ConcludeServiceIF concludeService;
     private final MakePolicyService makePolicyService;
 
     public ServiceContainer() throws RemoteException {
@@ -20,6 +23,9 @@ public class ServiceContainer {
         InsuranceListImpl insuranceList = new InsuranceListImpl();
         EmployeeListImpl employeeList = new EmployeeListImpl();
         CustomerListImpl customerList = new CustomerListImpl();
+
+        SaleListImpl saleList = new SaleListImpl();
+        ContractListImpl contractList = new ContractListImpl();
         PolicyListImpl policyList = new PolicyListImpl();
 
         loginService = new LoginService(customerList, employeeList);
@@ -27,6 +33,8 @@ public class ServiceContainer {
         makeFormulaService = new MakeFormulaService(calculationFormulaList);
         makePolicyService = new MakePolicyService(policyList);
         AuthorizeService = new AuthorizeService(insuranceList, calculationFormulaList);
+        offerService = new OfferService(customerList, insuranceList, saleList, employeeList);
+        concludeService = new ConcludeService(customerList, insuranceList, contractList);
 
 //        RMI로 분리할 때 위에거 지우고 아래거 쓸 것.
 //        loginService = (LoginServiceIF) Naming.lookup("loginService");
@@ -53,4 +61,10 @@ public class ServiceContainer {
     public AuthorizeServiceIF getAuthorizeService() {
         return AuthorizeService;
     }
+
+    public OfferServiceIF getofferService() {
+        return offerService;
+    }
+
+    public ConcludeServiceIF getConcludeService() {return concludeService;}
 }

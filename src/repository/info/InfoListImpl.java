@@ -1,6 +1,7 @@
 package repository.info;
 
 import domain.Info.Info;
+import domain.customer.Customer;
 
 import java.util.ArrayList;
 
@@ -28,5 +29,12 @@ public class InfoListImpl implements InfoList{
     @Override
     public boolean update() {
         return false;
+    }
+
+    public Info findById(int infoId) {
+        for(Info info : infoList) {
+            if(info.getId() == infoId) return info;
+        }
+        return null;
     }
 }

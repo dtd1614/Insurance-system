@@ -37,6 +37,7 @@ public class CompensateService extends UnicastRemoteObject implements Compensate
     public boolean examineAccident(int id, AccidentStatus status) throws RemoteException{
         return accidentList.update(id, status);
     }
+  
     @Override
     public Accident getContractId(int id) throws RemoteException, NoDataException {
         if(accidentList == null){

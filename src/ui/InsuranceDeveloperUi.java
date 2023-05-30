@@ -367,7 +367,7 @@ public class InsuranceDeveloperUi {
 		System.out.print("비보상 조건 : ");
 		String notCompensateCondition = userInput.readLine().trim();
 		if(notCompensateCondition.isEmpty()) {System.err.println("잘못된 입력입니다."); return;}
-		Insurance insurance = new Insurance(name,insuranceType,target,formulaId, compensateCondtion, notCompensateCondition, InsuranceStatus.UnderExamine);
+		Insurance insurance = new Insurance(name,insuranceType,target,formulaId, compensateCondtion, notCompensateCondition, InsuranceStatus.UnderAuthorize);
 		int id = serviceContainer.getMakeInsuranceService().makeInsurance(insurance);
 		if(id==0) {System.err.println("개발 및 인가요청이 실패되었습니다."); return;}
 		System.out.println("개발 및 인가요청이 완료되었습니다."); 
@@ -377,9 +377,9 @@ public class InsuranceDeveloperUi {
 
 	private void printExamineResult() throws RemoteException {
 		System.out.println("******************** 인가 요청 결과 *********************");
-		ArrayList<Insurance> confirmInsuranceList = serviceContainer.getMakeInsuranceService().getInsuranceList(InsuranceStatus.Confirm);
-		ArrayList<Insurance> refuseInsuranceList = serviceContainer.getMakeInsuranceService().getInsuranceList(InsuranceStatus.Refuse);
-		ArrayList<Insurance> underExamineInsuranceList = serviceContainer.getMakeInsuranceService().getInsuranceList(InsuranceStatus.UnderExamine);
+		ArrayList<Insurance> confirmInsuranceList = serviceContainer.getMakeInsuranceService().getInsuranceList(InsuranceStatus.Authorize);
+		ArrayList<Insurance> refuseInsuranceList = serviceContainer.getMakeInsuranceService().getInsuranceList(InsuranceStatus.RefuseAuthorize);
+		ArrayList<Insurance> underExamineInsuranceList = serviceContainer.getMakeInsuranceService().getInsuranceList(InsuranceStatus.UnderAuthorize);
 		ArrayList<Insurance> insurances = new ArrayList<>();
 		insurances.addAll(confirmInsuranceList);
 		insurances.addAll(refuseInsuranceList);
