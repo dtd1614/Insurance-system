@@ -1,70 +1,78 @@
 package service;
 
-import repository.calculation.CalculationFormulaListImpl;
-import repository.contract.ContractListImpl;
-import repository.customer.CustomerListImpl;
-import repository.employee.EmployeeListImpl;
-import repository.insurance.InsuranceListImpl;
-import repository.sale.SaleListImpl;
-import repository.policy.PolicyListImpl;
+import repository.*;
+
 import java.rmi.RemoteException;
 
 public class ServiceContainer {
-    private final LoginServiceIF loginService;
-    private final MakeInsuranceServiceIF makeInsuranceService;
-    private final MakeFormulaServiceIF makeFormulaService;
-    private final AuthorizeServiceIF AuthorizeService;
-    private final OfferServiceIF offerService;
-    private final ConcludeServiceIF concludeService;
-    private final MakePolicyService makePolicyService;
+    private final AccidentService accidentService;
+    private final CalculationFormulaService calculationFormulaService;
+    private final CompensateService compensateService;
+    private final ContractService contractService;
+    private final CustomerService customerService;
+    private final EmployeeService employeeService;
+    private final InfoService infoService;
+    private final InsuranceService insuranceService;
+    private final PayService payService;
+    private final PolicyService policyService;
+    private final SaleService saleService;
+
 
     public ServiceContainer() throws RemoteException {
-        CalculationFormulaListImpl calculationFormulaList = new CalculationFormulaListImpl();
-        InsuranceListImpl insuranceList = new InsuranceListImpl();
-        EmployeeListImpl employeeList = new EmployeeListImpl();
-        CustomerListImpl customerList = new CustomerListImpl();
-
-        SaleListImpl saleList = new SaleListImpl();
-        ContractListImpl contractList = new ContractListImpl();
-        PolicyListImpl policyList = new PolicyListImpl();
-
-        loginService = new LoginService(customerList, employeeList);
-        makeInsuranceService = new MakeInsuranceService(calculationFormulaList, insuranceList);
-        makeFormulaService = new MakeFormulaService(calculationFormulaList);
-        makePolicyService = new MakePolicyService(policyList);
-        AuthorizeService = new AuthorizeService(insuranceList, calculationFormulaList);
-        offerService = new OfferService(customerList, insuranceList, saleList, employeeList);
-        concludeService = new ConcludeService(customerList, insuranceList, contractList);
-
-//        RMI로 분리할 때 위에거 지우고 아래거 쓸 것.
-//        loginService = (LoginServiceIF) Naming.lookup("loginService");
-//        makeInsuranceService = (MakeInsuranceServiceIF) Naming.lookup("makeInsuranceService");
-//        makeFormulaService = (MakeFormulaServiceIF) Naming.lookup("makeFormulaService");
-//        examineInsuranceService = (ExamineInsuranceServiceIF) Naming.lookup("examineInsuranceService");
+        this.accidentService = new AccidentService(new AccidentList());
+        this.calculationFormulaService = new CalculationFormulaService(new CalculationFormulaList());
+        this.compensateService = new CompensateService(new CompensationList());
+        this.contractService = new ContractService(new ContractList());
+        this.customerService = new CustomerService(new CustomerList());
+        this.employeeService = new EmployeeService(new EmployeeList());
+        this.infoService = new InfoService(new InfoList());
+        this.insuranceService = new InsuranceService(new InsuranceList());
+        this.payService = new PayService(new PayList());
+        this.policyService = new PolicyService(new PolicyList());
+        this.saleService = new SaleService(new SaleList());
     }
 
-    public LoginServiceIF getLoginService() {
-        return loginService;
+    public AccidentService getAccidentService() {
+        return accidentService;
     }
 
-    public MakeInsuranceServiceIF getMakeInsuranceService() {
-        return makeInsuranceService;
+    public CalculationFormulaService getCalculationFormulaService() {
+        return calculationFormulaService;
     }
 
-    public MakeFormulaServiceIF getMakeFormulaService() {
-        return makeFormulaService;
+    public CompensateService getCompensateService() {
+        return compensateService;
     }
 
-    public MakePolicyServiceIF getMakePolicyService() { return makePolicyService;
+    public ContractService getContractService() {
+        return contractService;
     }
 
-    public AuthorizeServiceIF getAuthorizeService() {
-        return AuthorizeService;
+    public CustomerService getCustomerService() {
+        return customerService;
     }
 
-    public OfferServiceIF getofferService() {
-        return offerService;
+    public EmployeeService getEmployeeService() {
+        return employeeService;
     }
 
-    public ConcludeServiceIF getConcludeService() {return concludeService;}
+    public InfoService getInfoService() {
+        return infoService;
+    }
+
+    public InsuranceService getInsuranceService() {
+        return insuranceService;
+    }
+
+    public PayService getPayService() {
+        return payService;
+    }
+
+    public PolicyService getPolicyService() {
+        return policyService;
+    }
+
+    public SaleService getSaleService() {
+        return saleService;
+    }
 }

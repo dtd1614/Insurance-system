@@ -1,0 +1,129 @@
+package ui;
+
+import domain.Contract;
+import domain.Info.HomeInfo;
+import domain.Info.Info;
+import domain.Info.WorkplaceInfo;
+import domain.Insurance;
+import domain.customer.Customer;
+import enumeration.contract.ContractStatus;
+import enumeration.insurance.InsuranceStatus;
+import exception.EmptyListException;
+import exception.NoDataException;
+import service.ServiceContainer;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
+public class UWUi {
+    private final String employeeId;
+    private final ServiceContainer serviceContainer;
+    private final BufferedReader userInput;
+
+    public UWUi(String employeeId, ServiceContainer serviceContainer, BufferedReader userInput) {
+        this.employeeId = employeeId;
+        this.serviceContainer = serviceContainer;
+        this.userInput = userInput;
+    }
+
+    public void printMenu() throws IOException {
+        while(true) {
+            System.out.println("******************** UW 메인 메뉴 *********************");
+            System.out.println("1. 인수심사");
+            System.out.println("0. 로그아웃");
+            System.out.println("x. 종료");
+            switch(userInput.readLine().trim()) {
+                case "1" : printUnderwriteMenu(); break;
+                case "0" : return;
+                case "x" : System.exit(0);
+                default : System.err.println("잘못된 입력입니다.");
+            }
+        }
+    }
+
+    private void printUnderwriteMenu() throws IOException {
+        while (true) {
+            ArrayList<Contract> contractList;
+            try {contractList = serviceContainer.getContractService().getContractList(ContractStatus.Apply);}
+            catch (EmptyListException e) {System.err.println(e.getMessage()); return;}
+            System.out.println("******************** 인수심사 메뉴 *********************");
+            System.out.println("인수할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
+            System.out.println("아이디\t고객아이디\t보험아이디");
+            for(Contract contract : contractList) {
+                System.out.println(contract.getId()
+                        + "\t" + contract.getCustomerId()
+                        + "\t" + contract.getInsuranceId());
+            }
+            System.out.print("계약 아이디 : ");
+            int id;
+            try {id = Integer.parseInt(userInput.readLine().trim());}
+            catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); continue;}
+            if(id==0) return;
+            Contract selectedContract = null;
+            for(Contract contract : contractList) {if(contract.getId()==id) selectedContract = contract;}
+            if(selectedContract==null){System.err.println("잘못된 입력입니다."); continue;}
+            printContractDetail(selectedContract);
+        }
+    }
+
+    private void printContractDetail(Contract contract) throws IOException {
+        while (true) {
+            System.out.println("******************** 계약 상세내용 *********************");
+            System.out.println("계약 상세내역을 확인하고 버튼을 선택하세요.");
+
+            System.out.println("[고객 상세내역]");
+            Customer customer = null;
+            Info info = null;
+            try {
+                customer = serviceContainer.getCustomerService().getCustomer(contract.getCustomerId());
+                info = serviceContainer.getInfoService().getInfo(contract.getInfoId());
+            } catch (NoDataException e) {
+                System.err.println(e.getMessage()); return;
+            }
+            System.out.println("아이디 : " + customer.getId()
+                    + "\n이름 : " + customer.getName()
+                    + "\n주소 : " + customer.getAddress()
+                    + "\n전화번호 : " + customer.getPhoneNumber()
+                    + "\n이메일 : " + customer.getEmail());
+
+            System.out.println("\n[신청정보 상세내역]");
+            if(info instanceof WorkplaceInfo){
+                System.out.println("사업장 업종 : " + ((WorkplaceInfo)info).getUsage().getName()
+                        +"\n층수 : " + ((WorkplaceInfo)info).getFloor());
+            }else{
+                System.out.println("거주 유형 : " + ((HomeInfo)info).getResidenceType().getName()
+                        +"\n주택 유형 : " + ((HomeInfo)info).getHouseType().getName());
+            }
+            System.out.println("면적 : " + info.getSquareMeter()
+                    +"\n기둥형태 : " + info.getPillarType().getName()
+                    +"\n지붕형태 : " + info.getRoofType().getName()
+                    +"\n외벽형태 : " + info.getOutwallType().getName()
+                    +"\n보상금 : " + contract.getCompensation() +"원"
+                    +"\n보험료 : " + contract.getPaymentFee() + "원"
+                    +"\n보험기간 : " + contract.getTerm().getYear() + "년"
+                    +"\n납입주기 : " + contract.getPayCycle().getMonth() + "개월"
+            );
+
+            System.out.println("\n[버튼]");
+            System.out.println("1. 인수");
+            System.out.println("2. 인수거절");
+            System.out.println("0. 뒤로가기");
+            String choice = userInput.readLine().trim();
+            if (choice.equals("0")) {
+                return;
+            } else if(choice.equals("1")){
+                boolean isSucess = serviceContainer.getContractService().examineUnderwrite(contract.getId(), ContractStatus.Underwrite);
+                if(isSucess) {System.out.println("인수되었습니다."); return;}
+                else {System.out.println("인수가 실패되었습니다."); return;}
+            } else if (choice.equals("2")){
+                boolean isSucess = serviceContainer.getContractService().examineUnderwrite(contract.getId(), ContractStatus.RefuseUnderwrite);
+                if(isSucess) {System.out.println("인수거절되었습니다."); return;}
+                else {System.out.println("인수거절이 실패되었습니다."); return;}
+            } else {
+                System.err.println("잘못된 입력입니다.");
+            }
+        }
+    }
+}

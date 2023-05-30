@@ -11,4 +11,8 @@ public enum ContractTerm {
     ContractTerm(int year) {
         this.year = year;
     }
+
+    public int getYear() {
+        return year;
+    }
 }

@@ -11,8 +11,8 @@ import java.time.temporal.ChronoUnit;
 
 public class Contract implements Serializable {
     private int id;
-    private String infoId;
-    private int customerId;
+    private int infoId;
+    private String customerId;
     private int insuranceId;
     private int saleEmployeeId;
     private ContractTerm term;
@@ -24,7 +24,7 @@ public class Contract implements Serializable {
     private int compensation;
     private ContractStatus status;
 
-    public Contract(String infoId, int insuranceId, int saleEmployeeId,int customerId, ContractTerm term, int paymentFee, PaymentCycle paymentCycle, int compensation, ContractStatus status) {
+    public Contract(int infoId, int insuranceId, int saleEmployeeId, String customerId, ContractTerm term, int paymentFee, PaymentCycle paymentCycle, int compensation, ContractStatus status) {
         this.infoId = infoId;
         this.insuranceId = insuranceId;
         this.saleEmployeeId = saleEmployeeId;
@@ -44,11 +44,11 @@ public class Contract implements Serializable {
         this.id = id;
     }
 
-    public String getInfoId() {
+    public int getInfoId() {
         return infoId;
     }
 
-    public void setInfoId(String infoId) {
+    public void setInfoId(int infoId) {
         this.infoId = infoId;
     }
 
@@ -132,11 +132,11 @@ public class Contract implements Serializable {
         this.status = status;
     }
 
-	public int getCustomerId() {
+	public String getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
 

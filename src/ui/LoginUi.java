@@ -4,6 +4,8 @@ import domain.customer.Customer;
 import domain.Employee;
 import enumeration.employee.Department;
 import enumeration.employee.Rank;
+import exception.DataDuplicationException;
+import exception.NoDataException;
 import service.ServiceContainer;
 
 import java.io.BufferedReader;
@@ -19,27 +21,25 @@ public class LoginUi {
 	public LoginUi(ServiceContainer serviceContainer, BufferedReader userInput) throws RemoteException {
 		this.serviceContainer = serviceContainer;
 		this.userInput = userInput;
+
+		try {
+			this.serviceContainer.getCustomerService().registerCustomer(new Customer("1","1","1","1",1,"1",true,true));
+			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("1","1",Department.InsuranceDeveloper,"1","1",1,Rank.AssisantManager));
+			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("2","1",Department.InsuranceManager,"1","1",1,Rank.AssisantManager));
+			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("3","1",Department.UW,"1","1",1,Rank.AssisantManager));
+			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("4","1",Department.Salesperson,"1","1",1,Rank.AssisantManager));
+			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("5","1",Department.CompensationManager,"1","1",1,Rank.AssisantManager));
+		} catch (DataDuplicationException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void printMenu() throws IOException {
-		//String id, String password, String name, String email, int phoneNumber, String address, boolean hasHome, boolean hasWorkplace
-		Customer cus1 = new Customer("a","a","a","a",5,"x",false,false);
-		Customer cus2 = new Customer("a","a","a","a",5,"x",false,false);
-		Customer cus3 = new Customer("a","a","a","a",5,"x",false,false);
-
 		while(true) {
-
 			System.out.println("******************** 로그인 창 *********************");
 			System.out.println("1. 로그인");
 			System.out.println("2. 회원가입");
 			System.out.println("x. 종료");
-			ArrayList<Customer> customerList = new ArrayList<>();
-			customerList.add(cus1);
-			customerList.add(cus2);
-			customerList.add(cus3);
-			for (Customer element: customerList) {
-				System.out.println(element.getId());
-			}
 			switch(userInput.readLine().trim()) {
 				case "1" : printLoginMenu(); break;
 				case "2" : printRegisterMenu(); break;
@@ -73,13 +73,17 @@ public class LoginUi {
 		System.out.print("비밀번호 : ");
 		String password = userInput.readLine().trim();
 		if(password.contains(" ")||password.isEmpty()) {System.err.println("잘못된 입력입니다."); return;}
-		Employee employee = serviceContainer.getLoginService().loginEmployee(id, password);
-		if(employee==null) {System.err.println("아이디 또는 비밀번호가 일치하지 않습니다."); return;}
+		Employee employee = null;
+		try {employee = serviceContainer.getEmployeeService().loginEmployee(id, password);}
+		catch (NoDataException e) {System.err.println(e.getMessage()); return;}
 		System.out.println("로그인에 성공하였습니다!");
 		switch(employee.getDepartment()) {
 			case InsuranceDeveloper : new InsuranceDeveloperUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
 			case InsuranceManager : new InsuranceManagerUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
-			case Salesperson : new SalespersonUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
+			case UW : new UWUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
+//			case Salesperson : new SalespersonUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
+//			case CompensationManager: new CompensationManagerUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
+
 		}
 	}
 
@@ -91,8 +95,9 @@ public class LoginUi {
 		System.out.print("비밀번호 : ");
 		String password = userInput.readLine().trim();
 		if(password.contains(" ")||password.isEmpty()) {System.err.println("잘못된 입력입니다."); return;}
-		Customer customer = serviceContainer.getLoginService().loginCustomer(id, password);
-		if(customer==null) {System.err.println("아이디 또는 비밀번호가 일치하지 않습니다."); return;}
+		Customer customer = null;
+		try {customer = serviceContainer.getCustomerService().loginCustomer(id, password);}
+		catch (NoDataException e) {System.err.println(e.getMessage());return;}
 		System.out.println("로그인에 성공하였습니다!");
 		new CustomerUi(customer.getId(), serviceContainer, userInput).printMenu();
 	}
@@ -149,8 +154,9 @@ public class LoginUi {
 			default : System.err.println("잘못된 입력입니다."); return;
 		}
 		Customer customer = new Customer(id, password, name, email, phoneNumber, address, hasHome, hasWorkplace);
-		if(serviceContainer.getLoginService().registerCustomer(customer)) {System.out.println("회원가입이 완료되었습니다."); return;}
-		else {System.err.println("아이디가 중복되어 회원가입이 실패하였습니다.");}
+		try {serviceContainer.getCustomerService().registerCustomer(customer); }
+		catch (DataDuplicationException e) {System.err.println(e.getMessage()); return;}
+		System.out.println("회원가입이 완료되었습니다.");
 	}
 	
 	private void printEmployeeRegisterForm() throws IOException {
@@ -163,6 +169,8 @@ public class LoginUi {
 			case "1" :  department = Department.values()[0]; break;
 			case "2" :  department = Department.values()[1]; break;
 			case "3" :  department = Department.values()[2]; break;
+			case "4" :  department = Department.values()[3]; break;
+			case "5" :  department = Department.values()[4]; break;
 			default : System.err.println("잘못된 입력입니다."); return;
 		}
 		System.out.println("직급를 선택하세요.");
@@ -197,7 +205,8 @@ public class LoginUi {
 	    try{phoneNumber = Integer.parseInt(userInput.readLine());} 
 	    catch(NumberFormatException e) { System.err.println("잘못된 입력입니다.");  return;}
 		Employee employee = new Employee(id, password, department, name, email, phoneNumber, rank);
-		if(serviceContainer.getLoginService().registerEmployee(employee)) {System.out.println("회원가입이 완료되었습니다."); return;}
-		else {System.err.println("아이디가 중복되어 회원가입이 실패하였습니다.");}
+		try {serviceContainer.getEmployeeService().registerEmployee(employee);}
+		catch (DataDuplicationException e) {System.err.println(e.getMessage()); return;}
+		System.out.println("회원가입이 완료되었습니다.");
 	}
 }

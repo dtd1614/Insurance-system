@@ -1,6 +1,6 @@
 package repository;
 
-public class DBConnector {
+public abstract class DBConnector {
     public DBConnector() {
 
     }
