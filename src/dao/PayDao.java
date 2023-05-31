@@ -1,10 +1,10 @@
-package repository;
+package dao;
 
 import domain.Pay;
 
 import java.util.ArrayList;
 
-public class PayList extends DBConnector{
+public class PayDao extends Dao {
     private final ArrayList<Pay> payList = new ArrayList<>();
     public int add(Pay pay) {
         if(payList.size()==0)pay.setId(1);

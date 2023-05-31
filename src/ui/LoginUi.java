@@ -1,6 +1,6 @@
 package ui;
 
-import domain.customer.Customer;
+import domain.Customer;
 import domain.Employee;
 import enumeration.employee.Department;
 import enumeration.employee.Rank;
@@ -11,7 +11,6 @@ import service.ServiceContainer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 public class LoginUi {
 
@@ -21,14 +20,13 @@ public class LoginUi {
 	public LoginUi(ServiceContainer serviceContainer, BufferedReader userInput) throws RemoteException {
 		this.serviceContainer = serviceContainer;
 		this.userInput = userInput;
-
 		try {
-			this.serviceContainer.getCustomerService().registerCustomer(new Customer("1","1","1","1",1,"1",true,true));
-			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("1","1",Department.InsuranceDeveloper,"1","1",1,Rank.AssisantManager));
-			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("2","1",Department.InsuranceManager,"1","1",1,Rank.AssisantManager));
-			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("3","1",Department.UW,"1","1",1,Rank.AssisantManager));
-			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("4","1",Department.Salesperson,"1","1",1,Rank.AssisantManager));
-			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("5","1",Department.CompensationManager,"1","1",1,Rank.AssisantManager));
+			this.serviceContainer.getCustomerService().registerCustomer(new Customer("고객","1","1","1",1,"1",true,true));
+			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("상품개발자","1",Department.InsuranceDeveloper,"1","1",1,Rank.AssisantManager));
+			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("상품관리자","1",Department.InsuranceManager,"1","1",1,Rank.AssisantManager));
+			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("언더라이터","1",Department.UW,"1","1",1,Rank.AssisantManager));
+			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("영업사원","1",Department.Salesperson,"1","1",1,Rank.AssisantManager));
+			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("보상담당자","1",Department.CompensationManager,"1","1",1,Rank.AssisantManager));
 		} catch (DataDuplicationException e) {
 			throw new RuntimeException(e);
 		}
@@ -81,7 +79,7 @@ public class LoginUi {
 			case InsuranceDeveloper : new InsuranceDeveloperUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
 			case InsuranceManager : new InsuranceManagerUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
 			case UW : new UWUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
-//			case Salesperson : new SalespersonUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
+			case Salesperson : new SalespersonUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
 //			case CompensationManager: new CompensationManagerUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
 
 		}

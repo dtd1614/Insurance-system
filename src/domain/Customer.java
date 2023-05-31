@@ -1,4 +1,4 @@
-package domain.customer;
+package domain;
 
 import java.io.Serializable;
 

@@ -3,12 +3,10 @@ package domain.Info;
 import enumeration.calculationFormula.OutwallType;
 import enumeration.calculationFormula.PillarType;
 import enumeration.calculationFormula.RoofType;
-import enumeration.calculationFormula.homeFormula.HouseType;
-import enumeration.calculationFormula.homeFormula.ResidenceType;
 
 import java.io.Serializable;
 
-public abstract class Info implements Serializable {
+public abstract class CustomerInfo implements Serializable {
     private int id;
     private String customerId;
     private int squareMeter;
@@ -16,7 +14,7 @@ public abstract class Info implements Serializable {
     private RoofType roofType;
     private OutwallType outwallType;
 
-    public Info(String customerId, int squareMeter, PillarType pillarType, RoofType roofType, OutwallType outwallType) {
+    public CustomerInfo(String customerId, int squareMeter, PillarType pillarType, RoofType roofType, OutwallType outwallType) {
         this.customerId = customerId;
         this.squareMeter = squareMeter;
         this.pillarType = pillarType;

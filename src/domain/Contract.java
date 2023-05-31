@@ -2,6 +2,7 @@ package domain;
 
 import enumeration.contract.ContractStatus;
 import enumeration.contract.ContractTerm;
+import enumeration.contract.PayStatus;
 import enumeration.contract.PaymentCycle;
 
 import java.io.Serializable;
@@ -11,10 +12,10 @@ import java.time.temporal.ChronoUnit;
 
 public class Contract implements Serializable {
     private int id;
-    private int infoId;
+    private int customerInfoId;
     private String customerId;
     private int insuranceId;
-    private int saleEmployeeId;
+    private String saleEmployeeId;
     private ContractTerm term;
     private Timestamp startDate;
     private Timestamp expirationDate;
@@ -22,10 +23,10 @@ public class Contract implements Serializable {
     private PaymentCycle paymentCycle;
     private Timestamp paymentDeadline;
     private int compensation;
-    private ContractStatus status;
+    private ContractStatus contractStatus;
 
-    public Contract(int infoId, int insuranceId, int saleEmployeeId, String customerId, ContractTerm term, int paymentFee, PaymentCycle paymentCycle, int compensation, ContractStatus status) {
-        this.infoId = infoId;
+    public Contract(int customerInfoId, int insuranceId, String saleEmployeeId, String customerId, ContractTerm term, int paymentFee, PaymentCycle paymentCycle, int compensation, ContractStatus contractStatus) {
+        this.customerInfoId = customerInfoId;
         this.insuranceId = insuranceId;
         this.saleEmployeeId = saleEmployeeId;
         this.customerId=customerId;
@@ -33,7 +34,7 @@ public class Contract implements Serializable {
         this.paymentFee = paymentFee * paymentCycle.getMonth();
         this.paymentCycle = paymentCycle;
         this.compensation = compensation;
-        this.status = status;
+        this.contractStatus = contractStatus;
     }
 
     public int getId() {
@@ -44,12 +45,12 @@ public class Contract implements Serializable {
         this.id = id;
     }
 
-    public int getInfoId() {
-        return infoId;
+    public int getCustomerInfoId() {
+        return customerInfoId;
     }
 
-    public void setInfoId(int infoId) {
-        this.infoId = infoId;
+    public void setCustomerInfoId(int customerInfoId) {
+        this.customerInfoId = customerInfoId;
     }
 
     public int getInsuranceId() {
@@ -60,11 +61,11 @@ public class Contract implements Serializable {
         this.insuranceId = insuranceId;
     }
 
-    public int getSaleEmployeeId() {
+    public String getSaleEmployeeId() {
         return saleEmployeeId;
     }
 
-    public void setSaleEmployeeId(int saleEmployeeId) {
+    public void setSaleEmployeeId(String saleEmployeeId) {
         this.saleEmployeeId = saleEmployeeId;
     }
 
@@ -124,12 +125,12 @@ public class Contract implements Serializable {
         this.compensation = compensation;
     }
 
-    public ContractStatus getStatus() {
-        return status;
+    public ContractStatus getContractStatus() {
+        return contractStatus;
     }
 
-    public void setStatus(ContractStatus status) {
-        this.status = status;
+    public void setContractStatus(ContractStatus contractStatus) {
+        this.contractStatus = contractStatus;
     }
 
 	public String getCustomerId() {
@@ -139,6 +140,14 @@ public class Contract implements Serializable {
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
+
+    public PaymentCycle getPaymentCycle() {
+        return paymentCycle;
+    }
+
+    public void setPaymentCycle(PaymentCycle paymentCycle) {
+        this.paymentCycle = paymentCycle;
+    }
 
 	public boolean paied() {
 		int cycle=PaymentCycle.getCycle(this.getPayCycle());

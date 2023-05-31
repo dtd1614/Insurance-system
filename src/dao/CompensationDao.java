@@ -1,10 +1,10 @@
-package repository;
+package dao;
 
 import domain.Compensation;
 
 import java.util.ArrayList;
 
-public class CompensationList extends DBConnector{
+public class CompensationDao extends Dao {
     private final ArrayList<Compensation> compensationList = new ArrayList<>();
     public int add(Compensation compensation) {
         if(compensationList.size()==0)compensation.setId(1);
@@ -14,6 +14,10 @@ public class CompensationList extends DBConnector{
     }
 
     public ArrayList<Compensation> retrieve() {
+        ArrayList<Compensation> compensationList = new ArrayList<>();
+        for(Compensation compensation : this.compensationList){
+            compensationList.add(compensation);
+        }
         return compensationList;
     }
 

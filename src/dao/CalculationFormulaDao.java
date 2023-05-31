@@ -1,14 +1,15 @@
-package repository;
+package dao;
 
 import java.util.ArrayList;
 
+import domain.Compensation;
 import domain.calculationFormula.CalculationFormula;
 import domain.calculationFormula.HomeFormula;
 import domain.calculationFormula.WorkplaceFormula;
 import enumeration.insurance.InsuranceType;
 
 
-public class CalculationFormulaList extends DBConnector{
+public class CalculationFormulaDao extends Dao {
 	private final ArrayList<CalculationFormula> calculationFormulaList = new ArrayList<>();
 	public int add(CalculationFormula calculationFormula) {
 		if(calculationFormulaList.size()==0) calculationFormula.setId(1);
@@ -17,6 +18,10 @@ public class CalculationFormulaList extends DBConnector{
 		else {return 0;}
 	}
 	public ArrayList<CalculationFormula> retrieve(){
+		ArrayList<CalculationFormula> calculationFormulaList = new ArrayList<>();
+		for(CalculationFormula calculationFormula : this.calculationFormulaList){
+			calculationFormulaList.add(calculationFormula);
+		}
 		return calculationFormulaList;
 	}
 	public CalculationFormula findById(int id) {

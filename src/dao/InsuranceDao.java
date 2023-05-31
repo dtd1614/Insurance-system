@@ -1,11 +1,12 @@
-package repository;
+package dao;
 import java.util.ArrayList;
 
+import domain.Employee;
 import domain.Insurance;
 import enumeration.insurance.InsuranceStatus;
 import enumeration.insurance.InsuranceType;
 
-public class InsuranceList extends DBConnector{
+public class InsuranceDao extends Dao {
 	private final ArrayList<Insurance> insuranceList = new ArrayList<>();
 	public int add(Insurance insurance){
 		if(insuranceList.size()==0)insurance.setId(1);
@@ -14,6 +15,10 @@ public class InsuranceList extends DBConnector{
 		else {return 0;}
 	}
 	public ArrayList<Insurance> retrieve(){
+		ArrayList<Insurance> insuranceList = new ArrayList<>();
+		for(Insurance insurance : this.insuranceList){
+			insuranceList.add(insurance);
+		}
 		return insuranceList;
 	}
 	public ArrayList<Insurance> findByStatus(InsuranceStatus insuranceStatus) {

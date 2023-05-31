@@ -1,4 +1,4 @@
-package enumeration.pay;
+package enumeration.contract;
 
 public enum PayStatus {
     FullPayment("완납"),

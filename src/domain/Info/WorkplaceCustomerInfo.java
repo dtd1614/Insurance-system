@@ -3,17 +3,13 @@ package domain.Info;
 import enumeration.calculationFormula.OutwallType;
 import enumeration.calculationFormula.PillarType;
 import enumeration.calculationFormula.RoofType;
-import enumeration.calculationFormula.homeFormula.HouseType;
-import enumeration.calculationFormula.homeFormula.ResidenceType;
-import enumeration.calculationFormula.workplaceFormula.Floor;
-import enumeration.calculationFormula.workplaceFormula.WorkplaceSquareMeter;
 import enumeration.calculationFormula.workplaceFormula.WorkplaceUsage;
 
-public class WorkplaceInfo extends Info {
+public class WorkplaceCustomerInfo extends CustomerInfo {
     private WorkplaceUsage usage;
     private int floor;
 
-    public WorkplaceInfo(String customerId, int squareMeter, PillarType pillarType, RoofType roofType, OutwallType outwallType, WorkplaceUsage usage, int floor) {
+    public WorkplaceCustomerInfo(String customerId, int squareMeter, PillarType pillarType, RoofType roofType, OutwallType outwallType, WorkplaceUsage usage, int floor) {
         super(customerId, squareMeter, pillarType, roofType, outwallType);
         this.usage = usage;
         this.floor = floor;

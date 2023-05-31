@@ -1,23 +1,24 @@
 package service;
 
 import domain.Sale;
-import repository.SaleList;
+import dao.SaleDao;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 public class SaleService extends UnicastRemoteObject implements SaleServiceIF {
-    private final SaleList saleList;
-    public SaleService(SaleList saleList) throws RemoteException {
-        this.saleList = saleList;
+    private final SaleDao saleDao;
+    public SaleService(SaleDao saleDao) throws RemoteException {
+        this.saleDao = saleDao;
     }
-//    @Override
-    public boolean Propose(String saleEmployeeId, String customerId, int insuranceId, String message) throws RemoteException {
+    @Override
+    public int offerInsurance(String saleEmployeeId, String customerId, int insuranceId, String message) throws RemoteException {
         Sale sale = new Sale(saleEmployeeId, customerId, insuranceId, message);
-        if(saleList.add(sale) == 0){
-            return false;
-        }else{
-            return true;
-        }
+        return saleDao.add(sale);
+    }
+    @Override
+    public ArrayList<Sale> getSaleList(String customerId) throws RemoteException{
+        ArrayList<Sale> saleList = saleDao.findByCustomerId(customerId);
     }
 }

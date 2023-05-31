@@ -1,6 +1,6 @@
 package domain;
 
-import enumeration.pay.PayStatus;
+import enumeration.contract.PayStatus;
 import enumeration.pay.PaymentMethod;
 
 import java.io.Serializable;
@@ -11,14 +11,12 @@ public class Pay implements Serializable {
     private PaymentMethod paymentMethod;
     private int accountNumber;
     private int cardNumber;
-    private PayStatus status;
 
-    public Pay(int contractId, PaymentMethod paymentMethod, int accountNumber, int cardNumber, PayStatus status) {
+    public Pay(int contractId, PaymentMethod paymentMethod, int accountNumber, int cardNumber) {
         this.contractId = contractId;
         this.paymentMethod = paymentMethod;
         this.accountNumber = accountNumber;
         this.cardNumber = cardNumber;
-        this.status = status;
     }
 
     public int getId() {
@@ -61,17 +59,8 @@ public class Pay implements Serializable {
         this.cardNumber = cardNumber;
     }
 
-    public PayStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(PayStatus status) {
-        this.status = status;
-    }
-
-	public boolean paied() {
-		this.setStatus(PayStatus.FullPayment);
-		return true;
-		
-	}
+//	public boolean paied() {
+//		this.setStatus(PayStatus.FullPayment);
+//		return true;
+//	}
 }

@@ -1,8 +1,9 @@
-package repository;
+package dao;
 import java.util.ArrayList;
 
-import domain.customer.Customer;
-public class CustomerList extends DBConnector{
+import domain.Compensation;
+import domain.Customer;
+public class CustomerDao extends Dao {
 	private final ArrayList<Customer> customerList = new ArrayList<>();
 
 	public boolean add(Customer customer){
@@ -10,6 +11,10 @@ public class CustomerList extends DBConnector{
 	}
 
 	public ArrayList<Customer> retrieve(){
+		ArrayList<Customer> customerList = new ArrayList<>();
+		for(Customer customer : this.customerList){
+			customerList.add(customer);
+		}
 		return customerList;
 	}
 

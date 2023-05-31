@@ -1,25 +1,25 @@
 package service;
 
-import domain.Info.Info;
+import domain.Info.CustomerInfo;
 import exception.NoDataException;
-import repository.InfoList;
+import dao.CustomerInfoDao;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class InfoService extends UnicastRemoteObject implements InfoServiceIF{
-    private final InfoList infoList;
-    public InfoService(InfoList infoList) throws RemoteException {
-        this.infoList = infoList;
+    private final CustomerInfoDao customerInfoDao;
+    public InfoService(CustomerInfoDao customerInfoDao) throws RemoteException {
+        this.customerInfoDao = customerInfoDao;
     }
-//    @Override
-    public Info getInfo(int infoId) throws RemoteException, NoDataException {
-        Info info = infoList.findById(infoId);
-        if(info==null) throw new NoDataException("존재하지 않는 정보입니다.");
-        return info;
+    @Override
+    public CustomerInfo getInfo(int infoId) throws RemoteException, NoDataException {
+        CustomerInfo customerInfo = customerInfoDao.findById(infoId);
+        if(customerInfo ==null) throw new NoDataException("존재하지 않는 정보입니다.");
+        return customerInfo;
     }
-
-    public int makeInfo(Info info) {
-        return infoList.add(info);
+    @Override
+    public int makeInfo(CustomerInfo customerInfo) throws RemoteException {
+        return customerInfoDao.add(customerInfo);
     }
 }

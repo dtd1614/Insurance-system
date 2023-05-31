@@ -4,36 +4,36 @@ import domain.Accident;
 import enumeration.accident.AccidentStatus;
 import exception.EmptyListException;
 import exception.NoDataException;
-import repository.AccidentList;
+import dao.AccidentDao;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class AccidentService extends UnicastRemoteObject implements AccidentServiceIF{
-    private final AccidentList accidentList;
-    public AccidentService(AccidentList accidentList) throws RemoteException {
-        this.accidentList = accidentList;
+    private final AccidentDao accidentDao;
+    public AccidentService(AccidentDao accidentDao) throws RemoteException {
+        this.accidentDao = accidentDao;
     }
 //    @Override
     public ArrayList<Accident> getAccidentList(AccidentStatus status) throws RemoteException, EmptyListException {
-        ArrayList<Accident> accidentList = this.accidentList.findByStatus(status);
+        ArrayList<Accident> accidentList = this.accidentDao.findByStatus(status);
         if(accidentList.isEmpty()) throw new EmptyListException("사고접수내역이 없습니다.");
         return accidentList;
     }
 //    @Override
     public Accident getAccident(int id) throws RemoteException, NoDataException {
-        Accident accident = this.accidentList.findById(id);
-        if(accidentList == null) throw new NoDataException("존재하지 않는 사고입니다.");
-        return accidentList.findById(id);
+        Accident accident = this.accidentDao.findById(id);
+        if(accidentDao == null) throw new NoDataException("존재하지 않는 사고입니다.");
+        return accidentDao.findById(id);
     }
 //    @Override
     public int reportAccident(Accident accident) throws RemoteException {
-        return this.accidentList.add(accident);
+        return this.accidentDao.add(accident);
     }
 //    @Override
     public boolean examineAccident(int id, AccidentStatus status) throws RemoteException{
-        return accidentList.update(id, status);
+        return accidentDao.update(id, status);
     }
 
 }

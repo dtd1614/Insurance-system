@@ -6,6 +6,7 @@ public enum ContractStatus {
     Underwrite("인수완료"),
     Conclude("체결완료");
 
+
     private final String name;
 
     ContractStatus(String name){

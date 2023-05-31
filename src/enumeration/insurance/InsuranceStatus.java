@@ -4,9 +4,7 @@ public enum InsuranceStatus {
 	
 	UnderAuthorize("인가심사중"),
 	RefuseAuthorize("인가거절"),
-	Authorize("인가완료"),
-	StopSale("판매중지");
-	
+	Authorize("인가완료");
 	private final String name;
 	
 	InsuranceStatus(String name){

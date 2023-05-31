@@ -1,12 +1,11 @@
-package repository;
+package dao;
 
 import domain.Accident;
-import domain.calculationFormula.CalculationFormula;
 import enumeration.accident.AccidentStatus;
 
 import java.util.ArrayList;
 
-public class AccidentList extends DBConnector{
+public class AccidentDao extends Dao {
     private final ArrayList<Accident> accidentList = new ArrayList<>();
     public int add(Accident accident) {
         if(accidentList.size()==0) accident.setId(1);

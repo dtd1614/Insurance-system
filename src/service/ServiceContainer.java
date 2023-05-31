@@ -1,6 +1,6 @@
 package service;
 
-import repository.*;
+import dao.*;
 
 import java.rmi.RemoteException;
 
@@ -14,22 +14,20 @@ public class ServiceContainer {
     private final InfoService infoService;
     private final InsuranceService insuranceService;
     private final PayService payService;
-    private final PolicyService policyService;
     private final SaleService saleService;
 
 
     public ServiceContainer() throws RemoteException {
-        this.accidentService = new AccidentService(new AccidentList());
-        this.calculationFormulaService = new CalculationFormulaService(new CalculationFormulaList());
-        this.compensateService = new CompensateService(new CompensationList());
-        this.contractService = new ContractService(new ContractList());
-        this.customerService = new CustomerService(new CustomerList());
-        this.employeeService = new EmployeeService(new EmployeeList());
-        this.infoService = new InfoService(new InfoList());
-        this.insuranceService = new InsuranceService(new InsuranceList());
-        this.payService = new PayService(new PayList());
-        this.policyService = new PolicyService(new PolicyList());
-        this.saleService = new SaleService(new SaleList());
+        this.accidentService = new AccidentService(new AccidentDao());
+        this.calculationFormulaService = new CalculationFormulaService(new CalculationFormulaDao());
+        this.compensateService = new CompensateService(new CompensationDao());
+        this.contractService = new ContractService(new ContractDao());
+        this.customerService = new CustomerService(new CustomerDao());
+        this.employeeService = new EmployeeService(new EmployeeDao());
+        this.infoService = new InfoService(new CustomerInfoDao());
+        this.insuranceService = new InsuranceService(new InsuranceDao());
+        this.payService = new PayService(new PayDao());
+        this.saleService = new SaleService(new SaleDao());
     }
 
     public AccidentService getAccidentService() {
@@ -67,11 +65,7 @@ public class ServiceContainer {
     public PayService getPayService() {
         return payService;
     }
-
-    public PolicyService getPolicyService() {
-        return policyService;
-    }
-
+    
     public SaleService getSaleService() {
         return saleService;
     }

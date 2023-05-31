@@ -16,7 +16,6 @@ import enumeration.calculationFormula.workplaceFormula.Floor;
 import enumeration.calculationFormula.workplaceFormula.WorkplaceCompensation;
 import enumeration.calculationFormula.workplaceFormula.WorkplaceSquareMeter;
 import enumeration.calculationFormula.workplaceFormula.WorkplaceUsage;
-import enumeration.employee.Department;
 import enumeration.insurance.InsuranceStatus;
 import enumeration.insurance.InsuranceType;
 import exception.EmptyListException;
@@ -357,7 +356,7 @@ public class InsuranceDeveloperUi {
 	private void printExamineResult() throws RemoteException {
 		System.out.println("******************** 인가 요청 결과 *********************");
 		ArrayList<Insurance> authorizationResultList = null;
-		try {authorizationResultList = serviceContainer.getInsuranceService().getAuthorizationResultList();}
+		try {authorizationResultList = serviceContainer.getInsuranceService().getInsuranceList();}
 		catch (EmptyListException e) {System.err.println(e.getMessage()); return;}
 		System.out.println("아이디\t이름\t유형\t심사결과");
 		for(Insurance insurance : authorizationResultList){

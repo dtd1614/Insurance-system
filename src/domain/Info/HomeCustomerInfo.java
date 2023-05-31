@@ -3,16 +3,14 @@ package domain.Info;
 import enumeration.calculationFormula.OutwallType;
 import enumeration.calculationFormula.PillarType;
 import enumeration.calculationFormula.RoofType;
-import enumeration.calculationFormula.homeFormula.HomeSquareMeter;
 import enumeration.calculationFormula.homeFormula.HouseType;
 import enumeration.calculationFormula.homeFormula.ResidenceType;
-import enumeration.calculationFormula.workplaceFormula.WorkplaceUsage;
 
-public class HomeInfo extends Info {
+public class HomeCustomerInfo extends CustomerInfo {
     private HouseType houseType;
     private ResidenceType residenceType;
 
-    public HomeInfo(String customerId, int squareMeter, PillarType pillarType, RoofType roofType, OutwallType outwallType, HouseType houseType, ResidenceType residenceType) {
+    public HomeCustomerInfo(String customerId, int squareMeter, PillarType pillarType, RoofType roofType, OutwallType outwallType, HouseType houseType, ResidenceType residenceType) {
         super(customerId, squareMeter, pillarType, roofType, outwallType);
         this.houseType = houseType;
         this.residenceType = residenceType;
