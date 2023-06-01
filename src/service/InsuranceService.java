@@ -20,28 +20,28 @@ public class InsuranceService extends UnicastRemoteObject implements InsuranceSe
     @Override
     public ArrayList<Insurance> getInsuranceList() throws RemoteException, EmptyListException {
         ArrayList<Insurance> insuranceList = this.insuranceDao.retrieve();
-        if(insuranceList.isEmpty()) throw new EmptyListException("목록이 존재하지 않습니다.");
+        if(insuranceList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
         return insuranceList;
     }
     @Override
     public ArrayList<Insurance> getInsuranceList(InsuranceStatus insuranceStatus) throws RemoteException, EmptyListException {
         ArrayList<Insurance> insuranceList = this.insuranceDao.findByStatus(insuranceStatus);
-        if(insuranceList.isEmpty()) throw new EmptyListException("목록이 존재하지 않습니다.");
+        if(insuranceList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
         return insuranceList;
     }
     @Override
     public ArrayList<Insurance> getInsuranceList(InsuranceType type, InsuranceStatus status) throws RemoteException, EmptyListException {
-        ArrayList<Insurance> insuranceList = this.insuranceDao.findByStatus(status);
-        for(Insurance insurance : insuranceList){
-            if(insurance.getType()!=type) insuranceList.remove(insurance);
+        ArrayList<Insurance> insuranceList = new ArrayList<>();
+        for(Insurance insurance : this.insuranceDao.findByStatus(status)){
+            if(insurance.getType()==type) insuranceList.add(insurance);
         }
-        if(insuranceList.isEmpty()) throw new EmptyListException("목록이 존재하지 않습니다.");
+        if(insuranceList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
         return insuranceList;
     }
     @Override
     public Insurance getInsurance(int selectedInsuranceId) throws RemoteException, NoDataException {
         Insurance insurance = this.insuranceDao.findById(selectedInsuranceId);
-        if(insurance == null) throw new NoDataException("존재하지 않는 보험입니다.");
+        if(insurance == null) throw new NoDataException("! 존재하지 않는 보험입니다.");
         return insurance;
     }
 

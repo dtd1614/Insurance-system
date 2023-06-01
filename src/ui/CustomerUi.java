@@ -63,7 +63,7 @@ public class CustomerUi {
 				case "6" : printSearchOfferMenu(); break;
 				case "0" : return;
 				case "x" : System.exit(0);
-				default : System.err.println("잘못된 입력입니다.");
+				default : System.out.println("! 잘못된 입력입니다.");
 			}
 		}
 	}
@@ -75,7 +75,7 @@ public class CustomerUi {
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
 			ArrayList<Insurance> insuranceList;
 			try {insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceStatus.Authorize);}
-			catch (EmptyListException e) {System.err.println(e.getMessage()); return;}
+			catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
 			System.out.println("아이디\t이름\t유형");
 			for(Insurance insurance : insuranceList){
 				System.out.println(insurance.getId()
@@ -85,12 +85,12 @@ public class CustomerUi {
 			System.out.print("보험 아이디 : ");
 			int insuranceId;
 			try {insuranceId = Integer.parseInt(userInput.readLine().trim());}
-			catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); continue;}
+			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if (insuranceId == 0) return;
 			Insurance selectedInsurance = null;
 			for(Insurance insurance : insuranceList) {if(insurance.getId()==insuranceId) selectedInsurance = insurance;}
-			if(selectedInsurance == null){System.err.println("잘못된 입력입니다."); continue;}
-			printInsuranceDetail(selectedInsurance);
+			if(selectedInsurance == null){System.out.println("! 잘못된 입력입니다."); continue;}
+			printInsuranceDetail(selectedInsurance); return;
 		}
 	}
 
@@ -110,10 +110,10 @@ public class CustomerUi {
 			if (choice.equals("0")) {
 				return;
 			} else if(choice.equals("1")){
-				if(insurance.getType()==InsuranceType.WorkplaceFire) printWorkplaceFireApplyForm(insurance);
-				else printHomeFireApplyForm(insurance);
+				if(insurance.getType()==InsuranceType.WorkplaceFire) {printWorkplaceFireApplyForm(insurance); return;}
+				else {printHomeFireApplyForm(insurance); return;}
 			}  else {
-				System.err.println("잘못된 입력입니다.");
+				System.out.println("! 잘못된 입력입니다.");
 			}
 		}
 	}
@@ -139,7 +139,7 @@ public class CustomerUi {
 				case "8" :  workplaceUsage = WorkplaceUsage.values()[7]; break;
 				case "9" :  workplaceUsage = WorkplaceUsage.values()[8]; break;
 				case "10" :  workplaceUsage = WorkplaceUsage.values()[9]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 
 			System.out.println("사업장 면적(㎡)을 입력하세요.");
@@ -153,9 +153,9 @@ public class CustomerUi {
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
 			int squareMeter;
 			try {squareMeter = Integer.parseInt(userInput.readLine().trim());}
-			catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); continue;}
+			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if(squareMeter == 0) return;
-			if(squareMeter < minWorkplaceSquareMeter || squareMeter > maxWorkplaceSquareMeter) {System.err.println("잘못된 입력입니다."); continue;}
+			if(squareMeter < minWorkplaceSquareMeter || squareMeter > maxWorkplaceSquareMeter) {System.out.println("! 잘못된 입력입니다."); continue;}
 
 			System.out.println("건물층수를 입력하세요.");
 			int minFloor = Floor.values()[Floor.values().length-1].getMinFloor();
@@ -168,9 +168,9 @@ public class CustomerUi {
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
 			int floor;
 			try {floor = Integer.parseInt(userInput.readLine().trim());}
-			catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); continue;}
+			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if(floor == 0) return;
-			if(floor < minFloor || floor > maxFloor) {System.err.println("잘못된 입력입니다."); continue;}
+			if(floor < minFloor || floor > maxFloor) {System.out.println("! 잘못된 입력입니다."); continue;}
 
 			System.out.println("기둥형태를 선택하세요.");
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
@@ -182,7 +182,7 @@ public class CustomerUi {
 				case "0" :  return;
 				case "1" :  pillarType = PillarType.values()[0]; break;
 				case "2" :  pillarType = PillarType.values()[1]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 
 			System.out.println("지붕형태를 선택하세요.");
@@ -195,7 +195,7 @@ public class CustomerUi {
 				case "0" :  return;
 				case "1" :  roofType = RoofType.values()[0]; break;
 				case "2" :  roofType = RoofType.values()[1]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 
 			System.out.println("외벽형태를 선택하세요.");
@@ -208,7 +208,9 @@ public class CustomerUi {
 				case "0" :  return;
 				case "1" :  outwallType = OutwallType.values()[0]; break;
 				case "2" :  outwallType = OutwallType.values()[1]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				case "3" :  outwallType = OutwallType.values()[2]; break;
+				case "4" :  outwallType = OutwallType.values()[3]; break;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 			DecimalFormat decFormat = new DecimalFormat("###,###");
 			System.out.println("보상금(원)을 입력하세요.");
@@ -218,7 +220,7 @@ public class CustomerUi {
 				minCompensation = serviceContainer.getCalculationFormulaService().calculateMinCompensation(squareMeter, insurance.getCalculationFormulaId());
 				maxCompensation = serviceContainer.getCalculationFormulaService().calculateMaxCompensation(squareMeter, insurance.getCalculationFormulaId());
 			} catch (NoDataException e) {
-				System.err.println(e.getMessage()); return;
+				System.out.println(e.getMessage()); return;
 			}
 			System.out.println("입력가능범위는 ["
 					+ decFormat.format(minCompensation)
@@ -228,9 +230,9 @@ public class CustomerUi {
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
 			int compensation;
 			try {compensation = Integer.parseInt(userInput.readLine().trim());}
-			catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); continue;}
+			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if(compensation == 0) return;
-			if(compensation < minCompensation || compensation > maxCompensation) {System.err.println("잘못된 입력입니다."); continue;}
+			if(compensation < minCompensation || compensation > maxCompensation) {System.out.println("! 잘못된 입력입니다."); continue;}
 
 			CustomerInfo customerInfo = new WorkplaceCustomerInfo(customerId, squareMeter, pillarType, roofType, outwallType, workplaceUsage, floor);
 
@@ -239,7 +241,7 @@ public class CustomerUi {
 			try {
 				payment = serviceContainer.getCalculationFormulaService().calculatePayment(customerInfo, compensation, insurance.getCalculationFormulaId());
 			} catch (NoDataException e) {
-				System.err.println(e.getMessage()); return;
+				System.out.println(e.getMessage()); return;
 			}
 			System.out.println("월 보험료는 [" + decFormat.format(payment) + "]원 입니다.");
 
@@ -256,7 +258,7 @@ public class CustomerUi {
 				case "3" :  contractTerm = ContractTerm.values()[2]; break;
 				case "4" :  contractTerm = ContractTerm.values()[3]; break;
 				case "5" :  contractTerm = ContractTerm.values()[4]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 
 			System.out.println("납입 주기를 입력하세요.");
@@ -270,24 +272,24 @@ public class CustomerUi {
 				case "1" :  paymentCycle = PaymentCycle.values()[0]; break;
 				case "2" :  paymentCycle = PaymentCycle.values()[1]; break;
 				case "3" :  paymentCycle = PaymentCycle.values()[2]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 
 			System.out.println("해당 보험을 추천한 영업사원이 있다면 해당 영업사원의 아이디를 입력하세요.");
 			System.out.println("없는 경우에는 빈칸을 입력하세요.");
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
 			String salespersonId = userInput.readLine().trim();
-			if(salespersonId.contains(" ")) {System.err.println("잘못된 입력입니다."); continue;}
+			if(salespersonId.contains(" ")) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if (salespersonId.equals("0")) return;
 			if(!salespersonId.isEmpty()){
 				try {serviceContainer.getEmployeeService().getEmployee(salespersonId, Department.Salesperson);}
-				catch (NoDataException e) {System.err.println(e.getMessage()); continue;}
+				catch (NoDataException e) {System.out.println(e.getMessage()); continue;}
 			}
 
 			int infoId = serviceContainer.getInfoService().makeInfo(customerInfo);
 			Contract contract = new Contract(infoId, insurance.getId(), salespersonId, customerId, contractTerm, payment, paymentCycle, compensation, ContractStatus.Apply);
 			int contractId = serviceContainer.getContractService().applyInsurance(contract);
-			if(contractId==0) {System.err.println("가입신청이 실패하였습니다."); continue;}
+			if(contractId==0) {System.out.println("가입신청이 실패하였습니다."); continue;}
 			System.out.println("가입신청이 완료되었습니다.");
 			System.out.println("계약아이디는 " + contractId + "입니다.");
 			return;
@@ -307,7 +309,7 @@ public class CustomerUi {
 				case "0" :  return;
 				case "1" :  residenceType = ResidenceType.values()[0]; break;
 				case "2" :  residenceType = ResidenceType.values()[1]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 
 			System.out.println("주택유형을 선택하세요.");
@@ -320,7 +322,7 @@ public class CustomerUi {
 				case "0" :  return;
 				case "1" :  houseType = HouseType.values()[0]; break;
 				case "2" :  houseType = HouseType.values()[1]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 
 			System.out.println("주택 면적(㎡)을 입력하세요.");
@@ -334,9 +336,9 @@ public class CustomerUi {
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
 			int squareMeter;
 			try {squareMeter = Integer.parseInt(userInput.readLine().trim());}
-			catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); continue;}
+			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if(squareMeter == 0) return;
-			if(squareMeter < minHomeSquareMeter || squareMeter > maxHomeSquareMeter) {System.err.println("잘못된 입력입니다."); continue;}
+			if(squareMeter < minHomeSquareMeter || squareMeter > maxHomeSquareMeter) {System.out.println("! 잘못된 입력입니다."); continue;}
 
 			System.out.println("기둥형태를 선택하세요.");
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
@@ -348,7 +350,7 @@ public class CustomerUi {
 				case "0" :  return;
 				case "1" :  pillarType = PillarType.values()[0]; break;
 				case "2" :  pillarType = PillarType.values()[1]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 
 			System.out.println("지붕형태를 선택하세요.");
@@ -361,7 +363,7 @@ public class CustomerUi {
 				case "0" :  return;
 				case "1" :  roofType = RoofType.values()[0]; break;
 				case "2" :  roofType = RoofType.values()[1]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 
 			System.out.println("외벽형태를 선택하세요.");
@@ -374,7 +376,9 @@ public class CustomerUi {
 				case "0" :  return;
 				case "1" :  outwallType = OutwallType.values()[0]; break;
 				case "2" :  outwallType = OutwallType.values()[1]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				case "3" :  outwallType = OutwallType.values()[2]; break;
+				case "4" :  outwallType = OutwallType.values()[3]; break;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 			DecimalFormat decFormat = new DecimalFormat("###,###");
 			System.out.println("보상금(원)을 입력하세요.");
@@ -384,7 +388,7 @@ public class CustomerUi {
 				minCompensation = serviceContainer.getCalculationFormulaService().calculateMinCompensation(squareMeter, insurance.getCalculationFormulaId());
 				maxCompensation = serviceContainer.getCalculationFormulaService().calculateMaxCompensation(squareMeter, insurance.getCalculationFormulaId());
 			} catch (NoDataException e) {
-				System.err.println(e.getMessage()); return;
+				System.out.println(e.getMessage()); return;
 			}
 			System.out.println("입력가능범위는 ["
 					+ decFormat.format(minCompensation)
@@ -394,9 +398,9 @@ public class CustomerUi {
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
 			int compensation;
 			try {compensation = Integer.parseInt(userInput.readLine().trim());}
-			catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); continue;}
+			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if(compensation == 0) return;
-			if(compensation < minCompensation || compensation > maxCompensation) {System.err.println("잘못된 입력입니다."); continue;}
+			if(compensation < minCompensation || compensation > maxCompensation) {System.out.println("! 잘못된 입력입니다."); continue;}
 
 			CustomerInfo customerInfo = new HomeCustomerInfo(customerId, squareMeter, pillarType, roofType, outwallType, houseType, residenceType);
 
@@ -405,7 +409,7 @@ public class CustomerUi {
 			try {
 				payment = serviceContainer.getCalculationFormulaService().calculatePayment(customerInfo, compensation, insurance.getCalculationFormulaId());
 			} catch (NoDataException e) {
-				System.err.println(e.getMessage()); return;
+				System.out.println(e.getMessage()); return;
 			}
 
 			System.out.println("월 보험료는 [" + decFormat.format(payment) + "]원 입니다.");
@@ -423,7 +427,7 @@ public class CustomerUi {
 				case "3" :  contractTerm = ContractTerm.values()[2]; break;
 				case "4" :  contractTerm = ContractTerm.values()[3]; break;
 				case "5" :  contractTerm = ContractTerm.values()[4]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 
 			System.out.println("납입 주기를 입력하세요.");
@@ -437,23 +441,23 @@ public class CustomerUi {
 				case "1" :  paymentCycle = PaymentCycle.values()[0]; break;
 				case "2" :  paymentCycle = PaymentCycle.values()[1]; break;
 				case "3" :  paymentCycle = PaymentCycle.values()[2]; break;
-				default : System.err.println("잘못된 입력입니다."); continue;
+				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
 
 			System.out.println("해당 보험을 추천한 영업사원이 있다면 해당 영업사원의 아이디를 입력하세요.");
 			System.out.println("없는 경우에는 빈칸을 입력하세요.");
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
 			String salespersonId = userInput.readLine().trim();
-			if(salespersonId.contains(" ")) {System.err.println("잘못된 입력입니다."); continue;}
+			if(salespersonId.contains(" ")) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if (salespersonId.equals("0")) return;
 			if(!salespersonId.isEmpty()){
 				try {serviceContainer.getEmployeeService().getEmployee(salespersonId, Department.Salesperson);}
-				catch (NoDataException e) {System.err.println(e.getMessage()); continue;}
+				catch (NoDataException e) {System.out.println(e.getMessage()); continue;}
 			}
 			int infoId = serviceContainer.getInfoService().makeInfo(customerInfo);
 			Contract contract = new Contract(infoId, insurance.getId(), salespersonId, customerId, contractTerm, payment, paymentCycle, compensation, ContractStatus.Apply);
 			int contractId = serviceContainer.getContractService().applyInsurance(contract);
-			if(contractId==0) {System.err.println("가입신청이 실패하였습니다."); return;}
+			if(contractId==0) {System.out.println("가입신청이 실패하였습니다."); return;}
 			System.out.println("가입신청이 완료되었습니다.");
 			System.out.println("신청아이디는 " + contractId + "입니다.");
 			return;
@@ -463,49 +467,49 @@ public class CustomerUi {
 		while (true) {
 			ArrayList<Contract> contractList;
 			try {contractList = serviceContainer.getContractService().getContractList(customerId, ContractStatus.Conclude);}
-			catch (EmptyListException e) {System.err.println(e.getMessage()); return;}
+			catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
 			System.out.println("******************** 계약조회 메뉴 *********************");
 			System.out.println("조회할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
 			System.out.println("아이디\t고객아이디\t보험아이디\t보험유형");
 			for(Contract contract : contractList) {
-				System.out.println(contract.getId()
-						+ "\t" + contract.getCustomerId()
-						+ "\t" + contract.getInsuranceId());
 				InsuranceType insuranceType;
 				try {insuranceType = serviceContainer.getInsuranceService().getInsurance(contract.getInsuranceId()).getType();}
-				catch (NoDataException e) {System.err.println(e.getMessage()); return;}
-				System.out.println("\t" + insuranceType.getName());
+				catch (NoDataException e) {System.out.println(e.getMessage()); return;}
+				System.out.println(contract.getId()
+						+ "\t" + contract.getCustomerId()
+						+ "\t" + contract.getInsuranceId()
+						+ "\t" + insuranceType.getName()
+				);
+				System.out.println();
 			}
 			System.out.print("계약 아이디 : ");
 			int id;
 			try {id = Integer.parseInt(userInput.readLine().trim());}
-			catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); continue;}
+			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if(id==0) return;
 			Contract selectedContract = null;
 			for(Contract contract : contractList) {if(contract.getId()==id) selectedContract = contract;}
-			if(selectedContract==null){System.err.println("잘못된 입력입니다."); continue;}
-			printContractDetail(selectedContract);
+			if(selectedContract==null){System.out.println("! 잘못된 입력입니다."); continue;}
+			printContractDetail(selectedContract); return;
 		}
 	}
 
 	private void printContractDetail(Contract contract) {
-		while (true){
-			DecimalFormat decFormat = new DecimalFormat("###,###");
-			System.out.println("******************** 계약 상세내용 *********************");
-			System.out.println("아이디 : " + contract.getId()
-					+ "\n고객 아이디 : " + contract.getCustomerId()
-					+ "\n보험 아이디 : " + contract.getInsuranceId()
-					+ "\n영업사원 아이디 : " + contract.getSaleEmployeeId()
-					+ "\n계약 기간 : " + contract.getTerm().getYear() + "년"
-					+ "\n계약 시작일 : " + contract.getStartDate()
-					+ "\n계약 만료일 : " + contract.getExpirationDate()
-					+ "\n보험료 : " + decFormat.format(contract.getPaymentFee()) + "원"
-					+ "\n납부주기 : " + contract.getPaymentCycle() + "월납"
-					+ "\n납부기한 : " + contract.getPaymentDeadline()
-					+ "\n보상금 : " + decFormat.format(contract.getCompensation()) + "원"
-					+ "\n계약상태 : " + contract.getContractStatus().getName()
-			);
-		}
+		DecimalFormat decFormat = new DecimalFormat("###,###");
+		System.out.println("******************** 계약 상세내용 *********************");
+		System.out.println("아이디 : " + contract.getId()
+				+ "\n고객 아이디 : " + contract.getCustomerId()
+				+ "\n보험 아이디 : " + contract.getInsuranceId()
+				+ "\n영업사원 아이디 : " + contract.getSaleEmployeeId()
+				+ "\n계약 기간 : " + contract.getTerm().getYear() + "년"
+				+ "\n계약 시작일 : " + contract.getStartDate()
+				+ "\n계약 만료일 : " + contract.getExpirationDate()
+				+ "\n보험료 : " + decFormat.format(contract.getPaymentFee()) + "원"
+				+ "\n납부주기 : " + contract.getPaymentCycle().getMonth() + "월납"
+				+ "\n납부기한 : " + contract.getPaymentDeadline()
+				+ "\n보상금 : " + decFormat.format(contract.getCompensation()) + "원"
+				+ "\n계약상태 : " + contract.getContractStatus().getName()
+		);
 	}
 
 	private void printSearchExamineResultMenu() throws IOException {
@@ -515,10 +519,10 @@ public class CustomerUi {
 			System.out.println("2. 사고심사결과조회");
 			System.out.println("0. 뒤로가기");
 			switch(userInput.readLine().trim()) {
-				case "1" : printApplyInsuranceResult(); break;
-				case "2" : printReportAccidentResult(); break;
+				case "1" : printApplyInsuranceResult(); return; 
+				case "2" : printReportAccidentResult(); return;
 				case "0" : return;
-				default : System.err.println("잘못된 입력입니다.");
+				default : System.out.println("! 잘못된 입력입니다.");
 			}
 		}
 	}
@@ -526,7 +530,7 @@ public class CustomerUi {
 		System.out.println("******************** 가입 요청 결과 *********************");
 		ArrayList<Contract> applyInsuranceResultList = null;
 		try {applyInsuranceResultList = serviceContainer.getContractService().getContractList(customerId);}
-		catch (EmptyListException e) {System.err.println(e.getMessage()); return;}
+		catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
 		System.out.println("아이디\t보험아이디\t심사결과");
 		for(Contract contract : applyInsuranceResultList){
 			System.out.println(contract.getId()
@@ -542,6 +546,19 @@ public class CustomerUi {
 	}
 	private void printSearchOfferMenu() throws RemoteException {
 		System.out.println("******************** 보험제안 목록 *********************");
-		ArrayList<Sale> saleList = serviceContainer.getSaleService().getSaleList(customerId);
+		ArrayList<Sale> saleList = null;
+		try {
+			saleList = serviceContainer.getSaleService().getSaleList(customerId);
+		} catch (EmptyListException e) {
+			System.out.println(e.getMessage()); return;
+		}
+		System.out.println("아이디\t영업사원아이디\t추천보험아이디\t 메시지");
+		for(Sale sale : saleList){
+			System.out.println(sale.getId()
+					+ "\t" + sale.getSaleEmployeeId()
+					+ "\t" + sale.getInsuranceId()
+					+ "\t" + sale.getMessage()
+			);
+		}
 	}
 }

@@ -30,14 +30,14 @@ public class SalespersonUi {
             System.out.println("******************** 영업사원 메인 메뉴 *********************");
             System.out.println("1. 계약체결");
             System.out.println("2. 보험제안");
-            System.out.println("3. 로그아웃");
+            System.out.println("0. 로그아웃");
             System.out.println("x. 종료");
             switch(userInput.readLine().trim()) {
                 case "1" : printConcludeMenu();break;
                 case "2" : printOfferInsuranceMenu(); break;
                 case "0" : return;
                 case "x" : System.exit(0);
-                default : System.err.println("잘못된 입력입니다.");
+                default : System.out.println("! 잘못된 입력입니다.");
             }
         }
     }
@@ -45,7 +45,7 @@ public class SalespersonUi {
         while (true) {
             ArrayList<Contract> contractList = null;
             try {contractList = serviceContainer.getContractService().getContractList(ContractStatus.Underwrite);}
-            catch (EmptyListException e) {System.err.println(e.getMessage()); return;}
+            catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
             System.out.println("******************** 계약체결 메뉴 *********************");
             System.out.println("체결할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
             System.out.println("아이디\t고객아이디\t보험아이디");
@@ -57,12 +57,12 @@ public class SalespersonUi {
             System.out.print("계약 아이디 : ");
             int id;
             try {id = Integer.parseInt(userInput.readLine().trim());}
-            catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); continue;}
+            catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
             if(id==0) return;
             Contract selectedContract = null;
             for(Contract contract : contractList) {if(contract.getId()==id) selectedContract = contract;}
-            if(selectedContract==null){System.err.println("잘못된 입력입니다."); continue;}
-            printContractDetail(selectedContract);
+            if(selectedContract==null){System.out.println("! 잘못된 입력입니다."); continue;}
+            printContractDetail(selectedContract); return;
         }
     }
     private void printContractDetail(Contract contract) throws IOException {
@@ -75,7 +75,7 @@ public class SalespersonUi {
                 customer = serviceContainer.getCustomerService().getCustomer(contract.getCustomerId());
                 insurance = serviceContainer.getInsuranceService().getInsurance(contract.getInsuranceId());
             } catch (NoDataException e) {
-                System.err.println(e.getMessage()); return;
+                System.out.println(e.getMessage()); return;
             }
             System.out.println("고객 아이디 : " + customer.getId()
                     + "\n고객 이름 : " + customer.getName()
@@ -94,9 +94,9 @@ public class SalespersonUi {
                 try {isSuccess = serviceContainer.getContractService().conclude(contract.getId());}
                 catch (NoDataException e) {throw new RuntimeException(e);}
                 if(isSuccess) {System.out.println("체결되었습니다."); return;}
-                else {System.err.println("체결이 실패되었습니다."); return;}
+                else {System.out.println("체결이 실패되었습니다."); return;}
             } else {
-                System.err.println("잘못된 입력입니다.");
+                System.out.println("! 잘못된 입력입니다.");
             }
         }
     }
@@ -104,22 +104,23 @@ public class SalespersonUi {
         while (true) {
             ArrayList<Customer> customerList = null;
             try {customerList = serviceContainer.getCustomerService().getCustomerList();}
-            catch (EmptyListException e) {System.err.println(e.getMessage()); return;}
+            catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
             System.out.println("******************** 보험제안 메뉴 *********************");
             System.out.println("보험제안할 고객의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
-            System.out.println("아이디\t고객아이디\t보험아이디");
+            System.out.println("고객아이디\t고객이름");
             for(Customer customer : customerList) {
                 System.out.println(customer.getId()
-                        + "\t" + customer.getName());
+                        + "\t" + customer.getName()
+                );
             }
             System.out.print("고객 아이디 : ");
             String id = userInput.readLine().trim();
-            if(id.contains(" ")||id.isEmpty()) {System.err.println("잘못된 입력입니다."); continue;}
+            if(id.contains(" ")||id.isEmpty()) {System.out.println("! 잘못된 입력입니다."); continue;}
             if(id.equals("0")) return;
             Customer selectedCustomer = null;
             for(Customer customer : customerList) {if(customer.getId().equals(id)) selectedCustomer = customer;}
-            if(selectedCustomer==null){System.err.println("잘못된 입력입니다."); continue;}
-            printCustomerDetailAndInsuranceList(selectedCustomer);
+            if(selectedCustomer==null){System.out.println("! 잘못된 입력입니다."); continue;}
+            printCustomerDetailAndInsuranceList(selectedCustomer); return;
         }
     }
 
@@ -141,13 +142,15 @@ public class SalespersonUi {
 
             ArrayList<Insurance> insuranceList = null;
             try {
-                if(!customer.isHasHome() && !customer.isHasWorkplace()){insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceStatus.Authorize);}
-                else if(!customer.isHasHome()){insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceType.HomeFire, InsuranceStatus.Authorize);}
-                else{insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceType.WorkplaceFire, InsuranceStatus.Authorize);}
+                if(customer.isHasHome() && customer.isHasWorkplace()){insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceStatus.Authorize);}
+                else if(customer.isHasHome()){insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceType.HomeFire, InsuranceStatus.Authorize);}
+                else if(customer.isHasWorkplace()){insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceType.WorkplaceFire, InsuranceStatus.Authorize);}
             } catch (EmptyListException e) {
-                System.err.println(e.getMessage()); return;
+                System.out.println(e.getMessage());
+                return;
             }
             System.out.println("\n[해당고객 맞춤 보험 목록]");
+            if(!customer.isHasWorkplace() && !customer.isHasHome()){ System.out.println("해당고객의 맞춤 보험이 존재하지 않습니다."); return;}
             System.out.println("아이디\t이름\t유형\t가입대상");
             for(Insurance insurance : insuranceList){
                 System.out.println(insurance.getId()
@@ -159,12 +162,12 @@ public class SalespersonUi {
             System.out.print("보험 아이디 : ");
             int insuranceId;
             try {insuranceId = Integer.parseInt(userInput.readLine().trim());}
-            catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); continue;}
+            catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
             if (insuranceId == 0) return;
             Insurance selectedInsurance = null;
             for(Insurance insurance : insuranceList) {if(insurance.getId()==insuranceId) selectedInsurance = insurance;}
-            if(selectedInsurance == null){System.err.println("잘못된 입력입니다."); continue;}
-            printInsuranceDetail(customer.getId(), selectedInsurance);
+            if(selectedInsurance == null){System.out.println("! 잘못된 입력입니다."); continue;}
+            printInsuranceDetail(customer.getId(), selectedInsurance); return;
         }
     }
 
@@ -187,13 +190,13 @@ public class SalespersonUi {
                 System.out.println("보험 제안과 함께 전달할 메시지를 입력하세요.");
                 System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
                 String message = userInput.readLine().trim();
-                if(message.isEmpty()){System.err.println("잘못된 입력입니다."); continue;}
+                if(message.isEmpty()){System.out.println("! 잘못된 입력입니다."); continue;}
                 if(message.equals("0")) return;
                 int saleId = serviceContainer.getSaleService().offerInsurance(employeeId, customerId, insurance.getId(), message);
                 if(saleId!=0) {System.out.println("보험 제안이 완료되었습니다."); return;}
-                else {System.err.println("보험 제안이 실패하였습니다."); return;}
+                else {System.out.println("보험 제안이 실패하였습니다."); return;}
             } else {
-                System.err.println("잘못된 입력입니다.");
+                System.out.println("! 잘못된 입력입니다.");
             }
         }
     }

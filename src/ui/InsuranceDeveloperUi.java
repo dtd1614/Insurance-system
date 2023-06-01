@@ -28,11 +28,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InsuranceDeveloperUi {
-	
+
 	private final String employeeId;
 	private final ServiceContainer serviceContainer;
 	private final BufferedReader userInput;
-	
+
 	public InsuranceDeveloperUi(String employeeId, ServiceContainer serviceContainer, BufferedReader userInput) {
 		this.employeeId = employeeId;
 		this.serviceContainer = serviceContainer;
@@ -53,7 +53,7 @@ public class InsuranceDeveloperUi {
 				case "3" : printExamineResult(); break;
 				case "0" : return;
 				case "x" : System.exit(0);
-				default : System.err.println("잘못된 입력입니다.");
+				default : System.out.println("! 잘못된 입력입니다.");
 			}
 		}
 	}
@@ -66,10 +66,10 @@ public class InsuranceDeveloperUi {
 			System.out.println("2. 사업장화재보험");
 			System.out.println("0. 뒤로가기");
 			switch(userInput.readLine().trim()) {
-				case "1" : printHomeFormulaForm(); break;
-				case "2" : printWorkplaceFormulaForm(); break;
+				case "1" : printHomeFormulaForm(); return;
+				case "2" : printWorkplaceFormulaForm(); return;
 				case "0" : return;
-				default : System.err.println("잘못된 입력입니다.");
+				default : System.out.println("! 잘못된 입력입니다.");
 			}
 		}
 	}
@@ -92,75 +92,75 @@ public class InsuranceDeveloperUi {
 		System.out.println("계산식의 이름을 입력하세요.");
 		calculationFormulaName = userInput.readLine().trim();
 		if(calculationFormulaName.contains(" ")||calculationFormulaName.isEmpty()) {
-			System.err.println("잘못된 입력입니다."); return;
+			System.out.println("! 잘못된 입력입니다."); return;
 		}
 		System.out.println("거주 유형에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = ResidenceType.values().length-1; i>=0; i--) {
 			System.out.print(ResidenceType.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToResidenceType.put(ResidenceType.values()[i], riskLevel);
 		}
 		System.out.println("주택 유형에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = HouseType.values().length-1; i>=0; i--) {
 			System.out.print(HouseType.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToHouseType.put(HouseType.values()[i], riskLevel);
 		}
 		System.out.println("거주 평수에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = HomeSquareMeter.values().length-1; i>=0; i--) {
 			System.out.print(HomeSquareMeter.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToSquareMeter.put(HomeSquareMeter.values()[i], riskLevel);
 		}
 		System.out.println("기둥 유형에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = PillarType.values().length-1; i>=0; i--) {
 			System.out.print(PillarType.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToPillarType.put(PillarType.values()[i], riskLevel);
 		}
 		System.out.println("지붕 유형에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = RoofType.values().length-1; i>=0; i--) {
 			System.out.print(RoofType.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToRoofType.put(RoofType.values()[i], riskLevel);
 		}
 		System.out.println("외벽 유형에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = OutwallType.values().length-1; i>=0; i--) {
 			System.out.print(OutwallType.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToOutwallType.put(OutwallType.values()[i], riskLevel);
 		}
 		System.out.println("보상금에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = HomeCompensation.values().length-1; i>=0; i--) {
 			System.out.print(HomeCompensation.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToCompensation.put(HomeCompensation.values()[i], riskLevel);
 		}
 		System.out.println("보험료 계산식을 수립하세요.");
 		System.out.println("보험료는 [고객의 총 위험도]에 [보험료 산출 상수]를 곱한 값입니다.");
 		System.out.println("[보험료 산출 상수]를 입력하세요.");
-	    try {numToMultiplyForPayment = Integer.parseInt(userInput.readLine());}
-		catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); return;}
+		try {numToMultiplyForPayment = Integer.parseInt(userInput.readLine());}
+		catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); return;}
 		System.out.println("최소 보상금 계산식을 수립하세요.");
 		System.out.println("최소 보상금은 [고객 주택 면적(㎡)]에 [최소 보상금 산출 상수]를 곱한 값입니다.");
 		System.out.println("[최소 보상금 산출 상수]를 입력하세요.");
-	    try {numToMultiplyForMinCompensation = Integer.parseInt(userInput.readLine());}
-		catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); return;}
+		try {numToMultiplyForMinCompensation = Integer.parseInt(userInput.readLine());}
+		catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); return;}
 		System.out.println("최대 보상금 계산식을 수립하세요.");
 		System.out.println("최대 보상금은 [고객 주택 면적(㎡)]에 [최대 보상금 산출 상수]를 곱한 값입니다.");
 		System.out.println("[최대 보상금 산출 상수]를 입력하세요. [최대 보상금 산출 상수]는 [최소 보상금 산출 상수]보다 커야 합니다." );
-	    try {numToMultiplyForMaxCompensation = Integer.parseInt(userInput.readLine());}
-		catch (NumberFormatException e) {System.err.println("잘못된 입력입니다.");  return;}
+		try {numToMultiplyForMaxCompensation = Integer.parseInt(userInput.readLine());}
+		catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다.");  return;}
 		if(numToMultiplyForMaxCompensation <= numToMultiplyForMinCompensation) {
-	        System.out.println("잘못된 입력입니다.");
-			System.err.println("[최대 보상금 산출 상수]는 [최소 보상금 산출 상수]보다 커야 합니다.");
+			System.out.println("! 잘못된 입력입니다.");
+			System.out.println("[최대 보상금 산출 상수]는 [최소 보상금 산출 상수]보다 커야 합니다.");
 			return;
 		}
 		HomeFormula homeFormula = new HomeFormula(calculationFormulaName, riskLevelAccordingToPillarType,
@@ -170,12 +170,12 @@ public class InsuranceDeveloperUi {
 				riskLevelAccordingToHouseType, riskLevelAccordingToSquareMeter,
 				riskLevelAccordingToCompensation);
 		int id = serviceContainer.getCalculationFormulaService().makeFormula(homeFormula);
-		if(id == 0) {System.err.println("게산식 수립에 실패하였습니다."); return;}
+		if(id == 0) {System.out.println("게산식 수립에 실패하였습니다."); return;}
 		System.out.println("계산식 수립이 완료되었습니다.");
 		System.out.println("계산식 아이디는 " + id + "입니다.");
 		return;
 	}
-	
+
 	private void printWorkplaceFormulaForm() throws IOException {
 
 		String calculationFormulaName;
@@ -195,75 +195,75 @@ public class InsuranceDeveloperUi {
 		System.out.println("계산식의 이름을 입력하세요.");
 		calculationFormulaName = userInput.readLine().trim();
 		if(calculationFormulaName.contains(" ")||calculationFormulaName.isEmpty()) {
-			System.err.println("잘못된 입력입니다."); return;
+			System.out.println("! 잘못된 입력입니다."); return;
 		}
 		System.out.println("건물용도에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = WorkplaceUsage.values().length-1; i>=0; i--) {
 			System.out.print(WorkplaceUsage.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToUsage.put(WorkplaceUsage.values()[i], riskLevel);
 		}
 		System.out.println("평수에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = WorkplaceSquareMeter.values().length-1; i>=0; i--) {
 			System.out.print(WorkplaceSquareMeter.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToSquareFeet.put(WorkplaceSquareMeter.values()[i], riskLevel);
 		}
 		System.out.println("층수에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = Floor.values().length-1; i>=0; i--) {
 			System.out.print(Floor.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToNumOfFloors.put(Floor.values()[i], riskLevel);
 		}
 		System.out.println("기둥 유형에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = PillarType.values().length-1; i>=0; i--) {
 			System.out.print(PillarType.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToPillarType.put(PillarType.values()[i], riskLevel);
 		}
 		System.out.println("지붕 유형에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = RoofType.values().length-1; i>=0; i--) {
 			System.out.print(RoofType.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToRoofType.put(RoofType.values()[i], riskLevel);
 		}
 		System.out.println("외벽 유형에 따른 위험도(1~10)를 입력하세요.");
 		for (int i = OutwallType.values().length-1; i>=0; i--) {
 			System.out.print(OutwallType.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToOutwallType.put(OutwallType.values()[i], riskLevel);
 		}
 		System.out.println("보상금에 따른 위험도(1~10)를 입력하세요");
 		for (int i = WorkplaceCompensation.values().length-1; i>=0; i--) {
 			System.out.print(WorkplaceCompensation.values()[i].getName() + " : ");
 			RiskLevel riskLevel = choiceRiskLevel();
-			if(riskLevel==null) {System.err.println("잘못된 입력입니다."); return;}
+			if(riskLevel==null) {System.out.println("! 잘못된 입력입니다."); return;}
 			riskLevelAccordingToCompensation.put(WorkplaceCompensation.values()[i], riskLevel);
 		}
 		System.out.println("보험료 계산식을 수립하세요.");
 		System.out.println("보험료 계산식은 [고객의 총 위험도]에 [보험료 산출 상수]를 곱한 값입니다.");
 		System.out.println("[보험료 산출 상수]를 입력하세요.");
 		try {numToMultiplyForPayment = Integer.parseInt(userInput.readLine());}
-		catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); return;}
+		catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); return;}
 		System.out.println("최소 보상금 계산식을 수립하세요.");
 		System.out.println("최소 보상금은 [고객 주택 면적(㎡)]에 [최소 보상금 산출 상수]를 곱한 값입니다.");
 		System.out.println("[최소 보상금 산출 상수]를 입력하세요.");
 		try {numToMultiplyForMinCompensation = Integer.parseInt(userInput.readLine());}
-		catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); return;}
+		catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); return;}
 		System.out.println("최대 보상금 계산식을 수립하세요.");
 		System.out.println("최대 보상금은 [고객 주택 면적(㎡)]에 [최대 보상금 산출 상수]를 곱한 값입니다.");
 		System.out.println("[최대 보상금 산출 상수]를 입력하세요. [최대 보상금 산출 상수]는 [최소 보상금 산출 상수]보다 커야 합니다." );
 		try {numToMultiplyForMaxCompensation = Integer.parseInt(userInput.readLine());}
-		catch (NumberFormatException e) {System.err.println("잘못된 입력입니다.");  return;}
+		catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다.");  return;}
 		if(numToMultiplyForMaxCompensation <= numToMultiplyForMinCompensation) {
-			System.out.println("잘못된 입력입니다.");
-			System.err.println("[최대 보상금 산출 상수]는 [최소 보상금 산출 상수]보다 커야 합니다.");
+			System.out.println("! 잘못된 입력입니다.");
+			System.out.println("[최대 보상금 산출 상수]는 [최소 보상금 산출 상수]보다 커야 합니다.");
 			return;
 		}
 		WorkplaceFormula workFormula = new WorkplaceFormula(calculationFormulaName, riskLevelAccordingToPillarType,
@@ -273,28 +273,28 @@ public class InsuranceDeveloperUi {
 				riskLevelAccordingToNumOfFloors, riskLevelAccordingToSquareFeet,
 				riskLevelAccordingToCompensation);
 		int id = serviceContainer.getCalculationFormulaService().makeFormula(workFormula);
-		if(id == 0) {System.err.println("게산식 수립에 실패하였습니다."); return;}
+		if(id == 0) {System.out.println("게산식 수립에 실패하였습니다."); return;}
 		System.out.println("계산식 수립이 완료되었습니다.");
 		System.out.println("계산식 아이디는 " + id + "입니다.");
 		return;
 	}
-	
+
 	private RiskLevel choiceRiskLevel() throws IOException {
 		switch(userInput.readLine().trim()) {
-		case "1" : return RiskLevel.One;
-		case "2" : return RiskLevel.Two; 
-		case "3" : return RiskLevel.Three; 
-		case "4" : return RiskLevel.Four; 
-		case "5" : return RiskLevel.Five; 
-		case "6" : return RiskLevel.Six; 
-		case "7" : return RiskLevel.Seven; 
-		case "8" : return RiskLevel.Eight; 
-		case "9" : return RiskLevel.Nine; 
-		case "10" : return RiskLevel.Ten; 
-		default : return null;
+			case "1" : return RiskLevel.One;
+			case "2" : return RiskLevel.Two;
+			case "3" : return RiskLevel.Three;
+			case "4" : return RiskLevel.Four;
+			case "5" : return RiskLevel.Five;
+			case "6" : return RiskLevel.Six;
+			case "7" : return RiskLevel.Seven;
+			case "8" : return RiskLevel.Eight;
+			case "9" : return RiskLevel.Nine;
+			case "10" : return RiskLevel.Ten;
+			default : return null;
 		}
 	}
-	
+
 	private void printDevelopeMenu() throws IOException {
 		while(true) {
 			System.out.println("******************** 상품 개발 메뉴 *********************");
@@ -304,26 +304,26 @@ public class InsuranceDeveloperUi {
 			}
 			System.out.println("0. 뒤로가기");
 			switch(userInput.readLine().trim()) {
-				case "1" : printDevelopeForm(InsuranceType.values()[0]); break;
-				case "2" : printDevelopeForm(InsuranceType.values()[1]); break;
+				case "1" : printDevelopeForm(InsuranceType.values()[0]); return;
+				case "2" : printDevelopeForm(InsuranceType.values()[1]); return;
 				case "0": return;
-				default : System.err.println("잘못된 입력입니다.");
+				default : System.out.println("! 잘못된 입력입니다.");
 			}
 		}
 	}
-	
+
 	private void printDevelopeForm(InsuranceType insuranceType) throws IOException {
 		ArrayList<CalculationFormula> calculationFormulaList;
 		try {calculationFormulaList = serviceContainer.getCalculationFormulaService().getCalculationFormulaList(insuranceType);}
-		catch (EmptyListException e) {System.err.println(e.getMessage()); return;}
+		catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
 		System.out.println("******************** 상품 개발 양식 *********************");
 		System.out.println("상품 개발 양식을 채워주세요.");
 		System.out.print("이름 : ");
-		String name = userInput.readLine().trim();		
-		if(name.contains(" ")||name.isEmpty()) {System.err.println("잘못된 입력입니다."); return;}
+		String name = userInput.readLine().trim();
+		if(name.contains(" ")||name.isEmpty()) {System.out.println("! 잘못된 입력입니다."); return;}
 		System.out.print("가입대상자 : ");
 		String target = userInput.readLine().trim();
-		if(target.isEmpty()) {System.err.println("잘못된 입력입니다."); return;}				
+		if(target.isEmpty()) {System.out.println("! 잘못된 입력입니다."); return;}
 		System.out.println("계산식 목록을 조회하고 계산식을 선택하세요.");
 		System.out.println("아이디\t이름");
 		for(CalculationFormula calculationFormula : calculationFormulaList) {
@@ -332,24 +332,24 @@ public class InsuranceDeveloperUi {
 		}
 		System.out.print("계산식 아이디 : ");
 		int formulaId;
-	    try {formulaId = Integer.parseInt(userInput.readLine().trim());}
-		catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); return;}
-	    boolean isExistId = false;
-	    for(CalculationFormula calculationFormula : calculationFormulaList) {
-	    	if(calculationFormula.getId()==formulaId)isExistId = true;
-	    }
-	    if(!isExistId){System.err.println("잘못된 입력입니다."); return;}
+		try {formulaId = Integer.parseInt(userInput.readLine().trim());}
+		catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); return;}
+		boolean isExistId = false;
+		for(CalculationFormula calculationFormula : calculationFormulaList) {
+			if(calculationFormula.getId()==formulaId)isExistId = true;
+		}
+		if(!isExistId){System.out.println("! 잘못된 입력입니다."); return;}
 		System.out.print("보상 조건 : ");
 		String compensateCondition = userInput.readLine().trim();
-		if(compensateCondition.isEmpty()) {System.err.println("잘못된 입력입니다."); return;}
+		if(compensateCondition.isEmpty()) {System.out.println("! 잘못된 입력입니다."); return;}
 		System.out.print("비보상 조건 : ");
 		String notCompensateCondition = userInput.readLine().trim();
-		if(notCompensateCondition.isEmpty()) {System.err.println("잘못된 입력입니다."); return;}
+		if(notCompensateCondition.isEmpty()) {System.out.println("! 잘못된 입력입니다."); return;}
 		Insurance insurance = new Insurance(name,insuranceType,target,formulaId, compensateCondition, notCompensateCondition, InsuranceStatus.UnderAuthorize);
 		int id = serviceContainer.getInsuranceService().makeInsurance(insurance);
-		if(id==0) {System.err.println("개발 및 인가요청이 실패되었습니다."); return;}
-		System.out.println("개발 및 인가요청이 완료되었습니다."); 
-		System.out.println("상품 아이디는 " + id + "입니다."); 
+		if(id==0) {System.out.println("개발 및 인가요청이 실패되었습니다."); return;}
+		System.out.println("개발 및 인가요청이 완료되었습니다.");
+		System.out.println("상품 아이디는 " + id + "입니다.");
 		return;
 	}
 
@@ -357,7 +357,7 @@ public class InsuranceDeveloperUi {
 		System.out.println("******************** 인가 요청 결과 *********************");
 		ArrayList<Insurance> authorizationResultList = null;
 		try {authorizationResultList = serviceContainer.getInsuranceService().getInsuranceList();}
-		catch (EmptyListException e) {System.err.println(e.getMessage()); return;}
+		catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
 		System.out.println("아이디\t이름\t유형\t심사결과");
 		for(Insurance insurance : authorizationResultList){
 			System.out.println(insurance.getId()

@@ -37,7 +37,7 @@ public class UWUi {
                 case "1" : printUnderwriteMenu(); break;
                 case "0" : return;
                 case "x" : System.exit(0);
-                default : System.err.println("잘못된 입력입니다.");
+                default : System.out.println("잘못된 입력입니다.");
             }
         }
     }
@@ -46,28 +46,28 @@ public class UWUi {
         while (true) {
             ArrayList<Contract> contractList;
             try {contractList = serviceContainer.getContractService().getContractList(ContractStatus.Apply);}
-            catch (EmptyListException e) {System.err.println(e.getMessage()); return;}
+            catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
             System.out.println("******************** 인수심사 메뉴 *********************");
             System.out.println("인수할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
             System.out.println("아이디\t고객아이디\t보험아이디\t보험유형");
             for(Contract contract : contractList) {
-                System.out.println(contract.getId()
-                        + "\t" + contract.getCustomerId()
-                        + "\t" + contract.getInsuranceId());
                 InsuranceType insuranceType;
                 try {insuranceType = serviceContainer.getInsuranceService().getInsurance(contract.getInsuranceId()).getType();}
-                catch (NoDataException e) {System.err.println(e.getMessage()); return;}
-                System.out.println("\t" + insuranceType.getName());
+                catch (NoDataException e) {System.out.println(e.getMessage()); return;}
+                System.out.println(contract.getId()
+                        + "\t" + contract.getCustomerId()
+                        + "\t" + contract.getInsuranceId()
+                        + "\t" + insuranceType.getName());
             }
             System.out.print("계약 아이디 : ");
             int id;
             try {id = Integer.parseInt(userInput.readLine().trim());}
-            catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); continue;}
+            catch (NumberFormatException e) {System.out.println("잘못된 입력입니다."); continue;}
             if(id==0) return;
             Contract selectedContract = null;
             for(Contract contract : contractList) {if(contract.getId()==id) selectedContract = contract;}
-            if(selectedContract==null){System.err.println("잘못된 입력입니다."); continue;}
-            printContractDetail(selectedContract);
+            if(selectedContract==null){System.out.println("잘못된 입력입니다."); continue;}
+            printContractDetail(selectedContract); return;
         }
     }
 
@@ -84,7 +84,7 @@ public class UWUi {
                 customer = serviceContainer.getCustomerService().getCustomer(contract.getCustomerId());
                 customerInfo = serviceContainer.getInfoService().getInfo(contract.getCustomerInfoId());
             } catch (NoDataException e) {
-                System.err.println(e.getMessage()); return;
+                System.out.println(e.getMessage()); return;
             }
             System.out.println("아이디 : " + customer.getId()
                     + "\n이름 : " + customer.getName()
@@ -126,7 +126,7 @@ public class UWUi {
                 if(isSucess) {System.out.println("인수거절되었습니다."); return;}
                 else {System.out.println("인수거절이 실패되었습니다."); return;}
             } else {
-                System.err.println("잘못된 입력입니다.");
+                System.out.println("잘못된 입력입니다.");
             }
         }
     }

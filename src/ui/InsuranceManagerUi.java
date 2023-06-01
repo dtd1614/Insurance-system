@@ -43,7 +43,7 @@ public class InsuranceManagerUi {
 				case "1" : printExamineMenu();  break;
 				case "0" : return;
 				case "x" : System.exit(0);
-				default : System.err.println("잘못된 입력입니다.");
+				default : System.out.println("! 잘못된 입력입니다.");
 			}
 		}
 	}
@@ -51,7 +51,7 @@ public class InsuranceManagerUi {
 	    while(true) {
 			ArrayList<Insurance> insuranceList;
 			try {insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceStatus.UnderAuthorize);}
-			catch (EmptyListException e) {System.err.println(e.getMessage()); return;}
+			catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
 			System.out.println("******************** 상품 인가 메뉴 *********************");
 	        System.out.println("인가할 상품의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
 			System.out.println("아이디\t이름\t유형");
@@ -63,12 +63,12 @@ public class InsuranceManagerUi {
 			System.out.print("상품 아이디 : ");
 			int id;
 		    try {id = Integer.parseInt(userInput.readLine().trim());}
-			catch (NumberFormatException e) {System.err.println("잘못된 입력입니다."); continue;}
+			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
 		    if(id==0) return;
 		    Insurance selectedInsurance = null;
 		    for(Insurance insurance:insuranceList) {if(insurance.getId()==id)selectedInsurance = insurance;}
-		    if(selectedInsurance==null){System.err.println("잘못된 입력입니다."); continue;}
-		    printInsuranceDetail(selectedInsurance);
+		    if(selectedInsurance==null){System.out.println("! 잘못된 입력입니다."); continue;}
+		    printInsuranceDetail(selectedInsurance); return;
 	    }
     }
 	
@@ -76,7 +76,7 @@ public class InsuranceManagerUi {
 	    while (true) {
 	        System.out.println("******************** 상품 상세내용 *********************");
 	        System.out.println("상품 상세내역을 확인하고 버튼을 선택하세요.");
-	        System.out.println("[상품 상세내역]");
+	        System.out.println("\n[상품 상세내역]");
             System.out.println("아이디 : " + insurance.getId()
             		+ "\n이름 : " + insurance.getName()
             		+ "\n유형 : " + insurance.getType().getName()
@@ -94,16 +94,16 @@ public class InsuranceManagerUi {
             	return;
             } else if(choice.equals("1")){
 				try {serviceContainer.getInsuranceService().examineAuthorization(insurance.getId(), InsuranceStatus.Authorize);}
-				catch (NoDataException e) {System.err.println(e.getMessage()); return;}
+				catch (NoDataException e) {System.out.println(e.getMessage()); return;}
 				System.out.println("상품이 인가되었습니다."); return;
             } else if (choice.equals("2")){
 				try {serviceContainer.getInsuranceService().examineAuthorization(insurance.getId(), InsuranceStatus.RefuseAuthorize);}
-				catch (NoDataException e) {System.err.println(e.getMessage()); return;}
+				catch (NoDataException e) {System.out.println(e.getMessage()); return;}
 				System.out.println("인가가 거절되었습니다."); return;
             } else if (choice.equals("3")) {
-            	printFormulaDetail(insurance.getCalculationFormulaId());
+            	printFormulaDetail(insurance.getCalculationFormulaId()); continue;
             } else {
-            	System.err.println("잘못된 입력입니다.");
+            	System.out.println("! 잘못된 입력입니다.");
 			}
         }
     }
@@ -111,7 +111,7 @@ public class InsuranceManagerUi {
         System.out.println("******************** 계산식 상세내용 *********************");
 		CalculationFormula formula = null;
 		try {formula = serviceContainer.getCalculationFormulaService().getCalculationFormula(id);}
-		catch (NoDataException e) {System.err.println(e.getMessage()); return;}
+		catch (NoDataException e) {System.out.println(e.getMessage()); return;}
 		if(formula instanceof HomeFormula) {printHomeFormulaDetail((HomeFormula) formula);}
 		else {printHomeFormulaDetail((WorkplaceFormula) formula);}
 	}

@@ -1,9 +1,7 @@
 package dao;
 
 import domain.Contract;
-import domain.calculationFormula.CalculationFormula;
 import enumeration.contract.ContractStatus;
-import enumeration.contract.PayStatus;
 
 
 import java.sql.Timestamp;
@@ -54,13 +52,13 @@ public class ContractDao extends Dao {
         return false;
     }
 
-    public boolean update(int id, Timestamp startDate, Timestamp expirationDate, Timestamp deadline, PayStatus payStatus) {
+    public boolean update(int id, Timestamp startDate, Timestamp expirationDate, Timestamp deadline, ContractStatus status) {
         for(Contract contract : this.contractList) {
             if(contract.getId()==id) {
                 contract.setStartDate(startDate);
                 contract.setExpirationDate(expirationDate);
                 contract.setPaymentDeadline(deadline);
-                contract.setPayStatus(payStatus);
+                contract.setContractStatus(status);
                 return true;
             }
         }

@@ -18,13 +18,13 @@ public class AccidentService extends UnicastRemoteObject implements AccidentServ
 //    @Override
     public ArrayList<Accident> getAccidentList(AccidentStatus status) throws RemoteException, EmptyListException {
         ArrayList<Accident> accidentList = this.accidentDao.findByStatus(status);
-        if(accidentList.isEmpty()) throw new EmptyListException("사고접수내역이 없습니다.");
+        if(accidentList.isEmpty()) throw new EmptyListException("! 사고접수내역이 없습니다.");
         return accidentList;
     }
 //    @Override
     public Accident getAccident(int id) throws RemoteException, NoDataException {
         Accident accident = this.accidentDao.findById(id);
-        if(accidentDao == null) throw new NoDataException("존재하지 않는 사고입니다.");
+        if(accidentDao == null) throw new NoDataException("! 존재하지 않는 사고입니다.");
         return accidentDao.findById(id);
     }
 //    @Override

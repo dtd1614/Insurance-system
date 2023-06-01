@@ -11,7 +11,7 @@ public class ServiceContainer {
     private final ContractService contractService;
     private final CustomerService customerService;
     private final EmployeeService employeeService;
-    private final InfoService infoService;
+    private final CustomerCustomerInfoService customerInfoService;
     private final InsuranceService insuranceService;
     private final PayService payService;
     private final SaleService saleService;
@@ -24,7 +24,7 @@ public class ServiceContainer {
         this.contractService = new ContractService(new ContractDao());
         this.customerService = new CustomerService(new CustomerDao());
         this.employeeService = new EmployeeService(new EmployeeDao());
-        this.infoService = new InfoService(new CustomerInfoDao());
+        this.customerInfoService = new CustomerCustomerInfoService(new CustomerInfoDao());
         this.insuranceService = new InsuranceService(new InsuranceDao());
         this.payService = new PayService(new PayDao());
         this.saleService = new SaleService(new SaleDao());
@@ -54,8 +54,8 @@ public class ServiceContainer {
         return employeeService;
     }
 
-    public InfoService getInfoService() {
-        return infoService;
+    public CustomerCustomerInfoService getInfoService() {
+        return customerInfoService;
     }
 
     public InsuranceService getInsuranceService() {

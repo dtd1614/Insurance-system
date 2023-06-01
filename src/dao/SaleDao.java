@@ -1,5 +1,6 @@
 package dao;
 
+import domain.Insurance;
 import domain.Sale;
 
 import java.util.ArrayList;
@@ -17,6 +18,14 @@ public class SaleDao extends Dao {
         ArrayList<Sale> saleList = new ArrayList<>();
         for(Sale sale : this.saleList){
             if(customerId.equals(sale.getCustomerId()))saleList.add(sale);
+        }
+        return saleList;
+    }
+
+    public ArrayList<Sale> retrieve() {
+        ArrayList<Sale> saleList = new ArrayList<>();
+        for(Sale sale : this.saleList){
+            saleList.add(sale);
         }
         return saleList;
     }

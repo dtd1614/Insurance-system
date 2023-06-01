@@ -15,7 +15,6 @@ public class CustomerInfoDao extends Dao {
         else {return 0;}
     }
     public ArrayList<CustomerInfo> retrieve() {
-        ArrayList<CustomerInfo> customerInfoList = new ArrayList<>();
         for(CustomerInfo customerInfo : this.customerInfoList){
             customerInfoList.add(customerInfo);
         }

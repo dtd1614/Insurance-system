@@ -28,13 +28,13 @@ public class CalculationFormulaService extends UnicastRemoteObject implements Ca
     @Override
     public ArrayList<CalculationFormula> getCalculationFormulaList(InsuranceType insuranceType) throws RemoteException, EmptyListException {
         ArrayList<CalculationFormula> calculationFormulaList = this.calculationFormulaDao.findByType(insuranceType);
-        if(calculationFormulaList.isEmpty()) throw new EmptyListException("계산식 목록이 존재하지 않습니다.");
+        if(calculationFormulaList.isEmpty()) throw new EmptyListException("! 계산식 목록이 존재하지 않습니다.");
         return calculationFormulaList;
     }
     @Override
     public CalculationFormula getCalculationFormula(int id) throws RemoteException, NoDataException {
         CalculationFormula calculationFormula = calculationFormulaDao.findById(id);
-        if(calculationFormula == null) throw new NoDataException("존재하지 않는 계산식입니다.");
+        if(calculationFormula == null) throw new NoDataException("! 존재하지 않는 계산식입니다.");
         return calculationFormula;
     }
     @Override
@@ -44,8 +44,8 @@ public class CalculationFormulaService extends UnicastRemoteObject implements Ca
     @Override
     public int calculateMaxCompensation(int squareMeter, int calculationFormulaId) throws RemoteException, NoDataException {
         CalculationFormula calculationFormula = calculationFormulaDao.findById(calculationFormulaId);
-        if(calculationFormula==null){throw new NoDataException("존재하지 않는 계산식 아이디입니다.");}
-        int maxCompensation = squareMeter * calculationFormula.getMultiplierForMaxCompensation();;
+        if(calculationFormula==null){throw new NoDataException("! 존재하지 않는 계산식 아이디입니다.");}
+        long maxCompensation = (long)squareMeter * (long)calculationFormula.getMultiplierForMaxCompensation();;
         if(calculationFormula instanceof HomeFormula){
             int homeMaxCompensation = HomeCompensation.values()[0].getMaxAmount();
             if(homeMaxCompensation < maxCompensation){maxCompensation = homeMaxCompensation;}
@@ -58,20 +58,19 @@ public class CalculationFormulaService extends UnicastRemoteObject implements Ca
             int workplaceMinCompensation = WorkplaceCompensation.values()[WorkplaceCompensation.values().length-1].getMinAmount();
             if(workplaceMinCompensation > maxCompensation){maxCompensation = workplaceMinCompensation;}
         }
-        return maxCompensation;
+        return (int) maxCompensation;
     }
 
     @Override
     public int calculateMinCompensation(int squareMeter, int calculationFormulaId) throws RemoteException, NoDataException {
         CalculationFormula calculationFormula = calculationFormulaDao.findById(calculationFormulaId);
-        if(calculationFormula==null){throw new NoDataException("존재하지 않는 계산식 아이디입니다.");}
-        int minCompensation = squareMeter * calculationFormula.getMultiplierForMinCompensation();;
+        if(calculationFormula==null){throw new NoDataException("! 존재하지 않는 계산식 아이디입니다.");}
+        long minCompensation = (long)squareMeter * (long)calculationFormula.getMultiplierForMinCompensation();;
         if(calculationFormula instanceof HomeFormula){
             int homeMinCompensation = HomeCompensation.values()[HomeCompensation.values().length-1].getMinAmount();
             if(homeMinCompensation > minCompensation){minCompensation = homeMinCompensation;}
             int homeMaxCompensation = HomeCompensation.values()[0].getMaxAmount();
             if(homeMaxCompensation < minCompensation){minCompensation = homeMaxCompensation;}
-
         }
         if(calculationFormula instanceof WorkplaceFormula){
             int workplaceMinCompensation = WorkplaceCompensation.values()[WorkplaceCompensation.values().length-1].getMinAmount();
@@ -79,13 +78,13 @@ public class CalculationFormulaService extends UnicastRemoteObject implements Ca
             int workplaceMaxCompensation = WorkplaceCompensation.values()[0].getMaxAmount();
             if(workplaceMaxCompensation < minCompensation){minCompensation = workplaceMaxCompensation;}
         }
-        return minCompensation;
+        return (int)minCompensation;
     }
 
     @Override
     public int calculatePayment(CustomerInfo customerInfo, int compensation, int calculationFormulaId) throws RemoteException, NoDataException {
         CalculationFormula calculationFormula = calculationFormulaDao.findById(calculationFormulaId);
-        if(calculationFormula == null){throw new NoDataException("존재하지 않는 계산식 아이디입니다.");}
+        if(calculationFormula == null){throw new NoDataException("! 존재하지 않는 계산식 아이디입니다.");}
         int totalRisk = 0;
         totalRisk += calculationFormula
                 .getRiskLevelAccordingToRoofType()
@@ -139,37 +138,37 @@ public class CalculationFormulaService extends UnicastRemoteObject implements Ca
     }
     public HomeSquareMeter getHomeSquareMeter(int squareMeter){
         for(int i = 0; i < HomeSquareMeter.values().length; i++){
-            if(squareMeter < HomeSquareMeter.values()[i].getMaxSquareFeet()) continue;
-            else return HomeSquareMeter.values()[i-1];
+            if(squareMeter >= HomeSquareMeter.values()[i].getMinSquareFeet()
+                    && squareMeter <= HomeSquareMeter.values()[i].getMaxSquareFeet()) return HomeSquareMeter.values()[i];;
         }
-        return HomeSquareMeter.values()[HomeSquareMeter.values().length-1];
+        return null;
     }
     public HomeCompensation getHomeCompensation(int compensation){
         for(int i = 0; i < HomeCompensation.values().length; i++){
-            if(compensation < HomeCompensation.values()[i].getMaxAmount()) continue;
-            else return HomeCompensation.values()[i-1];
+            if(compensation >= HomeCompensation.values()[i].getMinAmount()
+                    && compensation <= HomeCompensation.values()[i].getMaxAmount()) return HomeCompensation.values()[i];
         }
-        return HomeCompensation.values()[HomeCompensation.values().length-1];
+        return null;
     }
     public WorkplaceSquareMeter getWorkplaceSquareMeter(int squareMeter){
         for(int i = 0; i < WorkplaceSquareMeter.values().length; i++){
-            if(squareMeter < WorkplaceSquareMeter.values()[i].getMaxSquareFeet()) continue;
-            else return WorkplaceSquareMeter.values()[i-1];
+            if(squareMeter >= WorkplaceSquareMeter.values()[i].getMinSquareFeet()
+                    && squareMeter <= WorkplaceSquareMeter.values()[i].getMaxSquareFeet()) return WorkplaceSquareMeter.values()[i];;
         }
-        return WorkplaceSquareMeter.values()[WorkplaceSquareMeter.values().length-1];
+        return null;
     }
     public WorkplaceCompensation getWorkplaceCompensation(int compensation){
         for(int i = 0; i < WorkplaceCompensation.values().length; i++){
-            if(compensation < WorkplaceCompensation.values()[i].getMaxAmount()) continue;
-            else return WorkplaceCompensation.values()[i-1];
+            if(compensation >= WorkplaceCompensation.values()[i].getMinAmount()
+                    && compensation <= WorkplaceCompensation.values()[i].getMaxAmount()) return WorkplaceCompensation.values()[i];;
         }
-        return WorkplaceCompensation.values()[WorkplaceCompensation.values().length-1];
+        return null;
     }
     public Floor getFloor(int floor){
         for(int i = 0; i < Floor.values().length; i++){
-            if(floor < Floor.values()[i].getMaxFloor()) continue;
-            else return Floor.values()[i-1];
+            if(floor >= Floor.values()[i].getMinFloor()
+                    && floor <= Floor.values()[i].getMaxFloor()) return Floor.values()[i];;
         }
-        return Floor.values()[Floor.values().length-1];
+        return null;
     }
 }

@@ -2,7 +2,6 @@ package domain;
 
 import enumeration.contract.ContractStatus;
 import enumeration.contract.ContractTerm;
-import enumeration.contract.PayStatus;
 import enumeration.contract.PaymentCycle;
 
 import java.io.Serializable;

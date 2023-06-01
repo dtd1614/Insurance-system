@@ -7,15 +7,15 @@ import dao.CustomerInfoDao;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class InfoService extends UnicastRemoteObject implements InfoServiceIF{
+public class CustomerCustomerInfoService extends UnicastRemoteObject implements CustomerInfoServiceIF {
     private final CustomerInfoDao customerInfoDao;
-    public InfoService(CustomerInfoDao customerInfoDao) throws RemoteException {
+    public CustomerCustomerInfoService(CustomerInfoDao customerInfoDao) throws RemoteException {
         this.customerInfoDao = customerInfoDao;
     }
     @Override
     public CustomerInfo getInfo(int infoId) throws RemoteException, NoDataException {
         CustomerInfo customerInfo = customerInfoDao.findById(infoId);
-        if(customerInfo ==null) throw new NoDataException("존재하지 않는 정보입니다.");
+        if(customerInfo ==null) throw new NoDataException("! 존재하지 않는 정보입니다.");
         return customerInfo;
     }
     @Override
