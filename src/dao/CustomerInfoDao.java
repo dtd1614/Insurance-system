@@ -1,6 +1,7 @@
 package dao;
 
 import domain.Customer;
+import domain.calculationFormula.CalculationFormula;
 import domain.customerInfo.CustomerInfo;
 import domain.customerInfo.HomeCustomerInfo;
 import domain.customerInfo.WorkplaceCustomerInfo;
@@ -199,7 +200,7 @@ public class CustomerInfoDao extends Dao {
     public int add(CustomerInfo customerInfo) {
         ArrayList<CustomerInfo> customerInfoList = retrieve();
         if(customerInfoList.size()==0) customerInfo.setId(1);
-        else {customerInfo.setId(retrieve().get(customerInfoList.size()-1).getId()+1);}
+        else {customerInfo.setId(getLastId(customerInfoList)+1);}
         if(create(customerInfo)) return customerInfo.getId();
         else {return 0;}
     }
@@ -208,5 +209,12 @@ public class CustomerInfoDao extends Dao {
             if(customerInfo.getId() == infoId) return customerInfo;
         }
         return null;
+    }
+    public int getLastId(ArrayList<CustomerInfo> customerInfoList){
+        int id = 0;
+        for(CustomerInfo customerInfo : customerInfoList){
+            if(customerInfo.getId()>id) id = customerInfo.getId();
+        }
+        return id;
     }
 }

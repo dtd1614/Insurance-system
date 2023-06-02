@@ -178,16 +178,19 @@ public class InsuranceManagerUi {
 					+ " : " + formula.getRiskLevelAccordingToFloor().get(Floor.values()[i]).getLevel());
 		}
 		System.out.println("[기둥 유형에 따른 위험도]");
-		for (Entry<PillarType, RiskLevel> entrySet : formula.getRiskLevelAccordingToPillarType().entrySet()) {
-		System.out.println(entrySet.getKey().getName() + " : " + entrySet.getValue().getLevel());
+		for (int i = PillarType.values().length-1; i>=0; i--) {
+			System.out.println(PillarType.values()[i].getName()
+					+ " : " + formula.getRiskLevelAccordingToPillarType().get(PillarType.values()[i]).getLevel());
 		}
 		System.out.println("[지붕 유형에 따른 위험도]");
-		for (Entry<RoofType, RiskLevel> entrySet : formula.getRiskLevelAccordingToRoofType().entrySet()) {
-		System.out.println(entrySet.getKey().getName() + " : " + entrySet.getValue().getLevel());
+		for (int i = RoofType.values().length-1; i>=0; i--) {
+			System.out.println(RoofType.values()[i].getName()
+					+ " : " + formula.getRiskLevelAccordingToRoofType().get(RoofType.values()[i]).getLevel());
 		}
 		System.out.println("[외벽 유형에 따른 위험도]");
-		for (Entry<OutwallType, RiskLevel> entrySet : formula.getRiskLevelAccordingToOutwallType().entrySet()) {
-		System.out.println(entrySet.getKey().getName() + " : " + entrySet.getValue().getLevel());
+		for (int i = OutwallType.values().length-1; i>=0; i--) {
+			System.out.println(OutwallType.values()[i].getName()
+					+ " : " + formula.getRiskLevelAccordingToOutwallType().get(OutwallType.values()[i]).getLevel());
 		}
 		System.out.println("[보상금에 따른 위험도]");
 		for (int i = WorkplaceCompensation.values().length-1; i>=0; i--) {

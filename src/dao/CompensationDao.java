@@ -43,9 +43,9 @@ public class CompensationDao extends Dao {
         else {return 0;}
     }
 
-    public Compensation findById(int id) {
+    public Compensation findByAccidentId(int id) {
         for(Compensation compensation : retrieve()){
-            if(compensation.getId()==id) return compensation;
+            if(compensation.getAccidentId()==id) return compensation;
         }
         return null;
     }

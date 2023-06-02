@@ -21,7 +21,7 @@ public class CompensateService extends UnicastRemoteObject implements Compensate
     }
     @Override
     public Compensation getCompensation(int id) throws RemoteException, NoDataException {
-        Compensation compensation = compensationDao.findById(id);
+        Compensation compensation = compensationDao.findByAccidentId(id);
         if(compensation == null) throw new NoDataException("보상내역이 존재하지 않습니다.");
         return compensation;
     }

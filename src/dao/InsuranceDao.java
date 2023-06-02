@@ -68,10 +68,10 @@ public class InsuranceDao extends Dao {
 		}
 		return insuranceList;
 	}
-	public boolean update(int id, InsuranceStatus sale) {
+	public boolean update(int id, InsuranceStatus status) {
 		for(Insurance insurance : retrieve()) {
 			if(insurance.getId()==id) {
-				String query = "update insurance set status = 'Authorize' where id = "+id+";";
+				String query = "update insurance set status = '"+status+"' where id = "+id+";";
 				return update(query);
 			}
 		}

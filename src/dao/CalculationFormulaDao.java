@@ -152,7 +152,7 @@ public class CalculationFormulaDao extends Dao {
 	public int add(CalculationFormula calculationFormula) {
 		ArrayList<CalculationFormula> calculationFormulaList = retrieve();
 		if(calculationFormulaList.size()==0) calculationFormula.setId(1);
-		else {calculationFormula.setId(calculationFormulaList.get(calculationFormulaList.size()-1).getId()+1);}
+		else {calculationFormula.setId(getLastId(calculationFormulaList)+1);}
 		if(create(calculationFormula)) return calculationFormula.getId();
 		else {return 0;}
 	}
@@ -199,5 +199,13 @@ public class CalculationFormulaDao extends Dao {
 			e.printStackTrace();
 		}
 		return object ;
+	}
+
+	public int getLastId(ArrayList<CalculationFormula> calculationFormulaList){
+		int id = 0;
+		for(CalculationFormula calculationFormula : calculationFormulaList){
+			if(calculationFormula.getId() > id) id = calculationFormula.getId();
+		}
+		return id;
 	}
 }
