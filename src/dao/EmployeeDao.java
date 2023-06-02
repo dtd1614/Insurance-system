@@ -6,7 +6,6 @@ import domain.Contract;
 import domain.Employee;
 
 public class EmployeeDao extends Dao {
-
 	private final ArrayList<Employee> employeeList  = new ArrayList<>();
 	public boolean add(Employee employee){
 		return employeeList.add(employee);

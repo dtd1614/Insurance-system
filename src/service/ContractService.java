@@ -94,11 +94,13 @@ public class ContractService extends UnicastRemoteObject implements ContractServ
         if(contractList.isEmpty())  throw new EmptyListException("목록이 존재하지 않습니다.");
         Timestamp now=new Timestamp(System.currentTimeMillis());
         for(Contract contract:contractList) {
-            Timestamp deadlineStamp=contract.getPaymentDeadline();
-            LocalDateTime deadline = deadlineStamp.toLocalDateTime();
-            LocalDateTime nowTime = now.toLocalDateTime();
-            long daysDifference = ChronoUnit.DAYS.between(nowTime,deadline);
-            if(contract.getContractStatus()==ContractStatus.Conclude && daysDifference<=7) unpaidContractList.add(contract);
+            if(contract.getContractStatus()==ContractStatus.Conclude){
+                Timestamp deadlineStamp=contract.getPaymentDeadline();
+                LocalDateTime deadline = deadlineStamp.toLocalDateTime();
+                LocalDateTime nowTime = now.toLocalDateTime();
+                long daysDifference = ChronoUnit.DAYS.between(nowTime,deadline);
+                if(daysDifference<=7) unpaidContractList.add(contract);
+            }
         }
         if(unpaidContractList.isEmpty()) throw new EmptyListException("목록이 존재하지 않습니다.");
         return unpaidContractList;
