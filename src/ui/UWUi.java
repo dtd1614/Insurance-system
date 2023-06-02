@@ -1,9 +1,9 @@
 package ui;
 
 import domain.Contract;
-import domain.Info.HomeCustomerInfo;
-import domain.Info.CustomerInfo;
-import domain.Info.WorkplaceCustomerInfo;
+import domain.customerInfo.HomeCustomerInfo;
+import domain.customerInfo.CustomerInfo;
+import domain.customerInfo.WorkplaceCustomerInfo;
 import domain.Customer;
 import enumeration.contract.ContractStatus;
 import enumeration.insurance.InsuranceType;

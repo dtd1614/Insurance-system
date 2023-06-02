@@ -1,7 +1,7 @@
 package service;
 
-import domain.Info.CustomerInfo;
-import domain.Info.HomeCustomerInfo;
+import domain.customerInfo.CustomerInfo;
+import domain.customerInfo.HomeCustomerInfo;
 import exception.NoDataException;
 import dao.CustomerInfoDao;
 

@@ -398,13 +398,18 @@ public class InsuranceDeveloperUi {
 			try {calculationFormulaList = serviceContainer.getCalculationFormulaService().getCalculationFormulaList(insuranceType);}
 			catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
 			System.out.println("******************** 상품 개발 양식 *********************");
-			System.out.println("상품 개발 양식을 채워주세요.");
+			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
+
 			System.out.print("이름 : ");
 			String name = userInput.readLine().trim();
 			if(name.contains(" ")||name.isEmpty()) {System.out.println("! 잘못된 입력입니다."); continue;}
+			if(name.equals("0")) return;
+
 			System.out.print("가입대상자 : ");
 			String target = userInput.readLine().trim();
 			if(target.isEmpty()) {System.out.println("! 잘못된 입력입니다."); continue;}
+			if(target.equals("0")) return;
+
 			System.out.println("계산식 목록을 조회하고 계산식을 선택하세요.");
 			System.out.println("아이디\t이름");
 			for(CalculationFormula calculationFormula : calculationFormulaList) {
@@ -415,17 +420,23 @@ public class InsuranceDeveloperUi {
 			int formulaId;
 			try {formulaId = Integer.parseInt(userInput.readLine().trim());}
 			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
+			if(formulaId==0) return;
 			boolean isExistId = false;
 			for(CalculationFormula calculationFormula : calculationFormulaList) {
 				if(calculationFormula.getId()==formulaId)isExistId = true;
 			}
 			if(!isExistId){System.out.println("! 잘못된 입력입니다."); continue;}
+
 			System.out.print("보상 조건 : ");
 			String compensateCondition = userInput.readLine().trim();
 			if(compensateCondition.isEmpty()) {System.out.println("! 잘못된 입력입니다."); continue;}
+			if(compensateCondition.equals("0")) return;
+
 			System.out.print("비보상 조건 : ");
 			String notCompensateCondition = userInput.readLine().trim();
 			if(notCompensateCondition.isEmpty()) {System.out.println("! 잘못된 입력입니다."); continue;}
+			if(notCompensateCondition.equals("0")) return;
+
 			Insurance insurance = new Insurance(name,insuranceType,target,formulaId, compensateCondition, notCompensateCondition, InsuranceStatus.UnderAuthorize);
 			int id = serviceContainer.getInsuranceService().makeInsurance(insurance);
 			if(id==0) {System.out.println("개발 및 인가요청이 실패되었습니다."); return;}

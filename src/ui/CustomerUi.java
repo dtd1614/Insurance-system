@@ -1,9 +1,9 @@
 package ui;
 
 import domain.*;
-import domain.Info.HomeCustomerInfo;
-import domain.Info.CustomerInfo;
-import domain.Info.WorkplaceCustomerInfo;
+import domain.customerInfo.HomeCustomerInfo;
+import domain.customerInfo.CustomerInfo;
+import domain.customerInfo.WorkplaceCustomerInfo;
 import enumeration.accident.AccidentStatus;
 import enumeration.calculationFormula.OutwallType;
 import enumeration.calculationFormula.PillarType;
@@ -270,6 +270,8 @@ public class CustomerUi {
 				case "3" :  paymentCycle = PaymentCycle.values()[2]; break;
 				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
+			payment = payment * paymentCycle.getMonth();
+			System.out.println(paymentCycle.getMonth() + "개월 납부 시 보험료는 " + decFormat.format(payment) + "원 입니다.");
 
 			System.out.println("해당 보험을 추천한 영업사원이 있다면 해당 영업사원의 아이디를 입력하세요.");
 			System.out.println("없는 경우에는 빈칸을 입력하세요.");
@@ -429,6 +431,8 @@ public class CustomerUi {
 				case "3" :  paymentCycle = PaymentCycle.values()[2]; break;
 				default : System.out.println("! 잘못된 입력입니다."); continue;
 			}
+			payment = payment * paymentCycle.getMonth();
+			System.out.println(paymentCycle.getMonth() + "개월 납부 시 보험료는 " + decFormat.format(payment) + "원 입니다.");
 
 			System.out.println("해당 보험을 추천한 영업사원이 있다면 해당 영업사원의 아이디를 입력하세요.");
 			System.out.println("없는 경우에는 빈칸을 입력하세요.");
@@ -473,7 +477,7 @@ public class CustomerUi {
 			Contract selectedContract = null;
 			for(Contract contract : contractList) {if(contract.getId()==id) selectedContract = contract;}
 			if(selectedContract==null){System.out.println("! 잘못된 입력입니다."); continue;}
-			printContractDetail(selectedContract); return;
+			printContractDetail(selectedContract); continue;
 		}
 	}
 
@@ -575,7 +579,7 @@ public class CustomerUi {
 			catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
 			System.out.println("******************** 사고접수 메뉴 *********************");
 			System.out.println("사고접수할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
-			System.out.println("계약아이디\t보험아이디");
+			System.out.println("계약아이디\t고객아이디\t보험아이디");
 			for(Contract contract : contractList) {
 				System.out.println(contract.getId()
 						+ "\t" + contract.getCustomerId()

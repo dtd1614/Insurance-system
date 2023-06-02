@@ -17,7 +17,7 @@ public class ServiceContainer {
     private final SaleService saleService;
 
 
-    public ServiceContainer() throws RemoteException {
+    public ServiceContainer() throws Exception {
         this.accidentService = new AccidentService(new AccidentDao());
         this.compensateService = new CompensateService(new CompensationDao());
         this.customerService = new CustomerService(new CustomerDao());

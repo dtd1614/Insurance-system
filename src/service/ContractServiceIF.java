@@ -1,7 +1,7 @@
 package service;
 
 import domain.Contract;
-import domain.Info.CustomerInfo;
+import domain.customerInfo.CustomerInfo;
 import enumeration.contract.ContractStatus;
 import exception.EmptyListException;
 import exception.NoDataException;

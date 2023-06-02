@@ -18,7 +18,7 @@ public class Main {
 		try {
 			LoginUi loginUI = new LoginUi(new ServiceContainer(), new BufferedReader(new InputStreamReader(System.in)));
 			loginUI.printMenu();
-		} catch (IOException e) {
+		}  catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}

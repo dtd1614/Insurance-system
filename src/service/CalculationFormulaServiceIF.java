@@ -1,6 +1,6 @@
 package service;
 
-import domain.Info.CustomerInfo;
+import domain.customerInfo.CustomerInfo;
 import domain.calculationFormula.CalculationFormula;
 import enumeration.insurance.InsuranceType;
 import exception.EmptyListException;

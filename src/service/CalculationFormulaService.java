@@ -1,8 +1,8 @@
 package service;
 
-import domain.Info.HomeCustomerInfo;
-import domain.Info.CustomerInfo;
-import domain.Info.WorkplaceCustomerInfo;
+import domain.customerInfo.HomeCustomerInfo;
+import domain.customerInfo.CustomerInfo;
+import domain.customerInfo.WorkplaceCustomerInfo;
 import domain.calculationFormula.CalculationFormula;
 import domain.calculationFormula.HomeFormula;
 import domain.calculationFormula.WorkplaceFormula;
@@ -122,7 +122,7 @@ public class CalculationFormulaService extends UnicastRemoteObject implements Ca
                     .get(((WorkplaceCustomerInfo) customerInfo).getUsage())
                     .getLevel();
             totalRisk += ((WorkplaceFormula) calculationFormula)
-                    .getRiskLevelAccordingToSquareFeet()
+                    .getRiskLevelAccordingToSquareMeter()
                     .get(getWorkplaceSquareMeter(customerInfo.getSquareMeter()))
                     .getLevel();
             totalRisk += ((WorkplaceFormula) calculationFormula)

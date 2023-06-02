@@ -1,7 +1,7 @@
 package service;
 
 import domain.Contract;
-import domain.Info.CustomerInfo;
+import domain.customerInfo.CustomerInfo;
 import enumeration.contract.ContractStatus;
 import exception.EmptyListException;
 import exception.NoDataException;
@@ -91,7 +91,7 @@ public class ContractService extends UnicastRemoteObject implements ContractServ
     public ArrayList<Contract> getUnpaidContractList(String customerId) throws RemoteException, EmptyListException {
         ArrayList<Contract> contractList = this.contractDao.findByCustomerId(customerId);
         ArrayList<Contract> unpaidContractList = new ArrayList<>();
-        if(contractList.isEmpty())  throw new EmptyListException("목록이 존재하지 않습니다.");
+        if(contractList.isEmpty())  throw new EmptyListException("! 목록이 존재하지 않습니다.");
         Timestamp now=new Timestamp(System.currentTimeMillis());
         for(Contract contract:contractList) {
             if(contract.getContractStatus()==ContractStatus.Conclude){
@@ -102,7 +102,7 @@ public class ContractService extends UnicastRemoteObject implements ContractServ
                 if(daysDifference<=7) unpaidContractList.add(contract);
             }
         }
-        if(unpaidContractList.isEmpty()) throw new EmptyListException("목록이 존재하지 않습니다.");
+        if(unpaidContractList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
         return unpaidContractList;
     }
     @Override

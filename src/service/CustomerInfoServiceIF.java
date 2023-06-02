@@ -1,6 +1,6 @@
 package service;
 
-import domain.Info.CustomerInfo;
+import domain.customerInfo.CustomerInfo;
 import exception.NoDataException;
 
 import java.rmi.Remote;
