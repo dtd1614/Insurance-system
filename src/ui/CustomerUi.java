@@ -575,7 +575,7 @@ public class CustomerUi {
 			catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
 			System.out.println("******************** 사고접수 메뉴 *********************");
 			System.out.println("사고접수할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
-			System.out.println("계약아이디\t보험아이디");
+			System.out.println("계약아이디\t고객아이디\t보험아이디");
 			for(Contract contract : contractList) {
 				System.out.println(contract.getId()
 						+ "\t" + contract.getCustomerId()
