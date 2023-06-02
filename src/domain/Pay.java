@@ -5,12 +5,10 @@ import java.io.Serializable;
 public class Pay implements Serializable {
     private int id;
     private int contractId;
-    private int accountNumber;
-    private int cardNumber;
+    private String cardNumber;
 
-    public Pay(int contractId, int accountNumber, int cardNumber) {
+    public Pay(int contractId, String cardNumber) {
         this.contractId = contractId;
-        this.accountNumber = accountNumber;
         this.cardNumber = cardNumber;
     }
 
@@ -30,24 +28,11 @@ public class Pay implements Serializable {
         this.contractId = contractId;
     }
 
-    public int getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
-
-//	public boolean paied() {
-//		this.setStatus(PayStatus.FullPayment);
-//		return true;
-//	}
 }

@@ -8,8 +8,6 @@ public enum ContractStatus {
     Terminate("중지"),
     Expire("만료");
 
-
-
     private final String name;
 
     ContractStatus(String name){

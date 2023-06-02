@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public interface CalculationFormulaServiceIF  extends Remote {
+
     ArrayList<CalculationFormula> getCalculationFormulaList(InsuranceType insuranceType) throws RemoteException, EmptyListException;
 
     CalculationFormula getCalculationFormula(int id) throws RemoteException, NoDataException;

@@ -80,8 +80,7 @@ public class LoginUi {
 			case InsuranceManager : new InsuranceManagerUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
 			case UW : new UWUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
 			case Salesperson : new SalespersonUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
-//			case CompensationManager: new CompensationManagerUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
-
+			case CompensationManager: new CompensationManagerUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
 		}
 	}
 
@@ -131,8 +130,8 @@ public class LoginUi {
 		String email = userInput.readLine().trim();
 		if(email.contains(" ")||email.isEmpty()) {System.out.println("! 잘못된 입력입니다."); return;}
 		System.out.print("전화번호 : ");
-		int phoneNumber;
-		try{phoneNumber = Integer.parseInt(userInput.readLine());}
+		long phoneNumber;
+		try{phoneNumber = Long.parseLong(userInput.readLine());}
 		catch(NumberFormatException e) { System.out.println("! 잘못된 입력입니다.");  return;}
 		System.out.print("주소 : ");
 		String address = userInput.readLine().trim();
@@ -199,8 +198,8 @@ public class LoginUi {
 		String email = userInput.readLine().trim();
 		if(email.contains(" ")||email.isEmpty()) {System.out.println("! 잘못된 입력입니다."); return;}
 		System.out.print("전화번호 : ");
-		int phoneNumber;
-		try{phoneNumber = Integer.parseInt(userInput.readLine());}
+		long phoneNumber;
+		try{phoneNumber = Long.parseLong(userInput.readLine());}
 		catch(NumberFormatException e) { System.out.println("! 잘못된 입력입니다.");  return;}
 		Employee employee = new Employee(id, password, department, name, email, phoneNumber, rank);
 		try {serviceContainer.getEmployeeService().registerEmployee(employee);}

@@ -12,11 +12,11 @@ public class Accident implements Serializable {
     private String location;
     private String cause;
     private String content;
-    private int damage;    //피해액
-    private int accountNumber;
+    private long damage;
+    private String accountNumber;
     private AccidentStatus status;
 
-    public Accident(int contractId, Timestamp date, String location, String cause, String content, int damage, int accountNumber, AccidentStatus status) {
+    public Accident(int contractId, Timestamp date, String location, String cause, String content, long damage, String  accountNumber, AccidentStatus status) {
         this.contractId = contractId;
         this.date = date;
         this.location = location;
@@ -75,22 +75,21 @@ public class Accident implements Serializable {
         this.content = content;
     }
 
-    public int getDamage() {
+    public long getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
+    public void setDamage(long damage) {
         this.damage = damage;
     }
 
-    public int getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(int accountNumber) {
+    public void setAccountNumber(String  accountNumber) {
         this.accountNumber = accountNumber;
     }
-
 
     public AccidentStatus getStatus() {
         return status;

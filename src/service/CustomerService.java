@@ -38,4 +38,12 @@ public class CustomerService extends UnicastRemoteObject implements CustomerServ
         if (customerList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
         return customerList;
     }
+    @Override
+    public boolean setHasHome(String customerId, boolean hasHome) throws RemoteException {
+        return customerDao.updateHasHome(customerId, hasHome);
+    }
+    @Override
+    public boolean setHasWorkplace(String customerId, boolean hasWorkplace) throws RemoteException {
+        return  customerDao.updateHasWorkplace(customerId, hasWorkplace);
+    }
 }

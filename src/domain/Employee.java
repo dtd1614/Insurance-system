@@ -12,12 +12,12 @@ public class Employee implements Serializable {
 	private Department department;
 	private String name;
 	private String email;
-	private int phoneNumber;
+	private long phoneNumber;
 	private Rank rank;
 //	public Insurance m_Insurance;
 //	public Policy m_Policy;
 
-	public Employee(String id, String password, Department department, String name, String email, int phoneNumber, Rank rank) {
+	public Employee(String id, String password, Department department, String name, String email, long phoneNumber, Rank rank) {
 		this.id = id;
 		this.password = password;
 		this.department = department;
@@ -67,11 +67,11 @@ public class Employee implements Serializable {
 		this.email = email;
 	}
 
-	public int getPhoneNumber() {
+	public long getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 

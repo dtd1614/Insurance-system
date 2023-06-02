@@ -1,6 +1,7 @@
 package dao;
 
 import domain.Accident;
+import domain.calculationFormula.CalculationFormula;
 import enumeration.accident.AccidentStatus;
 
 import java.util.ArrayList;
@@ -26,11 +27,17 @@ public class AccidentDao extends Dao {
         }
         return false;
     }
-
     public Accident findById(int id) {
         for(Accident accident : accidentList) {
             if(accident.getId() == id) return accident;
         }
         return null;
+    }
+    public ArrayList<Accident> retrieve() {
+        ArrayList<Accident> accidentList = new ArrayList<>();
+        for(Accident accident : this.accidentList){
+            accidentList.add(accident);
+        }
+        return accidentList;
     }
 }

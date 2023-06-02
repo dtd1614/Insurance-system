@@ -1,16 +1,22 @@
 package service;
 
 import domain.Info.CustomerInfo;
+import domain.Info.HomeCustomerInfo;
 import exception.NoDataException;
 import dao.CustomerInfoDao;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class CustomerCustomerInfoService extends UnicastRemoteObject implements CustomerInfoServiceIF {
+public class CustomerInfoService extends UnicastRemoteObject implements CustomerInfoServiceIF {
     private final CustomerInfoDao customerInfoDao;
-    public CustomerCustomerInfoService(CustomerInfoDao customerInfoDao) throws RemoteException {
+    private CustomerService customerService;
+    public CustomerInfoService(CustomerInfoDao customerInfoDao) throws RemoteException {
         this.customerInfoDao = customerInfoDao;
+    }
+
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
     }
     @Override
     public CustomerInfo getInfo(int infoId) throws RemoteException, NoDataException {
@@ -20,6 +26,10 @@ public class CustomerCustomerInfoService extends UnicastRemoteObject implements 
     }
     @Override
     public int makeInfo(CustomerInfo customerInfo) throws RemoteException {
+        boolean isSuccess = false;
+        if(customerInfo instanceof HomeCustomerInfo) isSuccess = customerService.setHasHome(customerInfo.getCustomerId(), true);
+        else isSuccess = customerService.setHasWorkplace(customerInfo.getCustomerId(), true);
+        if(!isSuccess) return 0;
         return customerInfoDao.add(customerInfo);
     }
 }

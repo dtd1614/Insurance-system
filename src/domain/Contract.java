@@ -148,11 +148,11 @@ public class Contract implements Serializable {
         this.paymentCycle = paymentCycle;
     }
 
-	public boolean paied() {
+	public boolean pay() {
 		int cycle=PaymentCycle.getCycle(this.getPayCycle());
 		Timestamp deadline= this.getPaymentDeadline();
 		LocalDateTime newDeadline = deadline.toLocalDateTime();
-		newDeadline=newDeadline.plus(cycle,ChronoUnit.MONTHS);
+		newDeadline = newDeadline.plus(cycle,ChronoUnit.MONTHS);
 		this.setPaymentDeadline(Timestamp.valueOf(newDeadline));
 		return true;
 	}

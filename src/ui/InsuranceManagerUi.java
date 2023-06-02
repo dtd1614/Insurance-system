@@ -103,7 +103,7 @@ public class InsuranceManagerUi {
             } else if (choice.equals("3")) {
             	printFormulaDetail(insurance.getCalculationFormulaId()); continue;
             } else {
-            	System.out.println("! 잘못된 입력입니다.");
+            	System.out.println("! 잘못된 입력입니다."); continue;
 			}
         }
     }

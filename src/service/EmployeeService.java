@@ -26,8 +26,8 @@ public class EmployeeService extends UnicastRemoteObject implements EmployeeServ
         if(employee == null || !employee.getPassword().equals(password)) throw new NoDataException("! 존재하지 않는 계정입니다.");
         return employee;
     }
-
-    public Employee getEmployee(String id, Department department) throws NoDataException {
+    @Override
+    public Employee getEmployee(String id, Department department) throws RemoteException, NoDataException {
         Employee employee = employeeDao.findById(id);
         if(employee==null || employee.getDepartment() != department) throw new NoDataException("! 존재하지 않는 직원입니다.");
         return employee;

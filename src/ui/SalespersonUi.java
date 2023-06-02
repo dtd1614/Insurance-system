@@ -33,7 +33,7 @@ public class SalespersonUi {
             System.out.println("0. 로그아웃");
             System.out.println("x. 종료");
             switch(userInput.readLine().trim()) {
-                case "1" : printConcludeMenu();break;
+                case "1" : printConcludeMenu(); break;
                 case "2" : printOfferInsuranceMenu(); break;
                 case "0" : return;
                 case "x" : System.exit(0);

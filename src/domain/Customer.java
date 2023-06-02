@@ -7,12 +7,12 @@ public class Customer implements Serializable {
 	private String password;
 	private String name;
 	private String email;
-	private int phoneNumber;
+	private long phoneNumber;
 	private String address;
 	private boolean hasHome;
 	private boolean hasWorkplace;
 
-	public Customer(String id, String password, String name, String email, int phoneNumber, String address, boolean hasHome, boolean hasWorkplace) {
+	public Customer(String id, String password, String name, String email, long phoneNumber, String address, boolean hasHome, boolean hasWorkplace) {
 		this.id = id;
 		this.password = password;
 		this.name = name;
@@ -55,11 +55,11 @@ public class Customer implements Serializable {
 		this.email = email;
 	}
 
-	public int getPhoneNumber() {
+	public long getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 

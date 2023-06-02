@@ -64,4 +64,14 @@ public class ContractDao extends Dao {
         }
         return false;
     }
+
+    public boolean update(int id, Timestamp deadline) {
+        for(Contract contract : this.contractList) {
+            if(contract.getId()==id) {
+                contract.setPaymentDeadline(deadline);
+                return true;
+            }
+        }
+        return false;
+    }
 }

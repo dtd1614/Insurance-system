@@ -17,4 +17,8 @@ public interface CustomerServiceIF  extends Remote {
     Customer getCustomer(String selectedCustomerId) throws RemoteException, NoDataException;
 
     ArrayList<Customer> getCustomerList() throws RemoteException, EmptyListException;
+
+    boolean setHasHome(String customerId, boolean hasHome) throws RemoteException;
+
+    boolean setHasWorkplace(String customerId, boolean hasWorkplace) throws RemoteException;
 }

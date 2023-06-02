@@ -21,4 +21,10 @@ public class CompensationDao extends Dao {
         return compensationList;
     }
 
+    public Compensation findById(int id) {
+        for(Compensation compensation : compensationList){
+            if(compensation.getId()==id) return compensation;
+        }
+        return null;
+    }
 }
