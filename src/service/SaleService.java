@@ -3,6 +3,7 @@ package service;
 import domain.Sale;
 import dao.SaleDao;
 import exception.EmptyListException;
+import exception.TimeDelayException;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,12 +20,21 @@ public class SaleService extends UnicastRemoteObject implements SaleServiceIF {
         return saleDao.add(sale);
     }
     @Override
-    public ArrayList<Sale> getSaleList(String customerId) throws RemoteException, EmptyListException {
+    public ArrayList<Sale> getSaleList(String customerId) throws RemoteException, EmptyListException, TimeDelayException {
+        long beforeTime = System.currentTimeMillis();
+
         ArrayList<Sale> saleList = new ArrayList<>();
         for(Sale sale : this.saleDao.retrieve()){
             if(sale.getCustomerId().equals(customerId)) saleList.add(sale);
         }
         if(saleList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
+
+//        try {Thread.sleep(7000);}
+//        catch (InterruptedException e) {throw new RuntimeException(e);}
+        long afterTime = System.currentTimeMillis();
+        long secDiffTime = (afterTime - beforeTime)/1000;
+        if(secDiffTime>=7) throw new TimeDelayException("! 시간지연으로 목록을 불러오지 못했습니다. 다시 시도해주세요.");
+
         return saleList;
     }
 }

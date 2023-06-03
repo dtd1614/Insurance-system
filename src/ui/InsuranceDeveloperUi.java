@@ -19,6 +19,7 @@ import enumeration.calculationFormula.workplaceFormula.WorkplaceUsage;
 import enumeration.insurance.InsuranceStatus;
 import enumeration.insurance.InsuranceType;
 import exception.EmptyListException;
+import exception.TimeDelayException;
 import service.ServiceContainer;
 
 import java.io.BufferedReader;
@@ -396,7 +397,7 @@ public class InsuranceDeveloperUi {
 		while (true) {
 			ArrayList<CalculationFormula> calculationFormulaList;
 			try {calculationFormulaList = serviceContainer.getCalculationFormulaService().getCalculationFormulaList(insuranceType);}
-			catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
+			catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
 			System.out.println("******************** 상품 개발 양식 *********************");
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
 
@@ -450,7 +451,7 @@ public class InsuranceDeveloperUi {
 		System.out.println("******************** 인가 요청 결과 *********************");
 		ArrayList<Insurance> authorizationResultList = null;
 		try {authorizationResultList = serviceContainer.getInsuranceService().getInsuranceList();}
-		catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
+		catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
 		System.out.println("아이디\t이름\t유형\t심사결과");
 		for(Insurance insurance : authorizationResultList){
 			System.out.println(insurance.getId()

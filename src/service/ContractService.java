@@ -6,6 +6,7 @@ import enumeration.contract.ContractStatus;
 import exception.EmptyListException;
 import exception.NoDataException;
 import dao.ContractDao;
+import exception.TimeDelayException;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -17,37 +18,93 @@ import java.util.Calendar;
 
 public class ContractService extends UnicastRemoteObject implements ContractServiceIF{
     private final ContractDao contractDao;
-    private CustomerService customerService;
+    private CustomerServiceIF customerService;
 
     public ContractService(ContractDao contractDao) throws RemoteException {
         this.contractDao = contractDao;
     }
-    public void setCustomerService(CustomerService customerService) {
+    @Override
+    public void setCustomerService(CustomerServiceIF customerService)throws RemoteException {
         this.customerService = customerService;
     }
     @Override
-    public ArrayList<Contract> getContractList(ContractStatus status) throws RemoteException, EmptyListException {
+    public ArrayList<Contract> getContractList(ContractStatus status) throws RemoteException, EmptyListException, TimeDelayException {
+        long beforeTime = System.currentTimeMillis();
+
         ArrayList<Contract> contractList = this.contractDao.findByStatus(status);
         if(contractList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
+
+//        try {Thread.sleep(7000);}
+//        catch (InterruptedException e) {throw new RuntimeException(e);}
+        long afterTime = System.currentTimeMillis();
+        long secDiffTime = (afterTime - beforeTime)/1000;
+        if(secDiffTime>=7) throw new TimeDelayException("! 시간지연으로 목록을 불러오지 못했습니다. 다시 시도해주세요.");
+
         return contractList;
     }
     @Override
-    public ArrayList<Contract> getContractList(String customerId) throws RemoteException, EmptyListException {
+    public ArrayList<Contract> getContractList(String customerId) throws RemoteException, EmptyListException, TimeDelayException {
+        long beforeTime = System.currentTimeMillis();
+
         ArrayList<Contract> contractList = new ArrayList<>();
         for(Contract contract : this.contractDao.retrieve()){
             if(contract.getCustomerId().equals(customerId)) contractList.add(contract);
         }
         if(contractList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
+
+//        try {Thread.sleep(7000);}
+//        catch (InterruptedException e) {throw new RuntimeException(e);}
+        long afterTime = System.currentTimeMillis();
+        long secDiffTime = (afterTime - beforeTime)/1000;
+        if(secDiffTime>=7) throw new TimeDelayException("! 시간지연으로 목록을 불러오지 못했습니다. 다시 시도해주세요.");
+
         return contractList;
     }
     @Override
-    public ArrayList<Contract> getContractList(String customerId, ContractStatus status) throws RemoteException, EmptyListException {
+    public ArrayList<Contract> getContractList(String customerId, ContractStatus status) throws RemoteException, EmptyListException, TimeDelayException {
+        long beforeTime = System.currentTimeMillis();
+
         ArrayList<Contract> contractList = new ArrayList<>();
         for(Contract contract : this.contractDao.findByStatus(status)){
             if(contract.getCustomerId().equals(customerId)) contractList.add(contract);
         }
         if(contractList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
+
+//        try {Thread.sleep(7000);}
+//        catch (InterruptedException e) {throw new RuntimeException(e);}
+        long afterTime = System.currentTimeMillis();
+        long secDiffTime = (afterTime - beforeTime)/1000;
+        if(secDiffTime>=7) throw new TimeDelayException("! 시간지연으로 목록을 불러오지 못했습니다. 다시 시도해주세요.");
+
         return contractList;
+    }
+
+    @Override
+    public ArrayList<Contract> getUnpaidContractList(String customerId) throws RemoteException, EmptyListException, TimeDelayException {
+        long beforeTime = System.currentTimeMillis();
+
+        ArrayList<Contract> contractList = this.contractDao.findByCustomerId(customerId);
+        ArrayList<Contract> unpaidContractList = new ArrayList<>();
+        if(contractList.isEmpty())  throw new EmptyListException("! 목록이 존재하지 않습니다.");
+        Timestamp now=new Timestamp(System.currentTimeMillis());
+        for(Contract contract:contractList) {
+            if(contract.getContractStatus()==ContractStatus.Conclude){
+                Timestamp deadlineStamp=contract.getPaymentDeadline();
+                LocalDateTime deadline = deadlineStamp.toLocalDateTime();
+                LocalDateTime nowTime = now.toLocalDateTime();
+                long daysDifference = ChronoUnit.DAYS.between(nowTime,deadline);
+                if(daysDifference<=7) unpaidContractList.add(contract);
+            }
+        }
+        if(unpaidContractList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
+
+//        try {Thread.sleep(7000);}
+//        catch (InterruptedException e) {throw new RuntimeException(e);}
+        long afterTime = System.currentTimeMillis();
+        long secDiffTime = (afterTime - beforeTime)/1000;
+        if(secDiffTime>=7) throw new TimeDelayException("! 시간지연으로 목록을 불러오지 못했습니다. 다시 시도해주세요.");
+
+        return unpaidContractList;
     }
     @Override
     public Contract getContract(int contractId) throws RemoteException, NoDataException {
@@ -88,25 +145,7 @@ public class ContractService extends UnicastRemoteObject implements ContractServ
     }
 
     @Override
-    public ArrayList<Contract> getUnpaidContractList(String customerId) throws RemoteException, EmptyListException {
-        ArrayList<Contract> contractList = this.contractDao.findByCustomerId(customerId);
-        ArrayList<Contract> unpaidContractList = new ArrayList<>();
-        if(contractList.isEmpty())  throw new EmptyListException("! 목록이 존재하지 않습니다.");
-        Timestamp now=new Timestamp(System.currentTimeMillis());
-        for(Contract contract:contractList) {
-            if(contract.getContractStatus()==ContractStatus.Conclude){
-                Timestamp deadlineStamp=contract.getPaymentDeadline();
-                LocalDateTime deadline = deadlineStamp.toLocalDateTime();
-                LocalDateTime nowTime = now.toLocalDateTime();
-                long daysDifference = ChronoUnit.DAYS.between(nowTime,deadline);
-                if(daysDifference<=7) unpaidContractList.add(contract);
-            }
-        }
-        if(unpaidContractList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
-        return unpaidContractList;
-    }
-    @Override
-    public boolean setPaymentDeadline(int id, Timestamp deadline) throws RemoteException{
-        return contractDao.update(id, deadline);
+    public boolean setPaymentDeadline(int id, LocalDateTime deadline) throws RemoteException{
+        return contractDao.update(id, Timestamp.valueOf(deadline));
     }
 }

@@ -18,6 +18,7 @@ import enumeration.calculationFormula.workplaceFormula.WorkplaceUsage;
 import enumeration.insurance.InsuranceStatus;
 import exception.EmptyListException;
 import exception.NoDataException;
+import exception.TimeDelayException;
 import service.ServiceContainer;
 
 import java.io.BufferedReader;
@@ -52,7 +53,7 @@ public class InsuranceManagerUi {
 	    while(true) {
 			ArrayList<Insurance> insuranceList;
 			try {insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceStatus.UnderAuthorize);}
-			catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
+			catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
 			System.out.println("******************** 상품 인가 메뉴 *********************");
 	        System.out.println("인가할 상품의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
 			System.out.println("아이디\t이름\t유형");

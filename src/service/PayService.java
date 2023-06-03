@@ -13,12 +13,12 @@ import java.time.temporal.ChronoUnit;
 
 public class PayService extends UnicastRemoteObject implements PayServiceIF{
     private final PayDao payDao;
-    private ContractService contractService;
+    private ContractServiceIF contractService;
     public PayService(PayDao payDao) throws RemoteException {
         this.payDao = payDao;
     }
     @Override
-    public void setContractService(ContractService contractService) throws RemoteException {
+    public void setContractService(ContractServiceIF contractService) throws RemoteException {
         this.contractService = contractService;
     }
     @Override
@@ -28,7 +28,7 @@ public class PayService extends UnicastRemoteObject implements PayServiceIF{
         Timestamp deadline= contract.getPaymentDeadline();
         LocalDateTime newDeadline = deadline.toLocalDateTime();
         newDeadline = newDeadline.plus(cycle, ChronoUnit.MONTHS);
-        boolean isSuccess = contractService.setPaymentDeadline(contract.getId(), Timestamp.valueOf(newDeadline));
+        boolean isSuccess = contractService.setPaymentDeadline(contract.getId(), newDeadline);
         if(!isSuccess) return 0;
 
         return this.payDao.add(pay);

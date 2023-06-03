@@ -9,6 +9,7 @@ import enumeration.contract.ContractStatus;
 import enumeration.insurance.InsuranceType;
 import exception.EmptyListException;
 import exception.NoDataException;
+import exception.TimeDelayException;
 import service.ServiceContainer;
 
 import java.io.BufferedReader;
@@ -46,7 +47,7 @@ public class UWUi {
         while (true) {
             ArrayList<Contract> contractList;
             try {contractList = serviceContainer.getContractService().getContractList(ContractStatus.Apply);}
-            catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
+            catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
             System.out.println("******************** 인수심사 메뉴 *********************");
             System.out.println("인수할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
             System.out.println("아이디\t고객아이디\t보험아이디\t보험유형");

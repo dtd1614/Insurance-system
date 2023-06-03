@@ -5,6 +5,7 @@ import enumeration.accident.AccidentStatus;
 import exception.EmptyListException;
 import exception.NoDataException;
 import dao.AccidentDao;
+import exception.TimeDelayException;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -16,15 +17,33 @@ public class AccidentService extends UnicastRemoteObject implements AccidentServ
         this.accidentDao = accidentDao;
     }
     @Override
-    public ArrayList<Accident> getAccidentList(AccidentStatus status) throws RemoteException, EmptyListException {
+    public ArrayList<Accident> getAccidentList(AccidentStatus status) throws RemoteException, EmptyListException, TimeDelayException {
+        long beforeTime = System.currentTimeMillis();
+
         ArrayList<Accident> accidentList = this.accidentDao.findByStatus(status);
         if(accidentList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
+
+//        try {Thread.sleep(7000);}
+//        catch (InterruptedException e) {throw new RuntimeException(e);}
+        long afterTime = System.currentTimeMillis();
+        long secDiffTime = (afterTime - beforeTime)/1000;
+        if(secDiffTime>=7) throw new TimeDelayException("! 시간지연으로 목록을 불러오지 못했습니다. 다시 시도해주세요.");
+
         return accidentList;
     }
     @Override
-    public ArrayList<Accident> getAccidentList() throws RemoteException, EmptyListException {
+    public ArrayList<Accident> getAccidentList() throws RemoteException, EmptyListException, TimeDelayException {
+        long beforeTime = System.currentTimeMillis();
+
         ArrayList<Accident> accidentList = this.accidentDao.retrieve();
         if(accidentList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
+
+//        try {Thread.sleep(7000);}
+//        catch (InterruptedException e) {throw new RuntimeException(e);}
+        long afterTime = System.currentTimeMillis();
+        long secDiffTime = (afterTime - beforeTime)/1000;
+        if(secDiffTime>=7) throw new TimeDelayException("! 시간지연으로 목록을 불러오지 못했습니다. 다시 시도해주세요.");
+
         return accidentList;
     }
     @Override

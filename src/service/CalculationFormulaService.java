@@ -15,6 +15,7 @@ import enumeration.insurance.InsuranceType;
 import exception.EmptyListException;
 import exception.NoDataException;
 import dao.CalculationFormulaDao;
+import exception.TimeDelayException;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -26,9 +27,18 @@ public class CalculationFormulaService extends UnicastRemoteObject implements Ca
         this.calculationFormulaDao = calculationFormulaDao;
     }
     @Override
-    public ArrayList<CalculationFormula> getCalculationFormulaList(InsuranceType insuranceType) throws RemoteException, EmptyListException {
+    public ArrayList<CalculationFormula> getCalculationFormulaList(InsuranceType insuranceType) throws RemoteException, EmptyListException, TimeDelayException {
+        long beforeTime = System.currentTimeMillis();
+
         ArrayList<CalculationFormula> calculationFormulaList = this.calculationFormulaDao.findByType(insuranceType);
         if(calculationFormulaList.isEmpty()) throw new EmptyListException("! 계산식 목록이 존재하지 않습니다.");
+
+//        try {Thread.sleep(7000);}
+//        catch (InterruptedException e) {throw new RuntimeException(e);}
+        long afterTime = System.currentTimeMillis();
+        long secDiffTime = (afterTime - beforeTime)/1000;
+        if(secDiffTime>=7) throw new TimeDelayException("! 시간지연으로 목록을 불러오지 못했습니다. 다시 시도해주세요.");
+
         return calculationFormulaList;
     }
     @Override

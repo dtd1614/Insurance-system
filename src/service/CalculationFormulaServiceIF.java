@@ -5,6 +5,7 @@ import domain.calculationFormula.CalculationFormula;
 import enumeration.insurance.InsuranceType;
 import exception.EmptyListException;
 import exception.NoDataException;
+import exception.TimeDelayException;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public interface CalculationFormulaServiceIF  extends Remote {
 
-    ArrayList<CalculationFormula> getCalculationFormulaList(InsuranceType insuranceType) throws RemoteException, EmptyListException;
+    ArrayList<CalculationFormula> getCalculationFormulaList(InsuranceType insuranceType) throws RemoteException, EmptyListException, TimeDelayException;
 
     CalculationFormula getCalculationFormula(int id) throws RemoteException, NoDataException;
 

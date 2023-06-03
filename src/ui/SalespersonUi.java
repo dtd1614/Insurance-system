@@ -8,6 +8,7 @@ import enumeration.insurance.InsuranceStatus;
 import enumeration.insurance.InsuranceType;
 import exception.EmptyListException;
 import exception.NoDataException;
+import exception.TimeDelayException;
 import service.ServiceContainer;
 
 import java.io.BufferedReader;
@@ -45,7 +46,7 @@ public class SalespersonUi {
         while (true) {
             ArrayList<Contract> contractList = null;
             try {contractList = serviceContainer.getContractService().getContractList(ContractStatus.Underwrite);}
-            catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
+            catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
             System.out.println("******************** 계약체결 메뉴 *********************");
             System.out.println("체결할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
             System.out.println("아이디\t고객아이디\t보험아이디");
@@ -104,7 +105,7 @@ public class SalespersonUi {
         while (true) {
             ArrayList<Customer> customerList = null;
             try {customerList = serviceContainer.getCustomerService().getCustomerList();}
-            catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
+            catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
             System.out.println("******************** 보험제안 메뉴 *********************");
             System.out.println("보험제안할 고객의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
             System.out.println("고객아이디\t고객이름");
@@ -145,7 +146,7 @@ public class SalespersonUi {
                 if(customer.isHasHome() && customer.isHasWorkplace()){insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceStatus.Authorize);}
                 else if(customer.isHasHome()){insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceType.HomeFire, InsuranceStatus.Authorize);}
                 else if(customer.isHasWorkplace()){insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceType.WorkplaceFire, InsuranceStatus.Authorize);}
-            } catch (EmptyListException e) {
+            } catch (EmptyListException | TimeDelayException e) {
                 System.out.println(e.getMessage());
                 return;
             }
