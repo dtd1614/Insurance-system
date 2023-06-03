@@ -17,13 +17,13 @@ import java.util.Calendar;
 
 public class ContractService extends UnicastRemoteObject implements ContractServiceIF{
     private final ContractDao contractDao;
-    private CustomerInfoService customerInfoService;
+    private CustomerService customerService;
 
     public ContractService(ContractDao contractDao) throws RemoteException {
         this.contractDao = contractDao;
     }
-    public void setCustomerInfoService(CustomerInfoService customerInfoService) {
-        this.customerInfoService = customerInfoService;
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
     }
     @Override
     public ArrayList<Contract> getContractList(ContractStatus status) throws RemoteException, EmptyListException {
@@ -58,7 +58,7 @@ public class ContractService extends UnicastRemoteObject implements ContractServ
     @Override
     public int applyInsurance(Contract contract, CustomerInfo customerInfo) throws RemoteException {
         boolean isSuccess = false;
-        int id = customerInfoService.makeInfo(customerInfo);
+        int id = customerService.makeInfo(customerInfo);
         if(id==0) return 0;
         else contract.setCustomerInfoId(id);
         return contractDao.add(contract);

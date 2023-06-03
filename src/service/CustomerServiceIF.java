@@ -1,6 +1,7 @@
 package service;
 
 import domain.Customer;
+import domain.customerInfo.CustomerInfo;
 import exception.DataDuplicationException;
 import exception.EmptyListException;
 import exception.NoDataException;
@@ -18,7 +19,7 @@ public interface CustomerServiceIF  extends Remote {
 
     ArrayList<Customer> getCustomerList() throws RemoteException, EmptyListException;
 
-    boolean setHasHome(String customerId, boolean hasHome) throws RemoteException;
+    CustomerInfo getInfo(int infoId) throws RemoteException, NoDataException;
 
-    boolean setHasWorkplace(String customerId, boolean hasWorkplace) throws RemoteException;
+    int makeInfo(CustomerInfo customerInfo) throws RemoteException;
 }

@@ -82,7 +82,7 @@ public class UWUi {
             DecimalFormat decFormat = new DecimalFormat("###,###");
             try {
                 customer = serviceContainer.getCustomerService().getCustomer(contract.getCustomerId());
-                customerInfo = serviceContainer.getInfoService().getInfo(contract.getCustomerInfoId());
+                customerInfo = serviceContainer.getCustomerService().getInfo(contract.getCustomerInfoId());
             } catch (NoDataException e) {
                 System.out.println(e.getMessage()); return;
             }

@@ -1,6 +1,9 @@
 package service;
 
+import dao.CustomerInfoDao;
 import domain.Customer;
+import domain.customerInfo.CustomerInfo;
+import domain.customerInfo.HomeCustomerInfo;
 import exception.DataDuplicationException;
 import exception.EmptyListException;
 import exception.NoDataException;
@@ -12,8 +15,11 @@ import java.util.ArrayList;
 
 public class CustomerService extends UnicastRemoteObject implements CustomerServiceIF{
     private final CustomerDao customerDao;
-    public CustomerService(CustomerDao customerDao) throws RemoteException {
+    private final CustomerInfoDao customerInfoDao;
+
+    public CustomerService(CustomerDao customerDao, CustomerInfoDao customerInfoDao) throws RemoteException {
         this.customerDao = customerDao;
+        this.customerInfoDao = customerInfoDao;
     }
     @Override
     public boolean registerCustomer(Customer customer) throws RemoteException, DataDuplicationException {
@@ -38,12 +44,19 @@ public class CustomerService extends UnicastRemoteObject implements CustomerServ
         if (customerList.isEmpty()) throw new EmptyListException("! 목록이 존재하지 않습니다.");
         return customerList;
     }
+
     @Override
-    public boolean setHasHome(String customerId, boolean hasHome) throws RemoteException {
-        return customerDao.updateHasHome(customerId, hasHome);
+    public CustomerInfo getInfo(int infoId) throws RemoteException, NoDataException {
+        CustomerInfo customerInfo = customerInfoDao.findById(infoId);
+        if(customerInfo ==null) throw new NoDataException("! 존재하지 않는 정보입니다.");
+        return customerInfo;
     }
     @Override
-    public boolean setHasWorkplace(String customerId, boolean hasWorkplace) throws RemoteException {
-        return  customerDao.updateHasWorkplace(customerId, hasWorkplace);
+    public int makeInfo(CustomerInfo customerInfo) throws RemoteException {
+        boolean isSuccess = false;
+        if(customerInfo instanceof HomeCustomerInfo) isSuccess = customerDao.updateHasHome(customerInfo.getCustomerId(), true);
+        else isSuccess = customerDao.updateHasWorkplace(customerInfo.getCustomerId(), true);
+        if(!isSuccess) return 0;
+        return customerInfoDao.add(customerInfo);
     }
 }

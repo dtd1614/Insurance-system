@@ -2,8 +2,6 @@ package service;
 
 import dao.*;
 
-import java.rmi.RemoteException;
-
 public class ServiceContainer {
     private final AccidentService accidentService;
     private final CalculationFormulaService calculationFormulaService;
@@ -11,7 +9,6 @@ public class ServiceContainer {
     private final ContractService contractService;
     private final CustomerService customerService;
     private final EmployeeService employeeService;
-    private final CustomerInfoService customerInfoService;
     private final InsuranceService insuranceService;
     private final PayService payService;
     private final SaleService saleService;
@@ -20,8 +17,7 @@ public class ServiceContainer {
     public ServiceContainer() throws Exception {
         this.accidentService = new AccidentService(new AccidentDao());
         this.compensateService = new CompensateService(new CompensationDao());
-        this.customerService = new CustomerService(new CustomerDao());
-        this.customerInfoService = new CustomerInfoService(new CustomerInfoDao());
+        this.customerService = new CustomerService(new CustomerDao(), new CustomerInfoDao());
         this.contractService = new ContractService(new ContractDao());
         this.payService = new PayService(new PayDao());
         this.calculationFormulaService = new CalculationFormulaService(new CalculationFormulaDao());
@@ -31,8 +27,7 @@ public class ServiceContainer {
 
         this.compensateService.setAccidentService(this.accidentService);
 
-        this.customerInfoService.setCustomerService(this.customerService);
-        this.contractService.setCustomerInfoService(this.customerInfoService);
+        this.contractService.setCustomerService(this.customerService);
         this.payService.setContractService(this.contractService);
     }
 
@@ -58,10 +53,6 @@ public class ServiceContainer {
 
     public EmployeeService getEmployeeService() {
         return employeeService;
-    }
-
-    public CustomerInfoService getInfoService() {
-        return customerInfoService;
     }
 
     public InsuranceService getInsuranceService() {
