@@ -4,6 +4,7 @@ import domain.Accident;
 import enumeration.accident.AccidentStatus;
 import exception.EmptyListException;
 import exception.NoDataException;
+import exception.TimeDelayException;
 import service.ServiceContainer;
 
 import java.io.BufferedReader;
@@ -38,7 +39,7 @@ public class CompensationManagerUi {
         while (true) {
             ArrayList<Accident> accidentList;
             try {accidentList = serviceContainer.getAccidentService().getAccidentList(AccidentStatus.ReportAccident);}
-            catch (EmptyListException e) {System.out.println(e.getMessage()); return;}
+            catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
             System.out.println("******************** 사고접수목록 *********************");
             System.out.println("자세히 보고싶은 사고의 아이디를 입력하세요. 뒤로가기를 원하시면 0을 입력하세요.");
             System.out.println("아이디\t사고일시\t피해액(원)");

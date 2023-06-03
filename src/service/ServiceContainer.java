@@ -2,26 +2,22 @@ package service;
 
 import dao.*;
 
-import java.rmi.RemoteException;
-
 public class ServiceContainer {
-    private final AccidentService accidentService;
-    private final CalculationFormulaService calculationFormulaService;
-    private final CompensateService compensateService;
-    private final ContractService contractService;
-    private final CustomerService customerService;
-    private final EmployeeService employeeService;
-    private final CustomerInfoService customerInfoService;
-    private final InsuranceService insuranceService;
-    private final PayService payService;
-    private final SaleService saleService;
+    private final AccidentServiceIF accidentService;
+    private final CalculationFormulaServiceIF calculationFormulaService;
+    private final CompensateServiceIF compensateService;
+    private final ContractServiceIF contractService;
+    private final CustomerServiceIF customerService;
+    private final EmployeeServiceIF employeeService;
+    private final InsuranceServiceIF insuranceService;
+    private final PayServiceIF payService;
+    private final SaleServiceIF saleService;
 
 
-    public ServiceContainer() throws RemoteException {
+    public ServiceContainer() throws Exception {
         this.accidentService = new AccidentService(new AccidentDao());
         this.compensateService = new CompensateService(new CompensationDao());
         this.customerService = new CustomerService(new CustomerDao());
-        this.customerInfoService = new CustomerInfoService(new CustomerInfoDao());
         this.contractService = new ContractService(new ContractDao());
         this.payService = new PayService(new PayDao());
         this.calculationFormulaService = new CalculationFormulaService(new CalculationFormulaDao());
@@ -31,48 +27,43 @@ public class ServiceContainer {
 
         this.compensateService.setAccidentService(this.accidentService);
 
-        this.customerInfoService.setCustomerService(this.customerService);
-        this.contractService.setCustomerInfoService(this.customerInfoService);
+        this.contractService.setCustomerService(this.customerService);
         this.payService.setContractService(this.contractService);
     }
 
-    public AccidentService getAccidentService() {
+    public AccidentServiceIF getAccidentService() {
         return accidentService;
     }
 
-    public CalculationFormulaService getCalculationFormulaService() {
+    public CalculationFormulaServiceIF getCalculationFormulaService() {
         return calculationFormulaService;
     }
 
-    public CompensateService getCompensateService() {
+    public CompensateServiceIF getCompensateService() {
         return compensateService;
     }
 
-    public ContractService getContractService() {
+    public ContractServiceIF getContractService() {
         return contractService;
     }
 
-    public CustomerService getCustomerService() {
+    public CustomerServiceIF getCustomerService() {
         return customerService;
     }
 
-    public EmployeeService getEmployeeService() {
+    public EmployeeServiceIF getEmployeeService() {
         return employeeService;
     }
 
-    public CustomerInfoService getInfoService() {
-        return customerInfoService;
-    }
-
-    public InsuranceService getInsuranceService() {
+    public InsuranceServiceIF getInsuranceService() {
         return insuranceService;
     }
 
-    public PayService getPayService() {
+    public PayServiceIF getPayService() {
         return payService;
     }
     
-    public SaleService getSaleService() {
+    public SaleServiceIF getSaleService() {
         return saleService;
     }
 }

@@ -1,4 +1,4 @@
-package domain.Info;
+package domain.customerInfo;
 
 import enumeration.calculationFormula.OutwallType;
 import enumeration.calculationFormula.PillarType;

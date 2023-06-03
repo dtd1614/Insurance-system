@@ -11,17 +11,18 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class CompensateService extends UnicastRemoteObject implements CompensateServiceIF {
     private final CompensationDao compensationDao;
-    private AccidentService accidentService;
+    private AccidentServiceIF accidentService;
 
     public CompensateService(CompensationDao compensationDao) throws RemoteException {
         this.compensationDao = compensationDao;
     }
-    public void setAccidentService( AccidentService accidentService){
+    @Override
+    public void setAccidentService(AccidentServiceIF accidentService)throws RemoteException{
         this.accidentService = accidentService;
     }
     @Override
     public Compensation getCompensation(int id) throws RemoteException, NoDataException {
-        Compensation compensation = compensationDao.findById(id);
+        Compensation compensation = compensationDao.findByAccidentId(id);
         if(compensation == null) throw new NoDataException("보상내역이 존재하지 않습니다.");
         return compensation;
     }

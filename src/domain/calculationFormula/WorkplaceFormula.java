@@ -53,11 +53,11 @@ public class WorkplaceFormula extends CalculationFormula {
 		this.riskLevelAccordingToFloor = riskLevelAccordingToFloor;
 	}
 
-	public HashMap<WorkplaceSquareMeter, RiskLevel> getRiskLevelAccordingToSquareFeet() {
+	public HashMap<WorkplaceSquareMeter, RiskLevel> getRiskLevelAccordingToSquareMeter() {
 		return riskLevelAccordingToSquareFeet;
 	}
 
-	public void setRiskLevelAccordingToSquareFeet(HashMap<WorkplaceSquareMeter, RiskLevel> riskLevelAccordingToSquareFeet) {
+	public void setRiskLevelAccordingToSquareMeter(HashMap<WorkplaceSquareMeter, RiskLevel> riskLevelAccordingToSquareFeet) {
 		this.riskLevelAccordingToSquareFeet = riskLevelAccordingToSquareFeet;
 	}
 

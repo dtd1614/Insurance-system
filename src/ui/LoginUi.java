@@ -20,16 +20,6 @@ public class LoginUi {
 	public LoginUi(ServiceContainer serviceContainer, BufferedReader userInput) throws RemoteException {
 		this.serviceContainer = serviceContainer;
 		this.userInput = userInput;
-		try {
-			this.serviceContainer.getCustomerService().registerCustomer(new Customer("고객","1","1","1",1,"1",true,true));
-			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("상품개발자","1",Department.InsuranceDeveloper,"1","1",1,Rank.AssisantManager));
-			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("상품관리자","1",Department.InsuranceManager,"1","1",1,Rank.AssisantManager));
-			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("언더라이터","1",Department.UW,"1","1",1,Rank.AssisantManager));
-			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("영업사원","1",Department.Salesperson,"1","1",1,Rank.AssisantManager));
-			this.serviceContainer.getEmployeeService().registerEmployee(new Employee("보상담당자","1",Department.CompensationManager,"1","1",1,Rank.AssisantManager));
-		} catch (DataDuplicationException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	public void printMenu() throws IOException {
@@ -129,7 +119,7 @@ public class LoginUi {
 		System.out.print("이메일 : ");
 		String email = userInput.readLine().trim();
 		if(email.contains(" ")||email.isEmpty()) {System.out.println("! 잘못된 입력입니다."); return;}
-		System.out.print("전화번호 : ");
+		System.out.print("전화번호(-없이 그리고 빈칸없이) : ");
 		long phoneNumber;
 		try{phoneNumber = Long.parseLong(userInput.readLine());}
 		catch(NumberFormatException e) { System.out.println("! 잘못된 입력입니다.");  return;}

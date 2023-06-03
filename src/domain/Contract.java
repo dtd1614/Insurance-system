@@ -30,7 +30,7 @@ public class Contract implements Serializable {
         this.saleEmployeeId = saleEmployeeId;
         this.customerId=customerId;
         this.term = term;
-        this.paymentFee = paymentFee * paymentCycle.getMonth();
+        this.paymentFee = paymentFee;
         this.paymentCycle = paymentCycle;
         this.compensation = compensation;
         this.contractStatus = contractStatus;
@@ -147,13 +147,4 @@ public class Contract implements Serializable {
     public void setPaymentCycle(PaymentCycle paymentCycle) {
         this.paymentCycle = paymentCycle;
     }
-
-	public boolean pay() {
-		int cycle=PaymentCycle.getCycle(this.getPayCycle());
-		Timestamp deadline= this.getPaymentDeadline();
-		LocalDateTime newDeadline = deadline.toLocalDateTime();
-		newDeadline = newDeadline.plus(cycle,ChronoUnit.MONTHS);
-		this.setPaymentDeadline(Timestamp.valueOf(newDeadline));
-		return true;
-	}
 }
