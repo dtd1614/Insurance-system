@@ -1,0 +1,15 @@
+인텔리제이를 사용하는 경우로 설명
+
+0. 본인 db에 create_tables.sql을 실행하여 테이블 생성
+
+1. Server 프로젝트를 모두 열어서 각각 mysql connector 라이브러리 추가
+
+2. 모든 Server 프로젝트의 Dao클래스 생성자의 db연결 코드(dbName, userName, password)를 본인 db에 맞게 수정
+
+3. Client 프로젝트를 열고 컴파일(ctrl + f9)하여 Client 프로젝트 내에 out파일 생성
+
+4. Client 프로젝트의 out/production/Client에서 cmd(터미널)를 열어서 start rmiregistry(맥인 경우 rmiregistry & 라고 함) 입력 후 엔터 (윈도우인 경우 새로운 cmd 창이 뜨면 성공. 맥인 경우는 모르겠음)
+
+5. 모든 Server 프로젝트 실행
+
+6. Client 프로젝트 실행 후 테스트
