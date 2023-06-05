@@ -44,9 +44,9 @@ public class InsuranceDeveloperUi {
 	public void printMenu() throws IOException {
 		while(true) {
 			System.out.println("******************** 상품개발자 메인 메뉴 *********************");
-			System.out.println("1. 보험료&보상금 계산식 수립하기");
-			System.out.println("2. 상품 개발하기");
-			System.out.println("3. 인가심사결과 조회하기");
+			System.out.println("1. 보험료&보상금 계산식 수립");
+			System.out.println("2. 상품 개발");
+			System.out.println("3. 인가요청결과 조회");
 			System.out.println("0. 로그아웃");
 			System.out.println("x. 종료");
 			switch(userInput.readLine().trim()) {
@@ -105,7 +105,7 @@ public class InsuranceDeveloperUi {
 			catch (DataDuplicationException e) {System.out.println(e.getMessage()); continue;}
 
 			System.out.println("거주 유형에 따른 위험도(1~10)를 입력하세요.");
-			for (int i = ResidenceType.values().length-1; i>=0; i--) {
+			for (int i = 0; i<ResidenceType.values().length; i++) {
 				System.out.print(ResidenceType.values()[i].getName() + " : ");
 				String choice = userInput.readLine().trim();
 				if(choice.equals("0")) return;
@@ -116,7 +116,7 @@ public class InsuranceDeveloperUi {
 			if(riskLevel==null) continue;
 
 			System.out.println("주택 유형에 따른 위험도(1~10)를 입력하세요.");
-			for (int i = HouseType.values().length-1; i>=0; i--) {
+			for (int i = 0; i<HouseType.values().length; i++) {
 				System.out.print(HouseType.values()[i].getName() + " : ");
 				String choice = userInput.readLine().trim();
 				if(choice.equals("0")) return;
@@ -126,7 +126,7 @@ public class InsuranceDeveloperUi {
 			}
 			if(riskLevel==null) continue;
 
-			System.out.println("거주 평수에 따른 위험도(1~10)를 입력하세요.");
+			System.out.println("평수에 따른 위험도(1~10)를 입력하세요.");
 			for (int i = HomeSquareMeter.values().length-1; i>=0; i--) {
 				System.out.print(HomeSquareMeter.values()[i].getName() + " : ");
 				String choice = userInput.readLine().trim();
@@ -138,7 +138,7 @@ public class InsuranceDeveloperUi {
 			if(riskLevel==null) continue;
 
 			System.out.println("기둥 유형에 따른 위험도(1~10)를 입력하세요.");
-			for (int i = PillarType.values().length-1; i>=0; i--) {
+			for (int i = 0; i<PillarType.values().length; i++) {
 				System.out.print(PillarType.values()[i].getName() + " : ");
 				String choice = userInput.readLine().trim();
 				if(choice.equals("0")) return;
@@ -149,7 +149,7 @@ public class InsuranceDeveloperUi {
 			if(riskLevel==null) continue;
 
 			System.out.println("지붕 유형에 따른 위험도(1~10)를 입력하세요.");
-			for (int i = RoofType.values().length-1; i>=0; i--) {
+			for (int i = 0; i<RoofType.values().length; i++) {
 				System.out.print(RoofType.values()[i].getName() + " : ");
 				String choice = userInput.readLine().trim();
 				if(choice.equals("0")) return;
@@ -160,7 +160,7 @@ public class InsuranceDeveloperUi {
 			if(riskLevel==null) continue;
 
 			System.out.println("외벽 유형에 따른 위험도(1~10)를 입력하세요.");
-			for (int i = OutwallType.values().length-1; i>=0; i--) {
+			for (int i = 0; i<OutwallType.values().length; i++) {
 				System.out.print(OutwallType.values()[i].getName() + " : ");
 				String choice = userInput.readLine().trim();
 				if(choice.equals("0")) return;
@@ -183,21 +183,21 @@ public class InsuranceDeveloperUi {
 
 			System.out.println("보험료 계산식을 수립하세요.");
 
-			System.out.println("보험료는 [고객의 총 위험도]에 [보험료 산출 상수]를 곱한 값입니다.");
+			System.out.println("보험료 계산식은 [고객의 총 위험도] X [보험료 산출 상수]입니다.");
 			System.out.println("[보험료 산출 상수]를 입력하세요.");
 			try {numToMultiplyForPayment = Integer.parseInt(userInput.readLine());}
 			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if(numToMultiplyForPayment==0) return;
 
 			System.out.println("최소 보상금 계산식을 수립하세요.");
-			System.out.println("최소 보상금은 [고객 주택 면적(㎡)]에 [최소 보상금 산출 상수]를 곱한 값입니다.");
+			System.out.println("최소 보상금 계산식 [면적(㎡)] X [최소 보상금 산출 상수]입니다.");
 			System.out.println("[최소 보상금 산출 상수]를 입력하세요.");
 			try {numToMultiplyForMinCompensation = Integer.parseInt(userInput.readLine());}
 			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if(numToMultiplyForMinCompensation==0) return;
 
 			System.out.println("최대 보상금 계산식을 수립하세요.");
-			System.out.println("최대 보상금은 [고객 주택 면적(㎡)]에 [최대 보상금 산출 상수]를 곱한 값입니다.");
+			System.out.println("최대 보상금 계산식은 [면적(㎡)] X [최대 보상금 산출 상수]입니다.");
 			System.out.println("[최대 보상금 산출 상수]를 입력하세요. [최대 보상금 산출 상수]는 [최소 보상금 산출 상수]보다 커야 합니다." );
 			try {numToMultiplyForMaxCompensation = Integer.parseInt(userInput.readLine());}
 			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다.");  continue;}
@@ -251,7 +251,7 @@ public class InsuranceDeveloperUi {
 			catch (DataDuplicationException e) {System.out.println(e.getMessage()); continue;}
 
 			System.out.println("건물용도에 따른 위험도(1~10)를 입력하세요.");
-			for (int i = WorkplaceUsage.values().length-1; i>=0; i--) {
+			for (int i = 0; i<WorkplaceUsage.values().length; i++) {
 				System.out.print(WorkplaceUsage.values()[i].getName() + " : ");
 				String choice = userInput.readLine().trim();
 				if(choice.equals("0")) return;
@@ -284,7 +284,7 @@ public class InsuranceDeveloperUi {
 			if(riskLevel==null) continue;
 
 			System.out.println("기둥 유형에 따른 위험도(1~10)를 입력하세요.");
-			for (int i = PillarType.values().length-1; i>=0; i--) {
+			for (int i = 0; i<PillarType.values().length; i++) {
 				System.out.print(PillarType.values()[i].getName() + " : ");
 				String choice = userInput.readLine().trim();
 				if(choice.equals("0")) return;
@@ -295,7 +295,7 @@ public class InsuranceDeveloperUi {
 			if(riskLevel==null) continue;
 
 			System.out.println("지붕 유형에 따른 위험도(1~10)를 입력하세요.");
-			for (int i = RoofType.values().length-1; i>=0; i--) {
+			for (int i = 0; i<RoofType.values().length; i++) {
 				System.out.print(RoofType.values()[i].getName() + " : ");
 				String choice = userInput.readLine().trim();
 				if(choice.equals("0")) return;
@@ -306,7 +306,7 @@ public class InsuranceDeveloperUi {
 			if(riskLevel==null) continue;
 
 			System.out.println("외벽 유형에 따른 위험도(1~10)를 입력하세요.");
-			for (int i = OutwallType.values().length-1; i>=0; i--) {
+			for (int i = 0; i<OutwallType.values().length; i++) {
 				System.out.print(OutwallType.values()[i].getName() + " : ");
 				String choice = userInput.readLine().trim();
 				if(choice.equals("0")) return;
@@ -329,21 +329,21 @@ public class InsuranceDeveloperUi {
 
 			System.out.println("보험료 계산식을 수립하세요.");
 
-			System.out.println("보험료 계산식은 [고객의 총 위험도]에 [보험료 산출 상수]를 곱한 값입니다.");
+			System.out.println("보험료 계산식은 [고객의 총 위험도] X [보험료 산출 상수]입니다.");
 			System.out.println("[보험료 산출 상수]를 입력하세요.");
 			try {numToMultiplyForPayment = Integer.parseInt(userInput.readLine());}
 			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if(numToMultiplyForPayment==0) return;
 
 			System.out.println("최소 보상금 계산식을 수립하세요.");
-			System.out.println("최소 보상금은 [고객 주택 면적(㎡)]에 [최소 보상금 산출 상수]를 곱한 값입니다.");
+			System.out.println("최소 보상금 계산식은 [면적(㎡)] X [최소 보상금 산출 상수]입니다.");
 			System.out.println("[최소 보상금 산출 상수]를 입력하세요.");
 			try {numToMultiplyForMinCompensation = Integer.parseInt(userInput.readLine());}
 			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다."); continue;}
 			if(numToMultiplyForPayment==0) return;
 
 			System.out.println("최대 보상금 계산식을 수립하세요.");
-			System.out.println("최대 보상금은 [고객 주택 면적(㎡)]에 [최대 보상금 산출 상수]를 곱한 값입니다.");
+			System.out.println("최대 보상금 계산식은 [면적(㎡)] X [최대 보상금 산출 상수]입니다.");
 			System.out.println("[최대 보상금 산출 상수]를 입력하세요. [최대 보상금 산출 상수]는 [최소 보상금 산출 상수]보다 커야 합니다." );
 			try {numToMultiplyForMaxCompensation = Integer.parseInt(userInput.readLine());}
 			catch (NumberFormatException e) {System.out.println("! 잘못된 입력입니다.");  continue;}
@@ -411,18 +411,6 @@ public class InsuranceDeveloperUi {
 			System.out.println("******************** 상품 개발 양식 *********************");
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
 
-			System.out.print("이름 : ");
-			String name = userInput.readLine().trim();
-			if(name.contains(" ")||name.isEmpty()) {System.out.println("! 잘못된 입력입니다."); continue;}
-			if(name.equals("0")) return;
-			try {serviceContainer.getInsuranceService().checkNameDuplication(name);}
-			catch (DataDuplicationException e) {System.out.println(e.getMessage()); continue;}
-
-			System.out.print("가입대상자 : ");
-			String target = userInput.readLine().trim();
-			if(target.isEmpty()) {System.out.println("! 잘못된 입력입니다."); continue;}
-			if(target.equals("0")) return;
-
 			System.out.println("계산식 목록을 조회하고 계산식을 선택하세요.");
 			System.out.println("아이디\t이름");
 			for(CalculationFormula calculationFormula : calculationFormulaList) {
@@ -440,6 +428,18 @@ public class InsuranceDeveloperUi {
 			}
 			if(!isExistId){System.out.println("! 잘못된 입력입니다."); continue;}
 
+			System.out.print("이름 : ");
+			String name = userInput.readLine().trim();
+			if(name.contains(" ")||name.isEmpty()) {System.out.println("! 잘못된 입력입니다."); continue;}
+			if(name.equals("0")) return;
+			try {serviceContainer.getInsuranceService().checkNameDuplication(name);}
+			catch (DataDuplicationException e) {System.out.println(e.getMessage()); continue;}
+
+			System.out.print("가입대상자 : ");
+			String target = userInput.readLine().trim();
+			if(target.isEmpty()) {System.out.println("! 잘못된 입력입니다."); continue;}
+			if(target.equals("0")) return;
+
 			System.out.print("보상 조건 : ");
 			String compensateCondition = userInput.readLine().trim();
 			if(compensateCondition.isEmpty()) {System.out.println("! 잘못된 입력입니다."); continue;}
@@ -455,7 +455,7 @@ public class InsuranceDeveloperUi {
 			try{id = serviceContainer.getInsuranceService().makeInsurance(insurance);}
 			catch (DataDuplicationException e) {System.out.println(e.getMessage()); return;}
 			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
-			if(id==0) {System.out.println("개발 및 인가요청이 실패되었습니다."); return;}
+			if(id==0) {System.out.println("인가요청이 실패되었습니다."); return;}
 			System.out.println("개발 및 인가요청이 완료되었습니다.");
 			return;
 		}

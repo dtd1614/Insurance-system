@@ -38,7 +38,7 @@ public class ContractService extends UnicastRemoteObject implements ContractServ
 //        catch (InterruptedException e) {throw new RuntimeException(e);}
         long afterTime = System.currentTimeMillis();
         long secDiffTime = (afterTime - beforeTime)/1000;
-        if(secDiffTime>=7) throw new TimeDelayException("! 시간지연으로 목록을 불러오지 못했습니다. 다시 시도해주세요.");
+        if(secDiffTime>=7) throw new TimeDelayException("! 시스템에 오류가 발생했습니다. 다시 시도해주세요.");
 
         return contractList;
     }
@@ -56,7 +56,7 @@ public class ContractService extends UnicastRemoteObject implements ContractServ
 //        catch (InterruptedException e) {throw new RuntimeException(e);}
         long afterTime = System.currentTimeMillis();
         long secDiffTime = (afterTime - beforeTime)/1000;
-        if(secDiffTime>=7) throw new TimeDelayException("! 시간지연으로 목록을 불러오지 못했습니다. 다시 시도해주세요.");
+        if(secDiffTime>=7) throw new TimeDelayException("! 시스템에 오류가 발생했습니다. 다시 시도해주세요.");
 
         return contractList;
     }
@@ -74,7 +74,7 @@ public class ContractService extends UnicastRemoteObject implements ContractServ
 //        catch (InterruptedException e) {throw new RuntimeException(e);}
         long afterTime = System.currentTimeMillis();
         long secDiffTime = (afterTime - beforeTime)/1000;
-        if(secDiffTime>=7) throw new TimeDelayException("! 시간지연으로 목록을 불러오지 못했습니다. 다시 시도해주세요.");
+        if(secDiffTime>=7) throw new TimeDelayException("! 시스템에 오류가 발생했습니다. 다시 시도해주세요.");
 
         return contractList;
     }
@@ -102,7 +102,7 @@ public class ContractService extends UnicastRemoteObject implements ContractServ
 //        catch (InterruptedException e) {throw new RuntimeException(e);}
         long afterTime = System.currentTimeMillis();
         long secDiffTime = (afterTime - beforeTime)/1000;
-        if(secDiffTime>=7) throw new TimeDelayException("! 시간지연으로 목록을 불러오지 못했습니다. 다시 시도해주세요.");
+        if(secDiffTime>=7) throw new TimeDelayException("! 시스템에 오류가 발생했습니다. 다시 시도해주세요.");
 
         return unpaidContractList;
     }

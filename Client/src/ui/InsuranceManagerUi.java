@@ -39,7 +39,7 @@ public class InsuranceManagerUi {
 	public void printMenu() throws IOException {
 		while(true) {
 			System.out.println("******************** 상품관리자 메인 메뉴 *********************");
-			System.out.println("1. 인가하기");
+			System.out.println("1. 상품인가");
 			System.out.println("0. 로그아웃");
 			System.out.println("x. 종료");
 			switch(userInput.readLine().trim()) {
@@ -130,12 +130,12 @@ public class InsuranceManagerUi {
 		System.out.println("아이디 : " + formula.getId()
 						+ "\n이름 : " + formula.getName());
 		System.out.println("[거주 유형에 따른 위험도]");
-        for (int i = ResidenceType.values().length-1; i>=0; i--) {
+        for (int i = 0; i<ResidenceType.values().length; i++) {
             System.out.println(ResidenceType.values()[i].getName()
 					+ " : " + formula.getRiskLevelAccordingToResidenceType().get(ResidenceType.values()[i]).getLevel());
         }
 		System.out.println("[주택 유형에 따른 위험도]");
-		for (int i = HouseType.values().length-1; i>=0; i--) {
+		for (int i = 0; i<HouseType.values().length; i++) {
 			System.out.println(HouseType.values()[i].getName()
 					+ " : " + formula.getRiskLevelAccordingToHouseType().get(HouseType.values()[i]).getLevel());
 		}
@@ -145,17 +145,17 @@ public class InsuranceManagerUi {
 					+ " : " + formula.getRiskLevelAccordingToSquareMeter().get(HomeSquareMeter.values()[i]).getLevel());
 		}
 		System.out.println("[기둥 유형에 따른 위험도]");
-		for (int i = PillarType.values().length-1; i>=0; i--) {
+		for (int i = 0; i<PillarType.values().length; i++) {
 			System.out.println(PillarType.values()[i].getName()
 					+ " : " + formula.getRiskLevelAccordingToPillarType().get(PillarType.values()[i]).getLevel());
 		}
 		System.out.println("[지붕 유형에 따른 위험도]");
-		for (int i = RoofType.values().length-1; i>=0; i--) {
+		for (int i = 0; i<RoofType.values().length; i++) {
 			System.out.println(RoofType.values()[i].getName()
 					+ " : " + formula.getRiskLevelAccordingToRoofType().get(RoofType.values()[i]).getLevel());
 		}
 		System.out.println("[외벽 유형에 따른 위험도]");
-		for (int i = OutwallType.values().length-1; i>=0; i--) {
+		for (int i = 0; i<OutwallType.values().length; i++) {
 			System.out.println(OutwallType.values()[i].getName()
 					+ " : " + formula.getRiskLevelAccordingToOutwallType().get(OutwallType.values()[i]).getLevel());
 		}
@@ -173,8 +173,9 @@ public class InsuranceManagerUi {
 		System.out.println("아이디 : " + formula.getId()
 						+ "\n이름 : " + formula.getName());
 		System.out.println("[건물용도에 따른 위험도]");
-		for (Entry<WorkplaceUsage, RiskLevel> entrySet : formula.getRiskLevelAccordingToUsage().entrySet()) {
-		System.out.println(entrySet.getKey().getName() + " : " + entrySet.getValue().getLevel());
+		for (int i = 0; i<WorkplaceUsage.values().length; i++) {
+			System.out.println(WorkplaceUsage.values()[i].getName()
+					+ " : " + formula.getRiskLevelAccordingToUsage().get(WorkplaceUsage.values()[i]).getLevel());
 		}
 		System.out.println("[평수에 따른 위험도]");
 		for (int i = WorkplaceSquareMeter.values().length-1; i>=0; i--) {
@@ -187,17 +188,17 @@ public class InsuranceManagerUi {
 					+ " : " + formula.getRiskLevelAccordingToFloor().get(Floor.values()[i]).getLevel());
 		}
 		System.out.println("[기둥 유형에 따른 위험도]");
-		for (int i = PillarType.values().length-1; i>=0; i--) {
+		for (int i = 0; i<PillarType.values().length; i++) {
 			System.out.println(PillarType.values()[i].getName()
 					+ " : " + formula.getRiskLevelAccordingToPillarType().get(PillarType.values()[i]).getLevel());
 		}
 		System.out.println("[지붕 유형에 따른 위험도]");
-		for (int i = RoofType.values().length-1; i>=0; i--) {
+		for (int i = 0; i<RoofType.values().length; i++) {
 			System.out.println(RoofType.values()[i].getName()
 					+ " : " + formula.getRiskLevelAccordingToRoofType().get(RoofType.values()[i]).getLevel());
 		}
 		System.out.println("[외벽 유형에 따른 위험도]");
-		for (int i = OutwallType.values().length-1; i>=0; i--) {
+		for (int i = 0; i<OutwallType.values().length; i++) {
 			System.out.println(OutwallType.values()[i].getName()
 					+ " : " + formula.getRiskLevelAccordingToOutwallType().get(OutwallType.values()[i]).getLevel());
 		}
