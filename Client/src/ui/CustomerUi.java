@@ -583,7 +583,7 @@ public class CustomerUi {
 			Compensation compensation;
 			try {compensation = serviceContainer.getCompensateService().getCompensation(selectedAccident.getId());}
 			catch (NoDataException e) {System.out.println(e.getMessage()); continue;}
-			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); continue;}
+			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 
 			printCompensationDetail(compensation);
 		}

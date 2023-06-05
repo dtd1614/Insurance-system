@@ -18,7 +18,6 @@ public class ServiceContainer {
     private PayServiceIF payService;
     private SaleServiceIF saleService;
 
-
     public ServiceContainer()  {
         connect();
     }
@@ -51,17 +50,11 @@ public class ServiceContainer {
         catch (RemoteException e) {e.printStackTrace();}
     }
 
-    public AccidentServiceIF getAccidentService() {
-        return accidentService;
-    }
+    public AccidentServiceIF getAccidentService() {return accidentService;}
 
-    public CalculationFormulaServiceIF getCalculationFormulaService() {
-        return calculationFormulaService;
-    }
+    public CalculationFormulaServiceIF getCalculationFormulaService() {return calculationFormulaService;}
 
-    public CompensateServiceIF getCompensateService() {
-        return compensateService;
-    }
+    public CompensateServiceIF getCompensateService() {return compensateService;}
 
     public ContractServiceIF getContractService() {
         return contractService;
@@ -86,4 +79,5 @@ public class ServiceContainer {
     public SaleServiceIF getSaleService() {
         return saleService;
     }
+
 }
