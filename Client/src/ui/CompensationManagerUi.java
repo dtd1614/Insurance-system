@@ -98,12 +98,12 @@ public class CompensationManagerUi {
                 try{isSuccess = serviceContainer.getCompensateService().examineCompensation(accident, contractCompensation, AccidentStatus.Compensate);}
                 catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
                 if(isSuccess) {System.out.println("보상이 완료되었습니다."); return;}
-                else {System.out.println("보상이 실패하였습니다.");}
+                else {System.out.println("보상이 실패하였습니다."); return;}
             } else if(choice.equals("2")){
                 try{isSuccess = serviceContainer.getCompensateService().examineCompensation(accident, contractCompensation, AccidentStatus.RefuseCompensate);}
                 catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
                 if(isSuccess) {System.out.println("보상거절이 완료되었습니다."); return;}
-                else {System.out.println("보상거절이 실패하였습니다.");}
+                else {System.out.println("보상거절이 실패하였습니다."); return;}
             } else {
                 System.out.println("! 잘못된 입력입니다."); continue;
             }

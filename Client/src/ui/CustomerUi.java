@@ -297,7 +297,7 @@ public class CustomerUi {
 			int contractId = 0;
 			try{contractId = serviceContainer.getContractService().applyInsurance(contract, customerInfo);}
 			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
-			if(contractId==0) {System.out.println("가입신청이 실패하였습니다."); continue;}
+			if(contractId==0) {System.out.println("가입신청이 실패하였습니다."); return;}
 			System.out.println("가입신청이 완료되었습니다.");
 			System.out.println("계약아이디는 " + contractId + "입니다.");
 			return;
