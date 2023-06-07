@@ -41,7 +41,7 @@ public class CompensationManagerUi {
             ArrayList<Accident> accidentList;
             try {accidentList = serviceContainer.getAccidentService().getAccidentList(AccidentStatus.ReportAccident);}
             catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
-            catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+            catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
             System.out.println("******************** 사고접수목록 *********************");
             System.out.println("자세히 보고싶은 사고의 아이디를 입력하세요. 뒤로가기를 원하시면 0을 입력하세요.");
             System.out.println("아이디\t사고일시\t피해액(원)");
@@ -82,7 +82,7 @@ public class CompensationManagerUi {
                 );
             } catch (NoDataException e) {
                 System.out.println(e.getMessage()); return;
-            } catch (RemoteException e) {
+            } catch (RemoteException | NullPointerException e) {
                 System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;
             }
 
@@ -96,12 +96,12 @@ public class CompensationManagerUi {
                 return;
             } else if(choice.equals("1")){
                 try{isSuccess = serviceContainer.getCompensateService().examineCompensation(accident, contractCompensation, AccidentStatus.Compensate);}
-                catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+                catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
                 if(isSuccess) {System.out.println("보상이 완료되었습니다."); return;}
                 else {System.out.println("보상이 실패하였습니다."); return;}
             } else if(choice.equals("2")){
                 try{isSuccess = serviceContainer.getCompensateService().examineCompensation(accident, contractCompensation, AccidentStatus.RefuseCompensate);}
-                catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+                catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
                 if(isSuccess) {System.out.println("보상거절이 완료되었습니다."); return;}
                 else {System.out.println("보상거절이 실패하였습니다."); return;}
             } else {

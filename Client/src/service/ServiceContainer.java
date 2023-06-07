@@ -24,30 +24,30 @@ public class ServiceContainer {
 
     public void connect(){
         try {this.accidentService = (AccidentServiceIF) Naming.lookup("accidentService");}
-        catch (NotBoundException | MalformedURLException | RemoteException e) {e.printStackTrace();}
+        catch (NotBoundException | MalformedURLException | RemoteException e) {}
         try {this.compensateService = (CompensateServiceIF) Naming.lookup("compensateService");}
-        catch (NotBoundException | MalformedURLException | RemoteException e) {e.printStackTrace();}
+        catch (NotBoundException | MalformedURLException | RemoteException e) {}
         try {this.customerService = (CustomerServiceIF) Naming.lookup("customerService");}
-        catch (NotBoundException | MalformedURLException | RemoteException e) {e.printStackTrace();}
+        catch (NotBoundException | MalformedURLException | RemoteException e) {}
         try {this.contractService = (ContractServiceIF) Naming.lookup("contractService");}
-        catch (NotBoundException | MalformedURLException | RemoteException e) {e.printStackTrace();}
+        catch (NotBoundException | MalformedURLException | RemoteException e) {}
         try {this.payService = (PayServiceIF) Naming.lookup("payService");}
-        catch (NotBoundException | MalformedURLException | RemoteException e) {e.printStackTrace();}
+        catch (NotBoundException | MalformedURLException | RemoteException e) {}
         try {this.calculationFormulaService = (CalculationFormulaServiceIF) Naming.lookup("calculationFormulaService");}
-        catch (NotBoundException | MalformedURLException | RemoteException e) {e.printStackTrace();}
+        catch (NotBoundException | MalformedURLException | RemoteException e) {}
         try {this.insuranceService = (InsuranceServiceIF) Naming.lookup("insuranceService");}
-        catch (NotBoundException | MalformedURLException | RemoteException e) {e.printStackTrace();}
+        catch (NotBoundException | MalformedURLException | RemoteException e) {}
         try {this.employeeService = (EmployeeServiceIF) Naming.lookup("employeeService");}
-        catch (NotBoundException | MalformedURLException | RemoteException e) {e.printStackTrace();}
+        catch (NotBoundException | MalformedURLException | RemoteException e) {}
         try {this.saleService = (SaleServiceIF) Naming.lookup("saleService");}
-        catch (NotBoundException | MalformedURLException | RemoteException e) {e.printStackTrace();}
+        catch (NotBoundException | MalformedURLException | RemoteException e) {}
 
         try {this.compensateService.setAccidentService(this.accidentService);}
-        catch (RemoteException e) {e.printStackTrace();}
+        catch (RemoteException | NullPointerException e) {}
         try {this.contractService.setCustomerService(this.customerService);}
-        catch (RemoteException e) {e.printStackTrace();}
+        catch (RemoteException | NullPointerException e) {}
         try {this.payService.setContractService(this.contractService);}
-        catch (RemoteException e) {e.printStackTrace();}
+        catch (RemoteException | NullPointerException e) {}
     }
 
     public AccidentServiceIF getAccidentService() {return accidentService;}

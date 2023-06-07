@@ -49,7 +49,7 @@ public class UWUi {
             ArrayList<Contract> contractList;
             try {contractList = serviceContainer.getContractService().getContractList(ContractStatus.Apply);}
             catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
-            catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+            catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
             System.out.println("******************** 인수심사 메뉴 *********************");
             System.out.println("인수할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
             System.out.println("아이디\t고객아이디\t보험아이디\t보험유형");
@@ -57,7 +57,7 @@ public class UWUi {
                 InsuranceType insuranceType;
                 try {insuranceType = serviceContainer.getInsuranceService().getInsurance(contract.getInsuranceId()).getType();}
                 catch (NoDataException e) {System.out.println(e.getMessage()); return;}
-                catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+                catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
                 System.out.println(contract.getId()
                         + "\t" + contract.getCustomerId()
                         + "\t" + contract.getInsuranceId()
@@ -89,7 +89,7 @@ public class UWUi {
                 customerInfo = serviceContainer.getCustomerService().getInfo(contract.getCustomerInfoId());
             } catch (NoDataException e) {
                 System.out.println(e.getMessage()); return;
-            } catch (RemoteException e) {
+            } catch (RemoteException | NullPointerException e) {
                 System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;
             }
 
@@ -127,13 +127,13 @@ public class UWUi {
             } else if(choice.equals("1")){
                 boolean isSuccess = false;
                 try{isSuccess = serviceContainer.getContractService().examineUnderwrite(contract.getId(), ContractStatus.Underwrite);}
-                catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+                catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
                 if(isSuccess) {System.out.println("인수되었습니다."); return;}
                 else {System.out.println("인수가 실패되었습니다."); return;}
             } else if (choice.equals("2")){
                 boolean isSuccess = false;
                 try{isSuccess = serviceContainer.getContractService().examineUnderwrite(contract.getId(), ContractStatus.RefuseUnderwrite);}
-                catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+                catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
                 if(isSuccess) {System.out.println("인수거절되었습니다."); return;}
                 else {System.out.println("인수거절이 실패되었습니다."); return;}
             } else {

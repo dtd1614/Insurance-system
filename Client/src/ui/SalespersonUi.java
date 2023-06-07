@@ -48,7 +48,7 @@ public class SalespersonUi {
             ArrayList<Contract> contractList = null;
             try {contractList = serviceContainer.getContractService().getContractList(ContractStatus.Underwrite);}
             catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
-            catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+            catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
             System.out.println("******************** 계약체결 메뉴 *********************");
             System.out.println("체결할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
             System.out.println("아이디\t고객아이디\t보험아이디");
@@ -79,7 +79,7 @@ public class SalespersonUi {
                 insurance = serviceContainer.getInsuranceService().getInsurance(contract.getInsuranceId());
             } catch (NoDataException e) {
                 System.out.println(e.getMessage()); return;
-            } catch (RemoteException e) {
+            } catch (RemoteException | NullPointerException e) {
                 System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;
             }
 
@@ -99,7 +99,7 @@ public class SalespersonUi {
                 boolean isSuccess = false;
                 try {isSuccess = serviceContainer.getContractService().conclude(contract.getId());}
                 catch (NoDataException e) {System.out.println(e.getMessage()); return;}
-                catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+                catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
                 if(isSuccess) {System.out.println("체결되었습니다."); return;}
                 else {System.out.println("체결이 실패되었습니다."); return;}
             } else {
@@ -112,7 +112,7 @@ public class SalespersonUi {
             ArrayList<Customer> customerList = null;
             try {customerList = serviceContainer.getCustomerService().getCustomerList();}
             catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
-            catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+            catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
             System.out.println("******************** 보험제안 메뉴 *********************");
             System.out.println("보험제안할 고객의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
             System.out.println("고객아이디\t고객이름");
@@ -156,7 +156,7 @@ public class SalespersonUi {
             } catch (EmptyListException | TimeDelayException e) {
                 System.out.println(e.getMessage());
                 return;
-            } catch (RemoteException e) {
+            } catch (RemoteException | NullPointerException e) {
                 System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;
             }
 
@@ -205,7 +205,7 @@ public class SalespersonUi {
                 if(message.equals("0")) return;
                 int saleId = 0;
                 try{saleId = serviceContainer.getSaleService().offerInsurance(employeeId, customerId, insurance.getId(), message);}
-                catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+                catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
                 if(saleId!=0) {System.out.println("보험 제안이 완료되었습니다."); return;}
                 else {System.out.println("보험 제안이 실패하였습니다."); return;}
             } else {

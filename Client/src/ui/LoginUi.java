@@ -64,7 +64,7 @@ public class LoginUi {
 		Employee employee = null;
 		try {employee = serviceContainer.getEmployeeService().loginEmployee(id, password);}
 		catch (NoDataException e) {System.out.println(e.getMessage()); return;}
-		catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+		catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 		System.out.println("로그인에 성공하였습니다!");
 		switch(employee.getDepartment()) {
 			case InsuranceDeveloper : new InsuranceDeveloperUi(employee.getId(), serviceContainer, userInput).printMenu(); break;
@@ -86,7 +86,7 @@ public class LoginUi {
 		Customer customer = null;
 		try {customer = serviceContainer.getCustomerService().loginCustomer(id, password);}
 		catch (NoDataException e) {System.out.println(e.getMessage()); return;}
-		catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+		catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 		System.out.println("로그인에 성공하였습니다!");
 		new CustomerUi(customer.getId(), serviceContainer, userInput).printMenu();
 	}
@@ -146,7 +146,7 @@ public class LoginUi {
 		boolean isSuccess = false;
 		try {isSuccess = serviceContainer.getCustomerService().registerCustomer(customer); }
 		catch (DataDuplicationException e) {System.out.println(e.getMessage()); return;}
-		catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+		catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 		if(isSuccess) System.out.println("회원가입이 완료되었습니다.");
 		else System.out.println("회원가입이 실패되었습니다.");
 	}
@@ -200,7 +200,7 @@ public class LoginUi {
 		boolean isSuccess = false;
 		try {isSuccess = serviceContainer.getEmployeeService().registerEmployee(employee);}
 		catch (DataDuplicationException e) {System.out.println(e.getMessage()); return;}
-		catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+		catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 		if(isSuccess) System.out.println("회원가입이 완료되었습니다.");
 		else System.out.println("회원가입이 실패되었습니다.");
 	}

@@ -55,7 +55,7 @@ public class InsuranceManagerUi {
 			ArrayList<Insurance> insuranceList;
 			try {insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceStatus.UnderAuthorize);}
 			catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
-			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			System.out.println("******************** 상품 인가 메뉴 *********************");
 	        System.out.println("인가할 상품의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
 			System.out.println("아이디\t이름\t유형");
@@ -100,13 +100,13 @@ public class InsuranceManagerUi {
             } else if(choice.equals("1")){
 				try {isSuccess = serviceContainer.getInsuranceService().examineAuthorization(insurance.getId(), InsuranceStatus.Authorize);}
 				catch (NoDataException e) {System.out.println(e.getMessage()); return;}
-				catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+				catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 				if(isSuccess) {System.out.println("상품이 인가되었습니다."); return;}
 				else{System.out.println("상품인가가 실패되었습니다."); return;}
             } else if (choice.equals("2")){
 				try {isSuccess = serviceContainer.getInsuranceService().examineAuthorization(insurance.getId(), InsuranceStatus.RefuseAuthorize);}
 				catch (NoDataException e) {System.out.println(e.getMessage()); return;}
-				catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+				catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 				if(isSuccess) {System.out.println("인가가 거절되었습니다."); return;}
 				else{System.out.println("인가거절이 실패되었습니다."); return;}
 			} else if (choice.equals("3")) {
@@ -121,7 +121,7 @@ public class InsuranceManagerUi {
 		CalculationFormula formula = null;
 		try {formula = serviceContainer.getCalculationFormulaService().getCalculationFormula(id);}
 		catch (NoDataException e) {System.out.println(e.getMessage()); return;}
-		catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+		catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 		if(formula instanceof HomeFormula) {printHomeFormulaDetail((HomeFormula) formula);}
 		else {printHomeFormulaDetail((WorkplaceFormula) formula);}
 	}

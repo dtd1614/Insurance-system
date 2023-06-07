@@ -80,7 +80,7 @@ public class CustomerUi {
 			ArrayList<Insurance> insuranceList;
 			try {insuranceList = serviceContainer.getInsuranceService().getInsuranceList(InsuranceStatus.Authorize);}
 			catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
-			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			System.out.println("아이디\t이름\t유형");
 			for(Insurance insurance : insuranceList){
 				System.out.println(insurance.getId()
@@ -223,7 +223,7 @@ public class CustomerUi {
 				maxCompensation = serviceContainer.getCalculationFormulaService().calculateMaxCompensation(squareMeter, insurance.getCalculationFormulaId());
 			} catch (NoDataException e) {
 				System.out.println(e.getMessage()); return;
-			} catch (RemoteException e) {
+			} catch (RemoteException | NullPointerException e) {
 				System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;
 			}
 
@@ -246,7 +246,7 @@ public class CustomerUi {
 				payment = serviceContainer.getCalculationFormulaService().calculatePayment(customerInfo, compensation, insurance.getCalculationFormulaId());
 			} catch (NoDataException e) {
 				System.out.println(e.getMessage()); return;
-			} catch (RemoteException e) {
+			} catch (RemoteException | NullPointerException e) {
 				System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;
 			}
 
@@ -290,13 +290,13 @@ public class CustomerUi {
 			if(!salespersonId.isEmpty()){
 				try {serviceContainer.getEmployeeService().getEmployee(salespersonId, Department.Salesperson);}
 				catch (NoDataException e) {System.out.println(e.getMessage()); continue;}
-				catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+				catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			}
 
 			Contract contract = new Contract(0, insurance.getId(), salespersonId, customerId, contractTerm, payment, paymentCycle, compensation, ContractStatus.Apply);
 			int contractId = 0;
 			try{contractId = serviceContainer.getContractService().applyInsurance(contract, customerInfo);}
-			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			if(contractId==0) {System.out.println("가입신청이 실패하였습니다."); return;}
 			System.out.println("가입신청이 완료되었습니다.");
 			System.out.println("계약아이디는 " + contractId + "입니다.");
@@ -392,7 +392,7 @@ public class CustomerUi {
 				maxCompensation = serviceContainer.getCalculationFormulaService().calculateMaxCompensation(squareMeter, insurance.getCalculationFormulaId());
 			} catch (NoDataException e) {
 				System.out.println(e.getMessage()); return;
-			} catch (RemoteException e) {
+			} catch (RemoteException | NullPointerException e) {
 				System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;
 			}
 
@@ -415,7 +415,7 @@ public class CustomerUi {
 				payment = serviceContainer.getCalculationFormulaService().calculatePayment(customerInfo, compensation, insurance.getCalculationFormulaId());
 			} catch (NoDataException e) {
 				System.out.println(e.getMessage()); return;
-			} catch (RemoteException e) {
+			} catch (RemoteException | NullPointerException e) {
 				System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;
 			}
 
@@ -459,12 +459,12 @@ public class CustomerUi {
 			if(!salespersonId.isEmpty()){
 				try {serviceContainer.getEmployeeService().getEmployee(salespersonId, Department.Salesperson);}
 				catch (NoDataException e) {System.out.println(e.getMessage()); continue;}
-				catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+				catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			}
 			Contract contract = new Contract(0, insurance.getId(), salespersonId, customerId, contractTerm, payment, paymentCycle, compensation, ContractStatus.Apply);
 			int contractId = 0;
 			try{contractId = serviceContainer.getContractService().applyInsurance(contract, customerInfo);}
-			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			if(contractId==0) {System.out.println("가입신청이 실패하였습니다."); return;}
 			System.out.println("가입신청이 완료되었습니다.");
 			System.out.println("계약아이디는 " + contractId + "입니다.");
@@ -476,7 +476,7 @@ public class CustomerUi {
 			ArrayList<Contract> contractList;
 			try {contractList = serviceContainer.getContractService().getContractList(customerId, ContractStatus.Conclude);}
 			catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
-			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			System.out.println("******************** 계약조회 메뉴 *********************");
 			System.out.println("조회할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
 			System.out.println("아이디\t고객아이디\t보험아이디\t보험유형");
@@ -484,7 +484,7 @@ public class CustomerUi {
 				InsuranceType insuranceType;
 				try {insuranceType = serviceContainer.getInsuranceService().getInsurance(contract.getInsuranceId()).getType();}
 				catch (NoDataException e) {System.out.println(e.getMessage()); return;}
-				catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+				catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 				System.out.println(contract.getId()
 						+ "\t" + contract.getCustomerId()
 						+ "\t" + contract.getInsuranceId()
@@ -540,7 +540,7 @@ public class CustomerUi {
 		ArrayList<Contract> applyInsuranceResultList = null;
 		try {applyInsuranceResultList = serviceContainer.getContractService().getContractList(customerId);}
 		catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
-		catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+		catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 		System.out.println("아이디\t보험아이디\t심사결과");
 		for(Contract contract : applyInsuranceResultList){
 			System.out.println(contract.getId()
@@ -554,12 +554,12 @@ public class CustomerUi {
 			ArrayList<Accident> accidentList = new ArrayList<>();
 			try {allAccidentList = serviceContainer.getAccidentService().getAccidentList();}
 			catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
-			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			for(Accident accident : allAccidentList){
 				String customerId= "";
 				try {customerId = serviceContainer.getContractService().getContract(accident.getContractId()).getCustomerId();}
 				catch (NoDataException e) {}
-				catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+				catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 				if(customerId.equals(this.customerId)) accidentList.add(accident);
 			}
 			if(accidentList.isEmpty()) {
@@ -583,7 +583,7 @@ public class CustomerUi {
 			Compensation compensation;
 			try {compensation = serviceContainer.getCompensateService().getCompensation(selectedAccident.getId());}
 			catch (NoDataException e) {System.out.println(e.getMessage()); continue;}
-			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 
 			printCompensationDetail(compensation);
 		}
@@ -603,7 +603,7 @@ public class CustomerUi {
 			ArrayList<Contract> contractList;
 			try {contractList = serviceContainer.getContractService().getContractList(customerId, ContractStatus.Conclude);}
 			catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
-			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			System.out.println("******************** 사고접수 메뉴 *********************");
 			System.out.println("사고접수할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
 			System.out.println("계약아이디\t고객아이디\t보험아이디");
@@ -684,7 +684,7 @@ public class CustomerUi {
 			Accident accident = new Accident(contractId, accidentTimestamp, location, cause, content, damage, accountNumber, AccidentStatus.ReportAccident);
 			int accidentId = 0;
 			try{accidentId = serviceContainer.getAccidentService().reportAccident(accident);}
-			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			if(accidentId == 0){
 				System.out.println("! 사고접수가 실패했습니다.");
 				return;
@@ -711,7 +711,7 @@ public class CustomerUi {
 			ArrayList<Contract> unpaidContractList;
 			try {unpaidContractList = serviceContainer.getContractService().getUnpaidContractList(customerId);}
 			catch (EmptyListException | TimeDelayException e) {System.out.println(e.getMessage()); return;}
-			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			System.out.println("******************** 요금납부 메뉴 *********************");
 			System.out.println("요금납부할 계약의 아이디를 입력하세요. 뒤로가려면 0을 입력하세요.");
 			System.out.println("계약아이디\t보험아이디");
@@ -769,7 +769,7 @@ public class CustomerUi {
 			Pay pay = new Pay(contract.getId(), cardNumber);
 			int payId = 0;
 			try{payId = serviceContainer.getPayService().pay(contract, pay);}
-			catch (RemoteException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
+			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			if(payId!=0) {System.out.println("납부가 완료되었습니다."); return;}
 			else{System.out.println("납부가 실패하였습니다."); return;}
 		}
@@ -782,7 +782,7 @@ public class CustomerUi {
 			saleList = serviceContainer.getSaleService().getSaleList(customerId);
 		} catch (EmptyListException | TimeDelayException e) {
 			System.out.println(e.getMessage()); return;
-		} catch (RemoteException e) {
+		} catch (RemoteException | NullPointerException e) {
 			System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;
 		}
 
