@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class InsuranceDao extends Dao {
-	public InsuranceDao() throws Exception {
+	public InsuranceDao() {
 		super();
 	}
 	public boolean create(Insurance insurance) {

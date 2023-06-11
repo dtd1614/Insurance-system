@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CompensationDao extends Dao {
-    public CompensationDao() throws Exception {
+    public CompensationDao()   {
         super();
     }
 

@@ -14,10 +14,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class CustomerService extends UnicastRemoteObject implements CustomerServiceIF{
-    private final CustomerDao customerDao;
+    private final CustomerDao customerDao = new CustomerDao();
 
-    public CustomerService(CustomerDao customerDao) throws RemoteException {
-        this.customerDao = customerDao;
+    public CustomerService() throws RemoteException {
     }
     @Override
     public boolean registerCustomer(Customer customer) throws RemoteException, DataDuplicationException {

@@ -10,10 +10,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class EmployeeService extends UnicastRemoteObject implements EmployeeServiceIF{
-    private final EmployeeDao employeeDao;
-    public EmployeeService(EmployeeDao employeeDao) throws RemoteException {
-
-        this.employeeDao = employeeDao;
+    private final EmployeeDao employeeDao = new EmployeeDao();
+    public EmployeeService() throws RemoteException {
     }
     @Override
     public boolean registerEmployee(Employee employee) throws RemoteException, DataDuplicationException {

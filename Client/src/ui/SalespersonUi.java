@@ -161,7 +161,7 @@ public class SalespersonUi {
             }
 
             System.out.println("\n[해당고객 맞춤 보험 목록]");
-            if(!customer.isHasWorkplace() && !customer.isHasHome()){ System.out.println("해당고객의 맞춤 보험이 존재하지 않습니다."); continue;}
+            if(!customer.isHasWorkplace() && !customer.isHasHome()){ System.out.println("해당고객의 맞춤 보험이 존재하지 않습니다."); return;}
             System.out.println("아이디\t이름\t유형\t가입대상");
             for(Insurance insurance : insuranceList){
                 System.out.println(insurance.getId()

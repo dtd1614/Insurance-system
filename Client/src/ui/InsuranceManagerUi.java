@@ -5,7 +5,6 @@ import domain.calculationFormula.HomeFormula;
 import domain.calculationFormula.WorkplaceFormula;
 import enumeration.calculationFormula.OutwallType;
 import enumeration.calculationFormula.PillarType;
-import enumeration.calculationFormula.RiskLevel;
 import enumeration.calculationFormula.RoofType;
 import enumeration.calculationFormula.homeFormula.HomeCompensation;
 import enumeration.calculationFormula.homeFormula.HomeSquareMeter;
@@ -26,7 +25,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Map.Entry;
+
 public class InsuranceManagerUi {
     private final String employeeId;
     private final ServiceContainer serviceContainer;
@@ -122,8 +121,10 @@ public class InsuranceManagerUi {
 		try {formula = serviceContainer.getCalculationFormulaService().getCalculationFormula(id);}
 		catch (NoDataException e) {System.out.println(e.getMessage()); return;}
 		catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
-		if(formula instanceof HomeFormula) {printHomeFormulaDetail((HomeFormula) formula);}
-		else {printHomeFormulaDetail((WorkplaceFormula) formula);}
+		if(formula instanceof HomeFormula) {
+			printHomeFormulaDetail((HomeFormula) formula);}
+		else {
+			printWorkplaceFormulaDetail((WorkplaceFormula) formula);}
 	}
 	private void printHomeFormulaDetail(HomeFormula formula) {
 		DecimalFormat decFormat = new DecimalFormat("###,###");
@@ -168,7 +169,7 @@ public class InsuranceManagerUi {
 		System.out.println("최소 보상금 산출 상수 : " + decFormat.format(formula.getMultiplierForMinCompensation()));
 		System.out.println("최대 보상금 산출 상수 : " + decFormat.format(formula.getMultiplierForMaxCompensation()));
 	}
-	private void printHomeFormulaDetail(WorkplaceFormula formula) {
+	private void printWorkplaceFormulaDetail(WorkplaceFormula formula) {
 		DecimalFormat decFormat = new DecimalFormat("###,###");
 		System.out.println("아이디 : " + formula.getId()
 						+ "\n이름 : " + formula.getName());

@@ -14,9 +14,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class InsuranceService extends UnicastRemoteObject implements InsuranceServiceIF{
-    private final InsuranceDao insuranceDao;
-    public InsuranceService(InsuranceDao insuranceDao) throws RemoteException {
-        this.insuranceDao = insuranceDao;
+    private final InsuranceDao insuranceDao = new InsuranceDao();
+    public InsuranceService() throws RemoteException {
     }
 
     @Override

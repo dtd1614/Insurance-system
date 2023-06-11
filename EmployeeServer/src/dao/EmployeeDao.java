@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class EmployeeDao extends Dao {
 
-	public EmployeeDao() throws Exception {
+	public EmployeeDao() {
 		super();
 	}
 

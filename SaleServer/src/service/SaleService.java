@@ -10,9 +10,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class SaleService extends UnicastRemoteObject implements SaleServiceIF {
-    private final SaleDao saleDao;
-    public SaleService(SaleDao saleDao) throws RemoteException {
-        this.saleDao = saleDao;
+    private final SaleDao saleDao = new SaleDao();
+    public SaleService() throws RemoteException {
     }
     @Override
     public int offerInsurance(String saleEmployeeId, String customerId, int insuranceId, String message) throws RemoteException {

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class CustomerDao extends Dao {
 
-	public CustomerDao() throws Exception {
+	public CustomerDao()   {
 		super();
 	}
 	public boolean create(Customer customer) {

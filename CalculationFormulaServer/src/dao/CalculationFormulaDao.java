@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 
 public class CalculationFormulaDao extends Dao {
-	public CalculationFormulaDao() throws Exception {
+	public CalculationFormulaDao() {
 		super();
 	}
 	public boolean create(CalculationFormula calculationFormula) {

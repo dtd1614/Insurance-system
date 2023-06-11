@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class ContractDao extends Dao {
-    public ContractDao() throws Exception {
+    public ContractDao()   {
         super();
     }
     public boolean create(Contract contract) {

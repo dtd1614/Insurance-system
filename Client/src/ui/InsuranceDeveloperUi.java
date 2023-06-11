@@ -218,7 +218,7 @@ public class InsuranceDeveloperUi {
 			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			catch (DataDuplicationException e) {System.out.println(e.getMessage()); return;}
 			if(id == 0) {System.out.println("계산식 수립에 실패하였습니다."); return;}
-			System.out.println("계산식 수립이 완료되었습니다.");
+			System.out.println("계산식 수립이 완료되었습니다. 계산식 아이디는 " + id + "입니다.");
 			return;
 		}
 	}
@@ -364,7 +364,7 @@ public class InsuranceDeveloperUi {
 			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
 			catch (DataDuplicationException e) {System.out.println(e.getMessage()); return;}
 			if(id == 0) {System.out.println("게산식 수립에 실패하였습니다."); return;}
-			System.out.println("계산식 수립이 완료되었습니다.");
+			System.out.println("계산식 수립이 완료되었습니다. 계산식 아이디는 " + id + "입니다.");
 			return;
 		}
 	}
@@ -411,7 +411,7 @@ public class InsuranceDeveloperUi {
 			System.out.println("******************** 상품 개발 양식 *********************");
 			System.out.println("뒤로가기를 원하시면 0을 입력하세요.");
 
-			System.out.println("계산식 목록을 조회하고 계산식을 선택하세요.");
+			System.out.println("보험료&보상금 계산식 목록을 조회하고 계산식을 선택하세요.");
 			System.out.println("아이디\t이름");
 			for(CalculationFormula calculationFormula : calculationFormulaList) {
 				System.out.println(calculationFormula.getId() +
@@ -455,8 +455,8 @@ public class InsuranceDeveloperUi {
 			try{id = serviceContainer.getInsuranceService().makeInsurance(insurance);}
 			catch (DataDuplicationException e) {System.out.println(e.getMessage()); return;}
 			catch (RemoteException | NullPointerException e) {System.out.println("! 해당 서비스는 현재 이용하실 수 없습니다."); return;}
-			if(id==0) {System.out.println("인가요청이 실패되었습니다."); return;}
-			System.out.println("개발 및 인가요청이 완료되었습니다.");
+			if(id==0) {System.out.println("개발 및 인가요청이 실패되었습니다."); return;}
+			System.out.println("개발 및 인가요청이 완료되었습니다. 상품 아이디는 " + id + "입니다." );
 			return;
 		}
 	}

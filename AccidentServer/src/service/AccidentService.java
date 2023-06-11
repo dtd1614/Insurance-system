@@ -12,10 +12,11 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class AccidentService extends UnicastRemoteObject implements AccidentServiceIF{
-    private final AccidentDao accidentDao;
-    public AccidentService(AccidentDao accidentDao) throws RemoteException {
-        this.accidentDao = accidentDao;
+    private final AccidentDao accidentDao = new AccidentDao();
+
+    public AccidentService() throws RemoteException {
     }
+
     @Override
     public ArrayList<Accident> getAccidentList(AccidentStatus status) throws RemoteException, EmptyListException, TimeDelayException {
         long beforeTime = System.currentTimeMillis();

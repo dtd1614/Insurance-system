@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class SaleDao extends Dao {
 
-    public SaleDao() throws Exception {
+    public SaleDao() {
         super();
     }
     private boolean create(Sale sale) {

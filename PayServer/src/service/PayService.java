@@ -12,10 +12,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class PayService extends UnicastRemoteObject implements PayServiceIF{
-    private final PayDao payDao;
+    private final PayDao payDao = new PayDao();
     private ContractServiceIF contractService;
-    public PayService(PayDao payDao) throws RemoteException {
-        this.payDao = payDao;
+    public PayService() throws RemoteException {
     }
     @Override
     public void setContractService(ContractServiceIF contractService) throws RemoteException {

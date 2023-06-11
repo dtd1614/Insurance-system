@@ -10,17 +10,13 @@ import service.ServiceContainer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 
 public class LoginUi {
 
-	private final ServiceContainer serviceContainer;
-	private final BufferedReader userInput;
-
-	public LoginUi(ServiceContainer serviceContainer, BufferedReader userInput) {
-		this.serviceContainer = serviceContainer;
-		this.userInput = userInput;
-	}
+	private final ServiceContainer serviceContainer = new ServiceContainer();
+	private final BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
 
 	public void printMenu() throws IOException {
 		while(true) {

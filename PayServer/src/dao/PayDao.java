@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class PayDao extends Dao {
 
-    public PayDao() throws Exception {
+    public PayDao()  {
         super();
     }
     public boolean create(Pay pay) {

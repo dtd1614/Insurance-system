@@ -24,9 +24,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class CalculationFormulaService extends UnicastRemoteObject implements CalculationFormulaServiceIF{
-    private final CalculationFormulaDao calculationFormulaDao;
-    public CalculationFormulaService(CalculationFormulaDao calculationFormulaDao) throws RemoteException {
-        this.calculationFormulaDao = calculationFormulaDao;
+    private final CalculationFormulaDao calculationFormulaDao = new CalculationFormulaDao();
+    public CalculationFormulaService() throws RemoteException {
     }
     @Override
     public ArrayList<CalculationFormula> getCalculationFormulaList(InsuranceType insuranceType) throws RemoteException, EmptyListException, TimeDelayException {

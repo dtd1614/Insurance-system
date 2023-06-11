@@ -17,11 +17,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ContractService extends UnicastRemoteObject implements ContractServiceIF{
-    private final ContractDao contractDao;
+    private final ContractDao contractDao = new ContractDao();
     private CustomerServiceIF customerService;
 
-    public ContractService(ContractDao contractDao) throws RemoteException {
-        this.contractDao = contractDao;
+    public ContractService() throws RemoteException {
     }
     @Override
     public void setCustomerService(CustomerServiceIF customerService)throws RemoteException {

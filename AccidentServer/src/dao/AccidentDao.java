@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AccidentDao extends Dao {
-    public AccidentDao() throws Exception {
+    public AccidentDao(){
         super();
     }
     public boolean create(Accident accident) {

@@ -6,7 +6,7 @@ public abstract class Dao {
     protected Connection connection = null;
     protected Statement statement = null;
     protected ResultSet resultSet = null;
-    public Dao() throws Exception{
+    public Dao(){
         try {
             String url = "jdbc:mysql://localhost:3306/";
             String dbName = "insurance";

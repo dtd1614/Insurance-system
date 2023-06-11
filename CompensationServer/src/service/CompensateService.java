@@ -10,11 +10,10 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class CompensateService extends UnicastRemoteObject implements CompensateServiceIF {
-    private final CompensationDao compensationDao;
+    private final CompensationDao compensationDao = new CompensationDao();
     private AccidentServiceIF accidentService;
 
-    public CompensateService(CompensationDao compensationDao) throws RemoteException {
-        this.compensationDao = compensationDao;
+    public CompensateService() throws RemoteException {
     }
     @Override
     public void setAccidentService(AccidentServiceIF accidentService)throws RemoteException{
