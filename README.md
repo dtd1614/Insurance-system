@@ -163,9 +163,9 @@
 </details>
 
 ## 실행
-mysql에 insurance 이름의 데이터베이스를 생성하고 DDL.txt의 쿼리를 실행
+mysql에 이름이 insurance인 데이터베이스를 생성&접속하여 DDL.txt의 쿼리를 실행
 
-모든 Server 프로젝트의 Dao 생성자에서 userName과 password를 본인 mysql 계정에 맞게 수정
+모든 Server 프로젝트의 Dao 생성자에서 userName과 password를 본인 mysql계정에 맞게 수정
 
 StartRMIRegistryHere[JDK11] 폴더에서 cmd를 켜고 start rmiregistry 입력
 
