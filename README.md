@@ -95,5 +95,45 @@
 
 ## 콘솔화면
 
+<details>
+<summary>고객</summary>
+<div markdown="1">       
+![image](https://github.com/dtd1614/Insurance-system/assets/116648310/6d47e686-9a7d-4d7d-a6dd-632172796bd3)
+</div>
+</details>
 
+<details>
+<summary>상품개발자</summary>
+<div markdown="1">       
+![image](https://github.com/dtd1614/Insurance-system/assets/116648310/6d47e686-9a7d-4d7d-a6dd-632172796bd3)
+</div>
+</details>
+
+<details>
+<summary>상품관리자</summary>
+<div markdown="1">       
+![image](https://github.com/dtd1614/Insurance-system/assets/116648310/6d47e686-9a7d-4d7d-a6dd-632172796bd3)
+</div>
+</details>
+
+<details>
+<summary>영업사원</summary>
+<div markdown="1">       
+![image](https://github.com/dtd1614/Insurance-system/assets/116648310/6d47e686-9a7d-4d7d-a6dd-632172796bd3)
+</div>
+</details>
+
+<details>
+<summary>언더라이터</summary>
+<div markdown="1">       
+![image](https://github.com/dtd1614/Insurance-system/assets/116648310/6d47e686-9a7d-4d7d-a6dd-632172796bd3)
+</div>
+</details>
+
+<details>
+<summary>보상담당자</summary>
+<div markdown="1">       
+![image](https://github.com/dtd1614/Insurance-system/assets/116648310/6d47e686-9a7d-4d7d-a6dd-632172796bd3)
+</div>
+</details>
 
