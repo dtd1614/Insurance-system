@@ -1,6 +1,6 @@
 # 보험사 시스템
 
-<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"><img src="https://img.shields.io/badge/mysql-4479A1?style=flat-square&logo=mysql&logoColor=white"/>
+<img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=java&logoColor=white"><img src="https://img.shields.io/badge/mysql-4479A1?style=flat-square&logo=mysql&logoColor=white"/>
 
 보험사 시스템 기획서를 바탕으로 Usecase 시나리오를 작성하고, Java RMI 분산시스템을 적용하여 설계&구현한 CLI 보험사 시스템
 
