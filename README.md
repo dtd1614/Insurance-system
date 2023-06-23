@@ -1,8 +1,6 @@
 # 보험사 시스템
 
 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
-<img src="https://cncf-branding.netlify.app/img/projects/grpc/stacked/white/grpc-stacked-white.png">
-
 
 보험사 시스템 기획서를 바탕으로 Usecase 시나리오를 작성하고, Java RMI 분산시스템을 적용하여 설계&구현한 CLI 보험사 시스템
 
