@@ -2,11 +2,11 @@
 
 기획서를 바탕으로 Usecase 시나리오를 작성하고, RMI 분산시스템을 적용하여 설계한 CLI 보험사 시스템
 
-# 시스템 구조
+## 시스템 구조
 
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/7d21da11-c62c-4703-96ce-f203f37a5aa7)
 
-# 프로젝트 구조
+## 프로젝트 구조
 
 <details>
 <summary>Client</summary>
@@ -88,5 +88,9 @@
 
 </div>
 </details>
+
+## ERD
+
+![image](https://github.com/dtd1614/Insurance-system/assets/116648310/82845d72-7aad-4dfd-a77c-df858c70ef34)
 
 
