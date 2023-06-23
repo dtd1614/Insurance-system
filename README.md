@@ -98,50 +98,65 @@
 <details>
 <summary>로그인&회원가입</summary>
 <div markdown="1">       
+  
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/39e26516-fbb9-478d-b3cc-c53200769b80)
+
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/7c4c8a29-188a-4724-a181-90be1afe91c1)
+
 </div>
 </details>
 
 <details>
 <summary>고객</summary>
 <div markdown="1">       
+  
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/ef9b4f3f-fd22-4449-b580-d5be2b78e1e8)
+
 </div>
 </details>
 
 <details>
 <summary>상품개발자</summary>
 <div markdown="1">       
+  
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/ad245832-d307-40a5-9d66-d1967e9fd860)
+
 </div>
 </details>
 
 <details>
 <summary>상품관리자</summary>
 <div markdown="1">       
+  
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/ed8566e1-2ca1-4a38-856f-3f96897306c2)
+
 </div>
 </details>
 
 <details>
 <summary>영업사원</summary>
 <div markdown="1">       
+  
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/abea8dac-d7e6-432c-96d3-63a0c5cd654e)
+
 </div>
 </details>
 
 <details>
 <summary>언더라이터</summary>
 <div markdown="1">       
+  
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/7e5000c4-cb74-493a-a757-3350f5013147)
+
 </div>
 </details>
 
 <details>
 <summary>보상담당자</summary>
 <div markdown="1">       
+  
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/a4590755-8ebb-499e-ad00-29c7e43deae3)
+
 </div>
 </details>
 
