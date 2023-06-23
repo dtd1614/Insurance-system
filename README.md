@@ -93,4 +93,7 @@
 
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/82845d72-7aad-4dfd-a77c-df858c70ef34)
 
+## 콘솔화면
+
+
 
