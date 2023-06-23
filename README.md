@@ -4,7 +4,7 @@
 
 ## 시스템 구조
 
-![image](https://github.com/dtd1614/Insurance-system/assets/116648310/7d21da11-c62c-4703-96ce-f203f37a5aa7)
+![image](https://github.com/dtd1614/Insurance-system/assets/116648310/24c495c8-7df2-4077-99ae-03cac273afad)
 
 ## 프로젝트 구조
 
