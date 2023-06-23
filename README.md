@@ -2,7 +2,7 @@
 
 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/>
 
-보험사 시스템 기획서를 바탕으로 Usecase 시나리오를 작성하고, Java RMI 분산시스템을 적용하여 설계&구현한 CLI 보험사 시스템 
+보험사 시스템 기획서 분석하여 Usecase 시나리오를 작성하고, Java RMI 분산시스템을 적용하여 설계&구현한 CLI 보험사 시스템 
 
 ## 시스템 구조
 
