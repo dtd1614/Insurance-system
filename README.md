@@ -58,7 +58,7 @@ Client는 interface를 통해 Server와 통신
 
 Server는 interface를 통해 Client의 요청을 받고, service에서 데이터를 처리하고 dao로 데이터를 넘김  
 dao는 db에 데이터 처리를 하고 응답에 필요한 데이터를 service로 넘김  
-service 데이터를 처리하고 interface를 통해 데이터와 합께 Client에 응답  
+service 데이터를 처리하고 interface를 통해 데이터와 함께 Client에 응답  
 이때 데이터는 Domain을 사용
 
 </div>
