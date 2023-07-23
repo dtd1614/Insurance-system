@@ -11,13 +11,13 @@
 
 실제로 구현한 액터와 유스케이스는 붉은색으로 표시
 
-## 컴포넌트 구조
+## 컴포넌트 다이어그램
 
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/56036a59-4d6d-453a-b84e-31439d7df9e7)
 
 컴포넌트는 rmi를 이용해 서로 통신
 
-## 프로젝트 구조
+## 클래스 다이어그램
 
 <details>
 <summary>Client</summary>
