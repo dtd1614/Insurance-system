@@ -14,7 +14,7 @@
 
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/56036a59-4d6d-453a-b84e-31439d7df9e7)
 
-Client와 여러 Server는 rmi를 이용해 서로 통신
+Mysql을 제외한 컴포넌트는 rmi를 이용하여 서로 통신
 
 ## 클래스 다이어그램
 
