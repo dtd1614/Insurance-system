@@ -31,6 +31,15 @@ Client와 Server가 데이터를 주고 받을 때 데이터의 타입으로 사
 </details>
 
 <details>
+<summary>Enumeration</summary>
+<div markdown="1">    
+
+![image](https://github.com/dtd1614/Inusurance-system/assets/116648310/d7ba7bbe-ef9f-40b4-ab17-d69312683f2e)
+
+</div>
+</details>
+
+<details>
 <summary>Client</summary>
 <div markdown="1">       
 
