@@ -78,6 +78,7 @@ service 데이터를 처리하고 interface를 통해 데이터와 함께 Client
 <div markdown="1">       
 
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/04b983d0-1388-42d5-98d2-05dbe0b218d7)
+// 다른 Server의 interface를 통해 Sever끼리 통신
 
 </div>
 </details>
