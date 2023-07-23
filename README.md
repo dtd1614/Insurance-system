@@ -25,6 +25,8 @@ Client와 여러 Server는 rmi를 이용해 서로 통신
 
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/902ee451-3dda-48e9-9bda-5249ee237e57)
 
+Client는 interface를 통해 Server와 통신 가능
+
 </div>
 </details>
 
@@ -33,6 +35,14 @@ Client와 여러 Server는 rmi를 이용해 서로 통신
 <div markdown="1">       
 
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/75372ced-891b-421b-a37d-cebcaa48f98d)
+
+Server는 interface를 통해 Client의 요청을 받고, service에서 데이터를 처리하고 dao로 데이터를 넘김
+dao는 db에 데이터 처리를 하고 응답에 필요한 데이터를 service로 넘김
+service 데이터를 처리하고 interface를 통해 데이터와 합께 Client에 응답
+이때 데이터는 Domain 클래스를 사용
+
+![image](https://github.com/dtd1614/Inusurance-system/assets/116648310/723719cb-6066-478e-8e54-cb1d9122fd57)
+
 
 </div>
 </details>
