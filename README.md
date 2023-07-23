@@ -4,23 +4,21 @@
 
 구 신동아화재(현 한화손해보험) 보험사 시스템 제안요청서를 **분석**하여 Usecase 시나리오를 작성하고, Java RMI 분산시스템을 적용하여 **설계&구현**한 CLI 보험사 시스템 
 
-## 유스케이스 다이어그램
+
 
 <details>
-<summary>Client</summary>
+<summary>유스케이스 다이어그램</summary>
 <div markdown="1">   
   
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/e3c788a1-53f4-4709-b067-50e0769a3e7c)
 
+실제로 구현한 액터와 유스케이스는 주황색으로 표시하였습니다.
+
 </div>
 </details>
 
-실제로 구현한 액터와 유스케이스는 주황색으로 표시하였습니다.
-
-## 시스템 구조
-
 <details>
-<summary>Client</summary>
+<summary>시스템 구조</summary>
 <div markdown="1">   
 
 ![image](https://github.com/dtd1614/Insurance-system/assets/116648310/56036a59-4d6d-453a-b84e-31439d7df9e7)
