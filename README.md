@@ -1,4 +1,4 @@
-# 보험사 시스템
+# 구 신동아화재 보험사 시스템
 
 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/>
 
